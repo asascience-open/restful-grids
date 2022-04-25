@@ -1,0 +1,11 @@
+title: Restful Grids Exploration
+author: IOOS Code Springs
+logo: images/ioos_logo.png
+execute:
+  execute_notebooks: "off"
+parse:
+  myst_enable_extensions:
+    - html_image
+html:
+  comments:
+    hypothesis: true

@@ -1,0 +1,3 @@
+git+https://github.com/executablebooks/jupyter-book
+jupyterlab
+ghp-import
