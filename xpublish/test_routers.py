@@ -1,4 +1,5 @@
 from atexit import register
+from cmath import isnan
 from logging import getLogger
 import logging
 import re
@@ -122,7 +123,7 @@ def to_covjson(ds: xr.Dataset):
 image_router = APIRouter()
 
 @image_router.get('/image', response_class=Response)
-async def get_image(bbox: str, width: int, height: int, var: str, dataset: xr.Dataset = Depends(get_dataset)):
+async def get_image(bbox: str, width: int, height: int, var: str, cmap: Optional[str]=None, dataset: xr.Dataset = Depends(get_dataset)):
     xmin, ymin, xmax, ymax = [float(x) for x in bbox.split(',')]
     q = ds.sel({'latitude': slice(ymin, ymax), 'longitude': slice(xmin, xmax)})
 
@@ -133,12 +134,18 @@ async def get_image(bbox: str, width: int, height: int, var: str, dataset: xr.Da
     )
 
     # This is autoscaling, we can add more params to make this user controlled 
+    # if not min_value: 
     min_value = resampled_data.min()
+    # if not max_value:
     max_value = resampled_data.max()
 
     ds_scaled = (resampled_data - min_value) / (max_value - min_value)
-    # TODO: Let user pick cm 
-    im = Image.fromarray(np.uint8(cm.gist_earth(ds_scaled)*255))
+
+    # Let user pick cm from here https://predictablynoisy.com/matplotlib/gallery/color/colormap_reference.html#sphx-glr-gallery-color-colormap-reference-py
+    # Otherwise default to rainbow
+    if not cmap:
+        cmap = 'rainbow'
+    im = Image.fromarray(np.uint8(cm.get_cmap(cmap)(ds_scaled)*255))
 
     image_bytes = io.BytesIO()
     im.save(image_bytes, format='PNG')
