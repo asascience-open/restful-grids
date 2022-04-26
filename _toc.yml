@@ -9,4 +9,4 @@ parts:
     - glob: xpublish/*
 - caption: NdPyramid
   chapters:
-    - glob: pyramid
+    - glob: pyramid/*
