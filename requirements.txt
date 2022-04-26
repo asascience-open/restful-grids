@@ -11,3 +11,5 @@ flask_cors
 jinja2==3.0.3
 pip
 xpublish
+matplotlib
+rasterio
