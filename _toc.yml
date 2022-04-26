@@ -7,3 +7,6 @@ parts:
 - caption: Xpublish Approach
   chapters:
     - glob: xpublish/*
+- caption: NdPyramid
+  chapters:
+    - glob: pyramid/*
