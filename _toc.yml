@@ -1,6 +1,9 @@
 format: jb-book
 root: project-overview
 parts:
+- caption: Notes
+  chapters:
+    - glob: notes/*
 - caption: PyGEO API
   chapters:
     - glob: pygeoapi/*
