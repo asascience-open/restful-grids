@@ -1,0 +1,87 @@
+server:
+  bind:
+    host: 0.0.0.0
+    port: 5002
+  cors: true
+  language: en-US
+  manager:
+    connection: /tmp/pygeoapi-process-manager.db
+    name: TinyDB
+    output_dir: /tmp/
+  map:
+    attribution:
+      <a href="https://wikimediafoundation.org/wiki/Maps_Terms_of_Use">Wikimedia
+      maps</a> | Map data &copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap
+      contributors</a>
+    url: https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png
+  url: http://localhost:5002
+logging:
+  level: DEBUG
+metadata:
+  contact:
+    address: 195 New Hampshire Ave, Suite 240
+    city: Portsmouth
+    country: United States
+    email: tom@neracoos.org
+    name: Shyka, Tom
+    phone: +01-603-319-1785
+    position: Product & Engagement Manager
+    postalcode: 03801
+    role: pointOfContact
+    stateorprovince: New Hampshire
+    url: http://neracoos.org
+  identification:
+    description: OGC APIs for NERACOOS services
+    keywords:
+      - geospatial
+      - data
+      - api
+      - oceanographic
+    keywords_type: theme
+    terms_of_service: https://creativecommons.org/licenses/by/4.0/
+    title: data.neracoos.org
+    url: http://neracoos.org
+  license:
+    name: CC-BY 4.0 license
+    url: https://creativecommons.org/licenses/by/4.0/
+  provider:
+    name: NERACOOS
+    url: https://neracoos.org
+resources:
+  bio_ww3_east_coast_latest:
+    description:
+      Bedford Institute of Oceanography Wave Watch 3 72 hour forecast for
+      the East Coast
+    extents:
+      spatial:
+        bbox:
+          - -93.0
+          - 20.0
+          - -55.0
+          - 55.0
+        crs: http://www.opengis.net/def/crs/OGC/1.3/CRS84
+      temporal:
+        begin: 2022-04-11 12:00:00
+        end: 2022-04-14 12:00:00
+    keywords:
+      - forecast
+      - wave
+    links:
+      - href: https://data.neracoos.org/erddap/griddap/WW3_72_EastCoast.html
+        rel: service-doc
+        title: WW3_72_EastCoast on ERDDAP
+        type: text/html
+    providers:
+      - data: ../datasets/ww3_72_east_coast_2022041112.nc
+        format:
+          mimetype: application/x-netcdf
+          name: NetCDF
+        name: xarray-edr
+        time_field: time
+        type: edr
+        x_field: longitude
+        y_field: latitude
+    title:
+      Bedford Institute of Oceanography Wave Watch 3 72 hour forecast for the East
+      Coast
+    type: collection
