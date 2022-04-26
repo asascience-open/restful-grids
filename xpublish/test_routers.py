@@ -18,13 +18,14 @@ from rasterio.enums import Resampling
 from PIL import Image
 from matplotlib import cm
 import numpy as np
-
+# rioxarray will show as not being used but its necesarry for enabling rio extensions for xarray
 import rioxarray
 
 # logger = logging.getLogger(__name__)
 logger = logging.getLogger("fastapi")
 
 ds = xr.open_dataset("../datasets/ww3_72_east_coast_2022041112.nc")
+# We need a coordinate system to tile 
 ds = ds.rio.write_crs(4326)
 
 meanrouter = APIRouter()
@@ -125,16 +126,18 @@ async def get_image(bbox: str, width: int, height: int, var: str, dataset: xr.Da
     xmin, ymin, xmax, ymax = [float(x) for x in bbox.split(',')]
     q = ds.sel({'latitude': slice(ymin, ymax), 'longitude': slice(xmin, xmax)})
 
-    resampled_hs_data = q[var][0][0].rio.reproject(
+    resampled_data = q[var][0][0].rio.reproject(
         ds.rio.crs, 
         shape=(width, height), 
         resampling=Resampling.bilinear,
     )
 
-    min_value = resampled_hs_data.min()
-    max_value = resampled_hs_data.max()
+    # This is autoscaling, we can add more params to make this user controlled 
+    min_value = resampled_data.min()
+    max_value = resampled_data.max()
 
-    ds_scaled = (resampled_hs_data - min_value) / (max_value - min_value)
+    ds_scaled = (resampled_data - min_value) / (max_value - min_value)
+    # TODO: Let user pick cm 
     im = Image.fromarray(np.uint8(cm.gist_earth(ds_scaled)*255))
 
     image_bytes = io.BytesIO()
