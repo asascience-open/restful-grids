@@ -12,3 +12,9 @@ In the Anaconda prompt, you can load the `environment.yml` file to configure you
 `conda env create -f environment.yml`
 
 Once you install the environment, you will need to activate it using
+
+`conda activate code-sprint-2022`
+
+To update your conda environment with any new packages added or removed to the `environment.yml` file use
+
+`conda env update -f environment.yml --prune`
