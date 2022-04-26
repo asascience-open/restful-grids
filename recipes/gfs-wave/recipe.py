@@ -27,7 +27,7 @@ def process_input(ds, filename):
 
 recipe = XarrayZarrRecipe(file_pattern=pattern,  
                           process_input=process_input,
-                          target_chunks={'time': 24, 'latitude':166, 'longitude':151 },
+                          target_chunks={'time': 1, 'latitude':166, 'longitude':151 },
                           xarray_open_kwargs={'engine': 'cfgrib'},
                           copy_input_to_local_file=True
                          )
