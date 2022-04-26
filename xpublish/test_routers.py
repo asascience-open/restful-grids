@@ -5,6 +5,7 @@ from typing import Optional
 from fastapi import APIRouter, Body, Depends, HTTPException, Query
 from pydantic import BaseModel, Field
 import xarray as xr
+import cf_xarray as cfxr
 import xpublish
 from xpublish.dependencies import get_dataset
 from xpublish.routers import base_router, zarr_router
@@ -68,13 +69,11 @@ def get_position(
     query: EDRQuery = Depends(edr_query_params),
     dataset: xr.Dataset = Depends(get_dataset),
 ):
-    ds = dataset.sel(longitude=query.point.x, latitude=query.point.y, method="nearest")
+    ds = dataset.cf.sel(X=query.point.x, Y=query.point.y, method="nearest")
 
     if query.parameters:
         ds = ds[query.parameters.split(",")]
-    # ds = ds["hs"]
 
-    # return ds.to_dict()
     return to_covjson(ds)
 
 
