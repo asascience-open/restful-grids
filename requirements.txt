@@ -1,0 +1,13 @@
+xarray
+jupyterlab
+dask
+zarr
+rioxarray
+fsspec
+s3fs
+netCDF4
+pygeoapi
+flask_cors
+jinja2==3.0.3
+pip
+xpublish
