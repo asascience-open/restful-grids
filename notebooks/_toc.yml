@@ -1,6 +1,0 @@
-format: jb-book
-root: project-overview
-parts:
-- caption: Xarray Approach
-  chapters:
-    - file: xarray-example

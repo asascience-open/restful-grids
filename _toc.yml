@@ -1,0 +1,8 @@
+format: jb-book
+root: project-overview
+parts:
+- caption: PyGEO API
+  chapters:
+    - glob: pygeoapi/*
+- caption: Xpublish Approach
+    - glob: xpublish/*

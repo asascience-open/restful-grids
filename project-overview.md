@@ -1,8 +1,10 @@
-# Goals for this Rest-like API
+# Goals for API 
 
 ## Resources
-* Amazon Bucket - `s3://ioos-code-sprint-2022`
-* Github Repo - https://github.com/asascience/restful-grids
+- AWS Data - s3://ioos-code-sprint-2022
+- Github Repo - https://github.com/asascience/restful-grids
+- FVCOM Forecast from UMASS - https://gmri-research-data.nyc3.digitaloceanspaces.com/IOOS-code-sprint/fvcom_gom3_2022-04-10.nc
+- Wave Watch 3 from Bedford Institute of Oceanography - https://gmri-research-data.nyc3.digitaloceanspaces.com/IOOS-code-sprint/ww3_72_east_coast_2022041112.nc
 
 ## Current Solutions
 * Point to Zarr file --> user subsets
@@ -24,6 +26,7 @@
     * Wave Watch + Buoy
 * Consider OGC API integration with xarray; see where pain points are
 * Try pygeoapi, but know there are existing issues
+* Testing 
 
 
 ## Existing solutions
