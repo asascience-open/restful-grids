@@ -13,3 +13,6 @@ pip
 xpublish
 matplotlib
 rasterio
+Pillow
+cf_xarray
+shapely
