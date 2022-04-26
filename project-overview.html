@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Goals for this Rest-like API &#8212; Restful Grids Exploration</title>
+    <title>Goals for API &#8212; Restful Grids Exploration</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -53,7 +53,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Using the Existing Pangeo (Xarray + Zarr) Toolkit" href="xarray-example.html" />
+    <link rel="next" title="PyGeoAPI" href="pygeoapi/EDR-PyGeoAPI.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -90,11 +90,6 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
-        
-      
-      
-      <img src="_static/ioos_logo.jpeg" class="logo" alt="logo">
       
       
       <h1 class="site-logo" id="site-title">Restful Grids Exploration</h1>
@@ -109,19 +104,31 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1 current active">
                 <a class="reference internal" href="#">
-                    Goals for this Rest-like API
+                    Goals for API
                 </a>
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Xarray Approach
+  PyGEO API
  </span>
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="xarray-example.html">
-   Using the Existing Pangeo (Xarray + Zarr) Toolkit
+  <a class="reference internal" href="pygeoapi/EDR-PyGeoAPI.html">
+   PyGeoAPI
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Xpublish Approach
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="xpublish/test_xpublish_access.html">
+   Exploring Xpublish
   </a>
  </li>
 </ul>
@@ -300,7 +307,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Goals for this Rest-like API</h1>
+                <h1>Goals for API</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -355,13 +362,15 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="goals-for-this-rest-like-api">
-<h1>Goals for this Rest-like API<a class="headerlink" href="#goals-for-this-rest-like-api" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="goals-for-api">
+<h1>Goals for API<a class="headerlink" href="#goals-for-api" title="Permalink to this headline">#</a></h1>
 <section id="resources">
 <h2>Resources<a class="headerlink" href="#resources" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
-<li><p>Amazon Bucket - <code class="docutils literal notranslate"><span class="pre">s3://ioos-code-sprint-2022</span></code></p></li>
+<li><p>AWS Data - s3://ioos-code-sprint-2022</p></li>
 <li><p>Github Repo - https://github.com/asascience/restful-grids</p></li>
+<li><p>FVCOM Forecast from UMASS - https://gmri-research-data.nyc3.digitaloceanspaces.com/IOOS-code-sprint/fvcom_gom3_2022-04-10.nc</p></li>
+<li><p>Wave Watch 3 from Bedford Institute of Oceanography - https://gmri-research-data.nyc3.digitaloceanspaces.com/IOOS-code-sprint/ww3_72_east_coast_2022041112.nc</p></li>
 </ul>
 </section>
 <section id="current-solutions">
@@ -401,6 +410,7 @@ title="Print to PDF"
 </li>
 <li><p>Consider OGC API integration with xarray; see where pain points are</p></li>
 <li><p>Try pygeoapi, but know there are existing issues</p></li>
+<li><p>Testing</p></li>
 </ul>
 </section>
 <section id="existing-solutions">
@@ -434,6 +444,8 @@ title="Print to PDF"
 </section>
 <div class="toctree-wrapper compound">
 </div>
+<div class="toctree-wrapper compound">
+</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -463,10 +475,10 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='right-next' id="next-link" href="xarray-example.html" title="next page">
+    <a class='right-next' id="next-link" href="pygeoapi/EDR-PyGeoAPI.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Using the Existing Pangeo (Xarray + Zarr) Toolkit</p>
+        <p class="prev-next-title">PyGeoAPI</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

@@ -1,0 +1,768 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>&lt;no title&gt; &#8212; Restful Grids Exploration</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Restful Grids Exploration</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="project-overview.html">
+                    Goals for API
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  PyGEO API
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="pygeoapi/EDR-PyGeoAPI.html">
+   PyGeoAPI
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Xpublish Approach
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="xpublish/test_xpublish_access.html">
+   Exploring Xpublish
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/S3 bucket access.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/S3 bucket access.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1><no title></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">fsspec</span>
+<span class="kn">import</span> <span class="nn">s3fs</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fsspec.registry</span> <span class="kn">import</span> <span class="n">known_implementations</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">known_implementations</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;file&#39;: {&#39;class&#39;: &#39;fsspec.implementations.local.LocalFileSystem&#39;},
+ &#39;memory&#39;: {&#39;class&#39;: &#39;fsspec.implementations.memory.MemoryFileSystem&#39;},
+ &#39;dropbox&#39;: {&#39;class&#39;: &#39;dropboxdrivefs.DropboxDriveFileSystem&#39;,
+  &#39;err&#39;: &#39;DropboxFileSystem requires &quot;dropboxdrivefs&quot;,&quot;requests&quot; and &quot;dropbox&quot; to be installed&#39;},
+ &#39;http&#39;: {&#39;class&#39;: &#39;fsspec.implementations.http.HTTPFileSystem&#39;,
+  &#39;err&#39;: &#39;HTTPFileSystem requires &quot;requests&quot; and &quot;aiohttp&quot; to be installed&#39;},
+ &#39;https&#39;: {&#39;class&#39;: &#39;fsspec.implementations.http.HTTPFileSystem&#39;,
+  &#39;err&#39;: &#39;HTTPFileSystem requires &quot;requests&quot; and &quot;aiohttp&quot; to be installed&#39;},
+ &#39;zip&#39;: {&#39;class&#39;: &#39;fsspec.implementations.zip.ZipFileSystem&#39;},
+ &#39;tar&#39;: {&#39;class&#39;: &#39;fsspec.implementations.tar.TarFileSystem&#39;},
+ &#39;gcs&#39;: {&#39;class&#39;: &#39;gcsfs.GCSFileSystem&#39;,
+  &#39;err&#39;: &#39;Please install gcsfs to access Google Storage&#39;},
+ &#39;gs&#39;: {&#39;class&#39;: &#39;gcsfs.GCSFileSystem&#39;,
+  &#39;err&#39;: &#39;Please install gcsfs to access Google Storage&#39;},
+ &#39;gdrive&#39;: {&#39;class&#39;: &#39;gdrivefs.GoogleDriveFileSystem&#39;,
+  &#39;err&#39;: &#39;Please install gdrivefs for access to Google Drive&#39;},
+ &#39;sftp&#39;: {&#39;class&#39;: &#39;fsspec.implementations.sftp.SFTPFileSystem&#39;,
+  &#39;err&#39;: &#39;SFTPFileSystem requires &quot;paramiko&quot; to be installed&#39;},
+ &#39;ssh&#39;: {&#39;class&#39;: &#39;fsspec.implementations.sftp.SFTPFileSystem&#39;,
+  &#39;err&#39;: &#39;SFTPFileSystem requires &quot;paramiko&quot; to be installed&#39;},
+ &#39;ftp&#39;: {&#39;class&#39;: &#39;fsspec.implementations.ftp.FTPFileSystem&#39;},
+ &#39;hdfs&#39;: {&#39;class&#39;: &#39;fsspec.implementations.hdfs.PyArrowHDFS&#39;,
+  &#39;err&#39;: &#39;pyarrow and local java libraries required for HDFS&#39;},
+ &#39;arrow_hdfs&#39;: {&#39;class&#39;: &#39;fsspec.implementations.arrow.HadoopFileSystem&#39;,
+  &#39;err&#39;: &#39;pyarrow and local java libraries required for HDFS&#39;},
+ &#39;webhdfs&#39;: {&#39;class&#39;: &#39;fsspec.implementations.webhdfs.WebHDFS&#39;,
+  &#39;err&#39;: &#39;webHDFS access requires &quot;requests&quot; to be installed&#39;},
+ &#39;s3&#39;: {&#39;class&#39;: &#39;s3fs.S3FileSystem&#39;, &#39;err&#39;: &#39;Install s3fs to access S3&#39;},
+ &#39;s3a&#39;: {&#39;class&#39;: &#39;s3fs.S3FileSystem&#39;, &#39;err&#39;: &#39;Install s3fs to access S3&#39;},
+ &#39;wandb&#39;: {&#39;class&#39;: &#39;wandbfs.WandbFS&#39;,
+  &#39;err&#39;: &#39;Install wandbfs to access wandb&#39;},
+ &#39;oci&#39;: {&#39;class&#39;: &#39;ocifs.OCIFileSystem&#39;,
+  &#39;err&#39;: &#39;Install ocifs to access OCI Object Storage&#39;},
+ &#39;adl&#39;: {&#39;class&#39;: &#39;adlfs.AzureDatalakeFileSystem&#39;,
+  &#39;err&#39;: &#39;Install adlfs to access Azure Datalake Gen1&#39;},
+ &#39;abfs&#39;: {&#39;class&#39;: &#39;adlfs.AzureBlobFileSystem&#39;,
+  &#39;err&#39;: &#39;Install adlfs to access Azure Datalake Gen2 and Azure Blob Storage&#39;},
+ &#39;az&#39;: {&#39;class&#39;: &#39;adlfs.AzureBlobFileSystem&#39;,
+  &#39;err&#39;: &#39;Install adlfs to access Azure Datalake Gen2 and Azure Blob Storage&#39;},
+ &#39;cached&#39;: {&#39;class&#39;: &#39;fsspec.implementations.cached.CachingFileSystem&#39;},
+ &#39;blockcache&#39;: {&#39;class&#39;: &#39;fsspec.implementations.cached.CachingFileSystem&#39;},
+ &#39;filecache&#39;: {&#39;class&#39;: &#39;fsspec.implementations.cached.WholeFileCacheFileSystem&#39;},
+ &#39;simplecache&#39;: {&#39;class&#39;: &#39;fsspec.implementations.cached.SimpleCacheFileSystem&#39;},
+ &#39;dask&#39;: {&#39;class&#39;: &#39;fsspec.implementations.dask.DaskWorkerFileSystem&#39;,
+  &#39;err&#39;: &#39;Install dask distributed to access worker file system&#39;},
+ &#39;dbfs&#39;: {&#39;class&#39;: &#39;fsspec.implementations.dbfs.DatabricksFileSystem&#39;,
+  &#39;err&#39;: &#39;Install the requests package to use the DatabricksFileSystem&#39;},
+ &#39;github&#39;: {&#39;class&#39;: &#39;fsspec.implementations.github.GithubFileSystem&#39;,
+  &#39;err&#39;: &#39;Install the requests package to use the github FS&#39;},
+ &#39;git&#39;: {&#39;class&#39;: &#39;fsspec.implementations.git.GitFileSystem&#39;,
+  &#39;err&#39;: &#39;Install pygit2 to browse local git repos&#39;},
+ &#39;smb&#39;: {&#39;class&#39;: &#39;fsspec.implementations.smb.SMBFileSystem&#39;,
+  &#39;err&#39;: &#39;SMB requires &quot;smbprotocol&quot; or &quot;smbprotocol[kerberos]&quot; installed&#39;},
+ &#39;jupyter&#39;: {&#39;class&#39;: &#39;fsspec.implementations.jupyter.JupyterFileSystem&#39;,
+  &#39;err&#39;: &#39;Jupyter FS requires requests to be installed&#39;},
+ &#39;jlab&#39;: {&#39;class&#39;: &#39;fsspec.implementations.jupyter.JupyterFileSystem&#39;,
+  &#39;err&#39;: &#39;Jupyter FS requires requests to be installed&#39;},
+ &#39;libarchive&#39;: {&#39;class&#39;: &#39;fsspec.implementations.libarchive.LibArchiveFileSystem&#39;,
+  &#39;err&#39;: &#39;LibArchive requires to be installed&#39;},
+ &#39;reference&#39;: {&#39;class&#39;: &#39;fsspec.implementations.reference.ReferenceFileSystem&#39;}}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fs</span> <span class="o">=</span> <span class="n">s3fs</span><span class="o">.</span><span class="n">S3FileSystem</span><span class="p">(</span><span class="n">anon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">fs</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;s3fs.core.S3FileSystem at 0x183ba07f0&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fs</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="s1">&#39;ioos-code-sprint-2022&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ClientError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
+<span class="nn">File /usr/local/miniconda3/envs/code-sprint-2022/lib/python3.10/site-packages/s3fs/core.py:614,</span> in <span class="ni">S3FileSystem._lsdir</span><span class="nt">(self, path, refresh, max_items, delimiter, prefix)</span>
+<span class="g g-Whitespace">    </span><span class="mi">613</span> <span class="n">dircache</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="ne">--&gt; </span><span class="mi">614</span> <span class="k">async</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">it</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">615</span>     <span class="n">dircache</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;CommonPrefixes&quot;</span><span class="p">,</span> <span class="p">[]))</span>
+
+<span class="nn">File /usr/local/miniconda3/envs/code-sprint-2022/lib/python3.10/site-packages/aiobotocore/paginate.py:32,</span> in <span class="ni">AioPageIterator.__anext__</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">     </span><span class="mi">31</span> <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">32</span>     <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">current_kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">33</span>     <span class="n">parsed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_parsed_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+
+<span class="nn">File /usr/local/miniconda3/envs/code-sprint-2022/lib/python3.10/site-packages/aiobotocore/client.py:228,</span> in <span class="ni">AioBaseClient._make_api_call</span><span class="nt">(self, operation_name, api_params)</span>
+<span class="g g-Whitespace">    </span><span class="mi">227</span>     <span class="n">error_class</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">from_code</span><span class="p">(</span><span class="n">error_code</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">228</span>     <span class="k">raise</span> <span class="n">error_class</span><span class="p">(</span><span class="n">parsed_response</span><span class="p">,</span> <span class="n">operation_name</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">229</span> <span class="k">else</span><span class="p">:</span>
+
+<span class="ne">ClientError</span>: An error occurred (AccessDenied) when calling the ListObjectsV2 operation: Access Denied
+
+<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
+
+<span class="ne">PermissionError</span><span class="g g-Whitespace">                           </span>Traceback (most recent call last)
+<span class="nn">Input In [13],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">fs</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="s1">&#39;ioos-code-sprint-2022&#39;</span><span class="p">)</span>
+
+<span class="nn">File /usr/local/miniconda3/envs/code-sprint-2022/lib/python3.10/site-packages/fsspec/asyn.py:85,</span> in <span class="ni">sync_wrapper.&lt;locals&gt;.wrapper</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">82</span> <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">83</span> <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">84</span>     <span class="bp">self</span> <span class="o">=</span> <span class="n">obj</span> <span class="ow">or</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="ne">---&gt; </span><span class="mi">85</span>     <span class="k">return</span> <span class="n">sync</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loop</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File /usr/local/miniconda3/envs/code-sprint-2022/lib/python3.10/site-packages/fsspec/asyn.py:65,</span> in <span class="ni">sync</span><span class="nt">(loop, func, timeout, *args, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">63</span>     <span class="k">raise</span> <span class="n">FSTimeoutError</span> <span class="kn">from</span> <span class="nn">return_result</span>
+<span class="g g-Whitespace">     </span><span class="mi">64</span> <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">return_result</span><span class="p">,</span> <span class="ne">BaseException</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">65</span>     <span class="k">raise</span> <span class="n">return_result</span>
+<span class="g g-Whitespace">     </span><span class="mi">66</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">67</span>     <span class="k">return</span> <span class="n">return_result</span>
+
+<span class="nn">File /usr/local/miniconda3/envs/code-sprint-2022/lib/python3.10/site-packages/fsspec/asyn.py:25,</span> in <span class="ni">_runner</span><span class="nt">(event, coro, result, timeout)</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span>     <span class="n">coro</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait_for</span><span class="p">(</span><span class="n">coro</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">25</span>     <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="k">await</span> <span class="n">coro</span>
+<span class="g g-Whitespace">     </span><span class="mi">26</span> <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">27</span>     <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">ex</span>
+
+<span class="nn">File /usr/local/miniconda3/envs/code-sprint-2022/lib/python3.10/site-packages/s3fs/core.py:831,</span> in <span class="ni">S3FileSystem._ls</span><span class="nt">(self, path, detail, refresh)</span>
+<span class="g g-Whitespace">    </span><span class="mi">829</span>     <span class="n">files</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lsbuckets</span><span class="p">(</span><span class="n">refresh</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">830</span> <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">831</span>     <span class="n">files</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lsdir</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">refresh</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">832</span>     <span class="k">if</span> <span class="ow">not</span> <span class="n">files</span> <span class="ow">and</span> <span class="s2">&quot;/&quot;</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">833</span>         <span class="n">files</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lsdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="n">refresh</span><span class="o">=</span><span class="n">refresh</span><span class="p">)</span>
+
+<span class="nn">File /usr/local/miniconda3/envs/code-sprint-2022/lib/python3.10/site-packages/s3fs/core.py:637,</span> in <span class="ni">S3FileSystem._lsdir</span><span class="nt">(self, path, refresh, max_items, delimiter, prefix)</span>
+<span class="g g-Whitespace">    </span><span class="mi">635</span>         <span class="n">f</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="s2">&quot;Key&quot;</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">636</span> <span class="k">except</span> <span class="n">ClientError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">637</span>     <span class="k">raise</span> <span class="n">translate_boto_error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">639</span> <span class="k">if</span> <span class="n">delimiter</span> <span class="ow">and</span> <span class="n">files</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">640</span>     <span class="bp">self</span><span class="o">.</span><span class="n">dircache</span><span class="p">[</span><span class="n">path</span><span class="p">]</span> <span class="o">=</span> <span class="n">files</span>
+
+<span class="ne">PermissionError</span>: Access Denied
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fs</span> <span class="o">=</span> <span class="n">fsspec</span><span class="o">.</span><span class="n">filesystem</span><span class="p">(</span><span class="s2">&quot;s3://ioos-code-sprint-2022&quot;</span><span class="p">)</span>
+<span class="n">fs</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="nn">Input In [8],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">fs</span> <span class="o">=</span> <span class="n">fsspec</span><span class="o">.</span><span class="n">filesystem</span><span class="p">(</span><span class="s2">&quot;s3://ioos-code-sprint-2022&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">fs</span>
+
+<span class="nn">File /usr/local/miniconda3/envs/code-sprint-2022/lib/python3.10/site-packages/fsspec/registry.py:252,</span> in <span class="ni">filesystem</span><span class="nt">(protocol, **storage_options)</span>
+<span class="g g-Whitespace">    </span><span class="mi">246</span> <span class="k">def</span> <span class="nf">filesystem</span><span class="p">(</span><span class="n">protocol</span><span class="p">,</span> <span class="o">**</span><span class="n">storage_options</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">247</span>     <span class="sd">&quot;&quot;&quot;Instantiate filesystems for given protocol and arguments</span>
+<span class="g g-Whitespace">    </span><span class="mi">248</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">249</span><span class="sd">     ``storage_options`` are specific to the protocol being chosen, and are</span>
+<span class="g g-Whitespace">    </span><span class="mi">250</span><span class="sd">     passed directly to the class.</span>
+<span class="g g-Whitespace">    </span><span class="mi">251</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">252</span>     <span class="bp">cls</span> <span class="o">=</span> <span class="n">get_filesystem_class</span><span class="p">(</span><span class="n">protocol</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">253</span>     <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">storage_options</span><span class="p">)</span>
+
+<span class="nn">File /usr/local/miniconda3/envs/code-sprint-2022/lib/python3.10/site-packages/fsspec/registry.py:216,</span> in <span class="ni">get_filesystem_class</span><span class="nt">(protocol)</span>
+<span class="g g-Whitespace">    </span><span class="mi">214</span> <span class="k">if</span> <span class="n">protocol</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">registry</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">215</span>     <span class="k">if</span> <span class="n">protocol</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">known_implementations</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">216</span>         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Protocol not known: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">protocol</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">217</span>     <span class="n">bit</span> <span class="o">=</span> <span class="n">known_implementations</span><span class="p">[</span><span class="n">protocol</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">218</span>     <span class="k">try</span><span class="p">:</span>
+
+<span class="ne">ValueError</span>: Protocol not known: s3://ioos-code-sprint-2022
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fs</span><span class="o">.</span><span class="n">ls</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
+<span class="nn">Input In [3],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">fs</span><span class="o">.</span><span class="n">ls</span><span class="p">()</span>
+
+<span class="ne">AttributeError</span>: &#39;OpenFile&#39; object has no attribute &#39;ls&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">dir</span><span class="p">(</span><span class="n">fs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;__class__&#39;,
+ &#39;__del__&#39;,
+ &#39;__delattr__&#39;,
+ &#39;__dict__&#39;,
+ &#39;__dir__&#39;,
+ &#39;__doc__&#39;,
+ &#39;__enter__&#39;,
+ &#39;__eq__&#39;,
+ &#39;__exit__&#39;,
+ &#39;__format__&#39;,
+ &#39;__fspath__&#39;,
+ &#39;__ge__&#39;,
+ &#39;__getattribute__&#39;,
+ &#39;__gt__&#39;,
+ &#39;__hash__&#39;,
+ &#39;__init__&#39;,
+ &#39;__init_subclass__&#39;,
+ &#39;__le__&#39;,
+ &#39;__lt__&#39;,
+ &#39;__module__&#39;,
+ &#39;__ne__&#39;,
+ &#39;__new__&#39;,
+ &#39;__reduce__&#39;,
+ &#39;__reduce_ex__&#39;,
+ &#39;__repr__&#39;,
+ &#39;__setattr__&#39;,
+ &#39;__sizeof__&#39;,
+ &#39;__str__&#39;,
+ &#39;__subclasshook__&#39;,
+ &#39;__weakref__&#39;,
+ &#39;close&#39;,
+ &#39;compression&#39;,
+ &#39;encoding&#39;,
+ &#39;errors&#39;,
+ &#39;fobjects&#39;,
+ &#39;fs&#39;,
+ &#39;full_name&#39;,
+ &#39;mode&#39;,
+ &#39;newline&#39;,
+ &#39;open&#39;,
+ &#39;path&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">fs</span><span class="o">.</span><span class="n">cat_file</span><span class="p">(</span><span class="s2">&quot;ioos-code-sprint-2022/catalog.json&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{
+  &quot;type&quot;: &quot;Catalog&quot;,
+  &quot;id&quot;: &quot;DMAC-ZARR&quot;,
+  &quot;stac_version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;Experimental Catalog for Next-Gen DMAC&quot;,
+  &quot;links&quot;: [
+    {
+      &quot;rel&quot;: &quot;root&quot;,
+      &quot;href&quot;: &quot;./catalog.json&quot;,
+      &quot;type&quot;: &quot;application/json&quot;
+    },
+    {
+      &quot;rel&quot;: &quot;child&quot;,
+      &quot;href&quot;: &quot;./CBOFS/collection.json&quot;,
+      &quot;type&quot;: &quot;application/json&quot;
+    },
+    {
+      &quot;rel&quot;: &quot;child&quot;,
+      &quot;href&quot;: &quot;./GFS/collection.json&quot;,
+      &quot;type&quot;: &quot;application/json&quot;
+    },
+    {
+      &quot;rel&quot;: &quot;child&quot;,
+      &quot;href&quot;: &quot;./GFSWAVE/collection.json&quot;,
+      &quot;type&quot;: &quot;application/json&quot;
+    },
+    {
+      &quot;rel&quot;: &quot;self&quot;,
+      &quot;href&quot;: &quot;s3://dmac-zarr/catalog.json&quot;,
+      &quot;type&quot;: &quot;application/json&quot;
+    }
+  ],
+  &quot;stac_extensions&quot;: []
+}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fs</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="s2">&quot;ioos-code-sprint-2022&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ClientError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
+<span class="nn">File /usr/local/miniconda3/envs/code-sprint-2022/lib/python3.10/site-packages/s3fs/core.py:614,</span> in <span class="ni">S3FileSystem._lsdir</span><span class="nt">(self, path, refresh, max_items, delimiter, prefix)</span>
+<span class="g g-Whitespace">    </span><span class="mi">613</span> <span class="n">dircache</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="ne">--&gt; </span><span class="mi">614</span> <span class="k">async</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">it</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">615</span>     <span class="n">dircache</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;CommonPrefixes&quot;</span><span class="p">,</span> <span class="p">[]))</span>
+
+<span class="nn">File /usr/local/miniconda3/envs/code-sprint-2022/lib/python3.10/site-packages/aiobotocore/paginate.py:32,</span> in <span class="ni">AioPageIterator.__anext__</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">     </span><span class="mi">31</span> <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">32</span>     <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span><span class="n">current_kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">33</span>     <span class="n">parsed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_parsed_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+
+<span class="nn">File /usr/local/miniconda3/envs/code-sprint-2022/lib/python3.10/site-packages/aiobotocore/client.py:228,</span> in <span class="ni">AioBaseClient._make_api_call</span><span class="nt">(self, operation_name, api_params)</span>
+<span class="g g-Whitespace">    </span><span class="mi">227</span>     <span class="n">error_class</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">from_code</span><span class="p">(</span><span class="n">error_code</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">228</span>     <span class="k">raise</span> <span class="n">error_class</span><span class="p">(</span><span class="n">parsed_response</span><span class="p">,</span> <span class="n">operation_name</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">229</span> <span class="k">else</span><span class="p">:</span>
+
+<span class="ne">ClientError</span>: An error occurred (AccessDenied) when calling the ListObjectsV2 operation: Access Denied
+
+<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
+
+<span class="ne">PermissionError</span><span class="g g-Whitespace">                           </span>Traceback (most recent call last)
+<span class="nn">Input In [19],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">fs</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="s2">&quot;ioos-code-sprint-2022&quot;</span><span class="p">)</span>
+
+<span class="nn">File /usr/local/miniconda3/envs/code-sprint-2022/lib/python3.10/site-packages/fsspec/asyn.py:85,</span> in <span class="ni">sync_wrapper.&lt;locals&gt;.wrapper</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">82</span> <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">83</span> <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">84</span>     <span class="bp">self</span> <span class="o">=</span> <span class="n">obj</span> <span class="ow">or</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="ne">---&gt; </span><span class="mi">85</span>     <span class="k">return</span> <span class="n">sync</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loop</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File /usr/local/miniconda3/envs/code-sprint-2022/lib/python3.10/site-packages/fsspec/asyn.py:65,</span> in <span class="ni">sync</span><span class="nt">(loop, func, timeout, *args, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">63</span>     <span class="k">raise</span> <span class="n">FSTimeoutError</span> <span class="kn">from</span> <span class="nn">return_result</span>
+<span class="g g-Whitespace">     </span><span class="mi">64</span> <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">return_result</span><span class="p">,</span> <span class="ne">BaseException</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">65</span>     <span class="k">raise</span> <span class="n">return_result</span>
+<span class="g g-Whitespace">     </span><span class="mi">66</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">67</span>     <span class="k">return</span> <span class="n">return_result</span>
+
+<span class="nn">File /usr/local/miniconda3/envs/code-sprint-2022/lib/python3.10/site-packages/fsspec/asyn.py:25,</span> in <span class="ni">_runner</span><span class="nt">(event, coro, result, timeout)</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span>     <span class="n">coro</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait_for</span><span class="p">(</span><span class="n">coro</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">25</span>     <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="k">await</span> <span class="n">coro</span>
+<span class="g g-Whitespace">     </span><span class="mi">26</span> <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">27</span>     <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">ex</span>
+
+<span class="nn">File /usr/local/miniconda3/envs/code-sprint-2022/lib/python3.10/site-packages/s3fs/core.py:831,</span> in <span class="ni">S3FileSystem._ls</span><span class="nt">(self, path, detail, refresh)</span>
+<span class="g g-Whitespace">    </span><span class="mi">829</span>     <span class="n">files</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lsbuckets</span><span class="p">(</span><span class="n">refresh</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">830</span> <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">831</span>     <span class="n">files</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lsdir</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">refresh</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">832</span>     <span class="k">if</span> <span class="ow">not</span> <span class="n">files</span> <span class="ow">and</span> <span class="s2">&quot;/&quot;</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">833</span>         <span class="n">files</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lsdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_parent</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="n">refresh</span><span class="o">=</span><span class="n">refresh</span><span class="p">)</span>
+
+<span class="nn">File /usr/local/miniconda3/envs/code-sprint-2022/lib/python3.10/site-packages/s3fs/core.py:637,</span> in <span class="ni">S3FileSystem._lsdir</span><span class="nt">(self, path, refresh, max_items, delimiter, prefix)</span>
+<span class="g g-Whitespace">    </span><span class="mi">635</span>         <span class="n">f</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="s2">&quot;Key&quot;</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">636</span> <span class="k">except</span> <span class="n">ClientError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">637</span>     <span class="k">raise</span> <span class="n">translate_boto_error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">639</span> <span class="k">if</span> <span class="n">delimiter</span> <span class="ow">and</span> <span class="n">files</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">640</span>     <span class="bp">self</span><span class="o">.</span><span class="n">dircache</span><span class="p">[</span><span class="n">path</span><span class="p">]</span> <span class="o">=</span> <span class="n">files</span>
+
+<span class="ne">PermissionError</span>: Access Denied
+</pre></div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "restful-grids"
+        },
+        kernelOptions: {
+            kernelName: "restful-grids",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'restful-grids'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By IOOS Code Springs<br/>
+  
+      &copy; Copyright 2021.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

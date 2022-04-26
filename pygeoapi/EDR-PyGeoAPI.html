@@ -1,0 +1,982 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>PyGeoAPI &#8212; Restful Grids Exploration</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Exploring Xpublish" href="../xpublish/test_xpublish_access.html" />
+    <link rel="prev" title="Goals for API" href="../project-overview.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Restful Grids Exploration</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../project-overview.html">
+                    Goals for API
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  PyGEO API
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   PyGeoAPI
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Xpublish Approach
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../xpublish/test_xpublish_access.html">
+   Exploring Xpublish
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/pygeoapi/EDR-PyGeoAPI.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/pygeoapi/EDR-PyGeoAPI.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pygeoapi-configuration">
+   PyGeoAPI configuration
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#running-pygeoapi">
+   Running PyGeoAPI
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>PyGeoAPI</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pygeoapi-configuration">
+   PyGeoAPI configuration
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#running-pygeoapi">
+   Running PyGeoAPI
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="pygeoapi">
+<h1>PyGeoAPI<a class="headerlink" href="#pygeoapi" title="Permalink to this headline">#</a></h1>
+<p>Here we are going it explore setting up and using <a class="reference external" href="https://pygeoapi.io/">PyGeoAPI</a> and the <a class="reference external" href="https://github.com/opengeospatial/ogcapi-environmental-data-retrieval">OGC EDR API</a> to request timeseries data.</p>
+<p>We’re going to use a Wave Watch 3 forecast for the East Coast, and request data for Buoy E01 (Lat: 43.72 Lon: -69.35).</p>
+<p>We’ll start with a quick look a the dataset (and grabbing some info from it that we need to setup the PyGeoAPI config).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This dataset is avaliable from https://gmri-research-data.nyc3.digitaloceanspaces.com/IOOS-code-sprint/ww3_72_east_coast_2022041112.nc</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s2">&quot;../datasets/ww3_72_east_coast_2022041112.nc&quot;</span><span class="p">)</span>
+<span class="n">ds</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewBox="0 0 32 32">
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewBox="0 0 32 32">
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg>
+<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
+ *
+ */
+
+:root {
+  --xr-font-color0: var(--jp-content-font-color0, rgba(0, 0, 0, 1));
+  --xr-font-color2: var(--jp-content-font-color2, rgba(0, 0, 0, 0.54));
+  --xr-font-color3: var(--jp-content-font-color3, rgba(0, 0, 0, 0.38));
+  --xr-border-color: var(--jp-border-color2, #e0e0e0);
+  --xr-disabled-color: var(--jp-layout-color3, #bdbdbd);
+  --xr-background-color: var(--jp-layout-color0, white);
+  --xr-background-color-row-even: var(--jp-layout-color1, white);
+  --xr-background-color-row-odd: var(--jp-layout-color2, #eeeeee);
+}
+
+html[theme=dark],
+body.vscode-dark {
+  --xr-font-color0: rgba(255, 255, 255, 1);
+  --xr-font-color2: rgba(255, 255, 255, 0.54);
+  --xr-font-color3: rgba(255, 255, 255, 0.38);
+  --xr-border-color: #1F1F1F;
+  --xr-disabled-color: #515151;
+  --xr-background-color: #111111;
+  --xr-background-color-row-even: #111111;
+  --xr-background-color-row-odd: #313131;
+}
+
+.xr-wrap {
+  display: block !important;
+  min-width: 300px;
+  max-width: 700px;
+}
+
+.xr-text-repr-fallback {
+  /* fallback to plain text repr when CSS is not injected (untrusted notebook) */
+  display: none;
+}
+
+.xr-header {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin-bottom: 4px;
+  border-bottom: solid 1px var(--xr-border-color);
+}
+
+.xr-header > div,
+.xr-header > ul {
+  display: inline;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.xr-obj-type,
+.xr-array-name {
+  margin-left: 2px;
+  margin-right: 10px;
+}
+
+.xr-obj-type {
+  color: var(--xr-font-color2);
+}
+
+.xr-sections {
+  padding-left: 0 !important;
+  display: grid;
+  grid-template-columns: 150px auto auto 1fr 20px 20px;
+}
+
+.xr-section-item {
+  display: contents;
+}
+
+.xr-section-item input {
+  display: none;
+}
+
+.xr-section-item input + label {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-item input:enabled + label {
+  cursor: pointer;
+  color: var(--xr-font-color2);
+}
+
+.xr-section-item input:enabled + label:hover {
+  color: var(--xr-font-color0);
+}
+
+.xr-section-summary {
+  grid-column: 1;
+  color: var(--xr-font-color2);
+  font-weight: 500;
+}
+
+.xr-section-summary > span {
+  display: inline-block;
+  padding-left: 0.5em;
+}
+
+.xr-section-summary-in:disabled + label {
+  color: var(--xr-font-color2);
+}
+
+.xr-section-summary-in + label:before {
+  display: inline-block;
+  content: '►';
+  font-size: 11px;
+  width: 15px;
+  text-align: center;
+}
+
+.xr-section-summary-in:disabled + label:before {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-summary-in:checked + label:before {
+  content: '▼';
+}
+
+.xr-section-summary-in:checked + label > span {
+  display: none;
+}
+
+.xr-section-summary,
+.xr-section-inline-details {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.xr-section-inline-details {
+  grid-column: 2 / -1;
+}
+
+.xr-section-details {
+  display: none;
+  grid-column: 1 / -1;
+  margin-bottom: 5px;
+}
+
+.xr-section-summary-in:checked ~ .xr-section-details {
+  display: contents;
+}
+
+.xr-array-wrap {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 20px auto;
+}
+
+.xr-array-wrap > label {
+  grid-column: 1;
+  vertical-align: top;
+}
+
+.xr-preview {
+  color: var(--xr-font-color3);
+}
+
+.xr-array-preview,
+.xr-array-data {
+  padding: 0 5px !important;
+  grid-column: 2;
+}
+
+.xr-array-data,
+.xr-array-in:checked ~ .xr-array-preview {
+  display: none;
+}
+
+.xr-array-in:checked ~ .xr-array-data,
+.xr-array-preview {
+  display: inline-block;
+}
+
+.xr-dim-list {
+  display: inline-block !important;
+  list-style: none;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.xr-dim-list li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.xr-dim-list:before {
+  content: '(';
+}
+
+.xr-dim-list:after {
+  content: ')';
+}
+
+.xr-dim-list li:not(:last-child):after {
+  content: ',';
+  padding-right: 5px;
+}
+
+.xr-has-index {
+  font-weight: bold;
+}
+
+.xr-var-list,
+.xr-var-item {
+  display: contents;
+}
+
+.xr-var-item > div,
+.xr-var-item label,
+.xr-var-item > .xr-var-name span {
+  background-color: var(--xr-background-color-row-even);
+  margin-bottom: 0;
+}
+
+.xr-var-item > .xr-var-name:hover span {
+  padding-right: 5px;
+}
+
+.xr-var-list > li:nth-child(odd) > div,
+.xr-var-list > li:nth-child(odd) > label,
+.xr-var-list > li:nth-child(odd) > .xr-var-name span {
+  background-color: var(--xr-background-color-row-odd);
+}
+
+.xr-var-name {
+  grid-column: 1;
+}
+
+.xr-var-dims {
+  grid-column: 2;
+}
+
+.xr-var-dtype {
+  grid-column: 3;
+  text-align: right;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-preview {
+  grid-column: 4;
+}
+
+.xr-var-name,
+.xr-var-dims,
+.xr-var-dtype,
+.xr-preview,
+.xr-attrs dt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+.xr-var-name:hover,
+.xr-var-dims:hover,
+.xr-var-dtype:hover,
+.xr-attrs dt:hover {
+  overflow: visible;
+  width: auto;
+  z-index: 1;
+}
+
+.xr-var-attrs,
+.xr-var-data {
+  display: none;
+  background-color: var(--xr-background-color) !important;
+  padding-bottom: 5px !important;
+}
+
+.xr-var-attrs-in:checked ~ .xr-var-attrs,
+.xr-var-data-in:checked ~ .xr-var-data {
+  display: block;
+}
+
+.xr-var-data > table {
+  float: right;
+}
+
+.xr-var-name span,
+.xr-var-data,
+.xr-attrs {
+  padding-left: 25px !important;
+}
+
+.xr-attrs,
+.xr-var-attrs,
+.xr-var-data {
+  grid-column: 1 / -1;
+}
+
+dl.xr-attrs {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 125px auto;
+}
+
+.xr-attrs dt,
+.xr-attrs dd {
+  padding: 0;
+  margin: 0;
+  float: left;
+  padding-right: 10px;
+  width: auto;
+}
+
+.xr-attrs dt {
+  font-weight: normal;
+  grid-column: 1;
+}
+
+.xr-attrs dt:hover span {
+  display: inline-block;
+  background: var(--xr-background-color);
+  padding-right: 10px;
+}
+
+.xr-attrs dd {
+  grid-column: 2;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.xr-icon-database,
+.xr-icon-file-text2 {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1.5em !important;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+</style><pre class='xr-text-repr-fallback'>&lt;xarray.Dataset&gt;
+Dimensions:                  (longitude: 381, latitude: 351, time: 73,
+                              forecast_reference_time: 1)
+Coordinates:
+  * longitude                (longitude) float32 -93.0 -92.9 ... -55.1 -55.0
+  * latitude                 (latitude) float32 20.0 20.1 20.2 ... 54.9 55.0
+  * time                     (time) datetime64[ns] 2022-04-11T12:00:00 ... 20...
+  * forecast_reference_time  (forecast_reference_time) datetime64[ns] 2022-04...
+Data variables: (12/21)
+    hs                       (forecast_reference_time, time, latitude, longitude) float32 ...
+    t02                      (forecast_reference_time, time, latitude, longitude) float32 ...
+    t0m1                     (forecast_reference_time, time, latitude, longitude) float32 ...
+    t01                      (forecast_reference_time, time, latitude, longitude) float32 ...
+    fp                       (forecast_reference_time, time, latitude, longitude) float32 ...
+    dir                      (forecast_reference_time, time, latitude, longitude) float32 ...
+    ...                       ...
+    pdir2                    (forecast_reference_time, time, latitude, longitude) float32 ...
+    pws0                     (forecast_reference_time, time, latitude, longitude) float32 ...
+    pws1                     (forecast_reference_time, time, latitude, longitude) float32 ...
+    pws2                     (forecast_reference_time, time, latitude, longitude) float32 ...
+    tws                      (forecast_reference_time, time, latitude, longitude) float32 ...
+    pnr                      (forecast_reference_time, time, latitude, longitude) float32 ...
+Attributes: (12/16)
+    WAVEWATCH_III_version_number:     5.16
+    WAVEWATCH_III_switches:           F90 SHRD NOGRB NOPA LRB4 NC4 TRKNC PR3 ...
+    SIN4 namelist parameter BETAMAX:  1.65
+    product_name:                     ww3.20220411.nc
+    area:                             NW Atlantic  6 arc min grd2
+    latitude_resolution:              0.1000000
+    ...                               ...
+    easternmost_longitude:            -55.00000
+    minimum_altitude:                 -12000 m
+    maximum_altitude:                 9000 m
+    altitude_resolution:              n/a
+    start_date:                       2022-04-11 12:00:00
+    stop_date:                        2022-04-11 23:00:00</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.Dataset</div></div><ul class='xr-sections'><li class='xr-section-item'><input id='section-960814c0-af25-436c-9452-e3c79c671ad4' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-960814c0-af25-436c-9452-e3c79c671ad4' class='xr-section-summary'  title='Expand/collapse section'>Dimensions:</label><div class='xr-section-inline-details'><ul class='xr-dim-list'><li><span class='xr-has-index'>longitude</span>: 381</li><li><span class='xr-has-index'>latitude</span>: 351</li><li><span class='xr-has-index'>time</span>: 73</li><li><span class='xr-has-index'>forecast_reference_time</span>: 1</li></ul></div><div class='xr-section-details'></div></li><li class='xr-section-item'><input id='section-083bb67f-228f-4609-9455-73cd9584673f' class='xr-section-summary-in' type='checkbox'  checked><label for='section-083bb67f-228f-4609-9455-73cd9584673f' class='xr-section-summary' >Coordinates: <span>(4)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>longitude</span></div><div class='xr-var-dims'>(longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>-93.0 -92.9 -92.8 ... -55.1 -55.0</div><input id='attrs-5f42045b-338c-411c-a722-eb299374d643' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-5f42045b-338c-411c-a722-eb299374d643' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-e6962ad4-c4a7-4b6d-ae9d-154051a5e332' class='xr-var-data-in' type='checkbox'><label for='data-e6962ad4-c4a7-4b6d-ae9d-154051a5e332' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>units :</span></dt><dd>degree_east</dd><dt><span>long_name :</span></dt><dd>longitude</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>valid_min :</span></dt><dd>-180.0</dd><dt><span>valid_max :</span></dt><dd>360.0</dd><dt><span>axis :</span></dt><dd>X</dd></dl></div><div class='xr-var-data'><pre>array([-93. , -92.9, -92.8, ..., -55.2, -55.1, -55. ], dtype=float32)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>latitude</span></div><div class='xr-var-dims'>(latitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>20.0 20.1 20.2 ... 54.8 54.9 55.0</div><input id='attrs-d9b61a43-ebb0-42b3-86ea-a7ac6e59a696' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-d9b61a43-ebb0-42b3-86ea-a7ac6e59a696' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-c695f9dd-2560-4ddc-bd70-f8f821edbd36' class='xr-var-data-in' type='checkbox'><label for='data-c695f9dd-2560-4ddc-bd70-f8f821edbd36' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>units :</span></dt><dd>degree_north</dd><dt><span>long_name :</span></dt><dd>latitude</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>valid_min :</span></dt><dd>-90.0</dd><dt><span>valid_max :</span></dt><dd>180.0</dd><dt><span>axis :</span></dt><dd>Y</dd></dl></div><div class='xr-var-data'><pre>array([20. , 20.1, 20.2, ..., 54.8, 54.9, 55. ], dtype=float32)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>time</span></div><div class='xr-var-dims'>(time)</div><div class='xr-var-dtype'>datetime64[ns]</div><div class='xr-var-preview xr-preview'>2022-04-11T12:00:00 ... 2022-04-...</div><input id='attrs-d1d5db59-9c74-4716-8698-0263fab2272a' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-d1d5db59-9c74-4716-8698-0263fab2272a' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-b24eadb9-1ba3-49a3-90cd-229b2d64cb06' class='xr-var-data-in' type='checkbox'><label for='data-b24eadb9-1ba3-49a3-90cd-229b2d64cb06' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>julian day (UT)</dd><dt><span>standard_name :</span></dt><dd>time</dd><dt><span>conventions :</span></dt><dd>relative julian days with decimal part (as parts of the day )</dd><dt><span>axis :</span></dt><dd>T</dd></dl></div><div class='xr-var-data'><pre>array([&#x27;2022-04-11T12:00:00.000000000&#x27;, &#x27;2022-04-11T12:59:59.999986560&#x27;,
+       &#x27;2022-04-11T14:00:00.000013440&#x27;, &#x27;2022-04-11T15:00:00.000000000&#x27;,
+       &#x27;2022-04-11T15:59:59.999986560&#x27;, &#x27;2022-04-11T17:00:00.000013440&#x27;,
+       &#x27;2022-04-11T18:00:00.000000000&#x27;, &#x27;2022-04-11T18:59:59.999986560&#x27;,
+       &#x27;2022-04-11T20:00:00.000013440&#x27;, &#x27;2022-04-11T21:00:00.000000000&#x27;,
+       &#x27;2022-04-11T21:59:59.999986560&#x27;, &#x27;2022-04-11T23:00:00.000013440&#x27;,
+       &#x27;2022-04-12T00:00:00.000000000&#x27;, &#x27;2022-04-12T00:59:59.999986560&#x27;,
+       &#x27;2022-04-12T02:00:00.000013440&#x27;, &#x27;2022-04-12T03:00:00.000000000&#x27;,
+       &#x27;2022-04-12T03:59:59.999986560&#x27;, &#x27;2022-04-12T05:00:00.000013440&#x27;,
+       &#x27;2022-04-12T06:00:00.000000000&#x27;, &#x27;2022-04-12T06:59:59.999986560&#x27;,
+       &#x27;2022-04-12T08:00:00.000013440&#x27;, &#x27;2022-04-12T09:00:00.000000000&#x27;,
+       &#x27;2022-04-12T09:59:59.999986560&#x27;, &#x27;2022-04-12T11:00:00.000013440&#x27;,
+       &#x27;2022-04-12T12:00:00.000000000&#x27;, &#x27;2022-04-12T12:59:59.999986560&#x27;,
+       &#x27;2022-04-12T14:00:00.000013440&#x27;, &#x27;2022-04-12T15:00:00.000000000&#x27;,
+       &#x27;2022-04-12T15:59:59.999986560&#x27;, &#x27;2022-04-12T17:00:00.000013440&#x27;,
+       &#x27;2022-04-12T18:00:00.000000000&#x27;, &#x27;2022-04-12T18:59:59.999986560&#x27;,
+       &#x27;2022-04-12T20:00:00.000013440&#x27;, &#x27;2022-04-12T21:00:00.000000000&#x27;,
+       &#x27;2022-04-12T21:59:59.999986560&#x27;, &#x27;2022-04-12T23:00:00.000013440&#x27;,
+       &#x27;2022-04-13T00:00:00.000000000&#x27;, &#x27;2022-04-13T00:59:59.999986560&#x27;,
+       &#x27;2022-04-13T02:00:00.000013440&#x27;, &#x27;2022-04-13T03:00:00.000000000&#x27;,
+       &#x27;2022-04-13T03:59:59.999986560&#x27;, &#x27;2022-04-13T05:00:00.000013440&#x27;,
+       &#x27;2022-04-13T06:00:00.000000000&#x27;, &#x27;2022-04-13T06:59:59.999986560&#x27;,
+       &#x27;2022-04-13T08:00:00.000013440&#x27;, &#x27;2022-04-13T09:00:00.000000000&#x27;,
+       &#x27;2022-04-13T09:59:59.999986560&#x27;, &#x27;2022-04-13T11:00:00.000013440&#x27;,
+       &#x27;2022-04-13T12:00:00.000000000&#x27;, &#x27;2022-04-13T12:59:59.999986560&#x27;,
+       &#x27;2022-04-13T14:00:00.000013440&#x27;, &#x27;2022-04-13T15:00:00.000000000&#x27;,
+       &#x27;2022-04-13T15:59:59.999986560&#x27;, &#x27;2022-04-13T17:00:00.000013440&#x27;,
+       &#x27;2022-04-13T18:00:00.000000000&#x27;, &#x27;2022-04-13T18:59:59.999986560&#x27;,
+       &#x27;2022-04-13T20:00:00.000013440&#x27;, &#x27;2022-04-13T21:00:00.000000000&#x27;,
+       &#x27;2022-04-13T21:59:59.999986560&#x27;, &#x27;2022-04-13T23:00:00.000013440&#x27;,
+       &#x27;2022-04-14T00:00:00.000000000&#x27;, &#x27;2022-04-14T00:59:59.999986560&#x27;,
+       &#x27;2022-04-14T02:00:00.000013440&#x27;, &#x27;2022-04-14T03:00:00.000000000&#x27;,
+       &#x27;2022-04-14T03:59:59.999986560&#x27;, &#x27;2022-04-14T05:00:00.000013440&#x27;,
+       &#x27;2022-04-14T06:00:00.000000000&#x27;, &#x27;2022-04-14T06:59:59.999986560&#x27;,
+       &#x27;2022-04-14T08:00:00.000013440&#x27;, &#x27;2022-04-14T09:00:00.000000000&#x27;,
+       &#x27;2022-04-14T09:59:59.999986560&#x27;, &#x27;2022-04-14T11:00:00.000013440&#x27;,
+       &#x27;2022-04-14T12:00:00.000000000&#x27;], dtype=&#x27;datetime64[ns]&#x27;)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>forecast_reference_time</span></div><div class='xr-var-dims'>(forecast_reference_time)</div><div class='xr-var-dtype'>datetime64[ns]</div><div class='xr-var-preview xr-preview'>2022-04-11T12:00:00</div><input id='attrs-643a6050-a1dd-4b9c-b24b-8395d6634c2d' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-643a6050-a1dd-4b9c-b24b-8395d6634c2d' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-dafcac28-5359-47c4-b3ed-d29fdcf4b153' class='xr-var-data-in' type='checkbox'><label for='data-dafcac28-5359-47c4-b3ed-d29fdcf4b153' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Forecast Reference Time</dd><dt><span>standard_name :</span></dt><dd>forecast_reference_time</dd><dt><span>conventions :</span></dt><dd>relative julian days with decimal part (as parts of the day )</dd></dl></div><div class='xr-var-data'><pre>array([&#x27;2022-04-11T12:00:00.000000000&#x27;], dtype=&#x27;datetime64[ns]&#x27;)</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-250419bd-e1f6-4f12-8749-6ceb611fff3b' class='xr-section-summary-in' type='checkbox'  ><label for='section-250419bd-e1f6-4f12-8749-6ceb611fff3b' class='xr-section-summary' >Data variables: <span>(21)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>hs</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-53bd1101-a3b1-42cc-bcb2-883a4df0605c' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-53bd1101-a3b1-42cc-bcb2-883a4df0605c' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-51d34165-0a88-428c-b084-be46677ac792' class='xr-var-data-in' type='checkbox'><label for='data-51d34165-0a88-428c-b084-be46677ac792' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>significant height of wind and swell waves</dd><dt><span>standard_name :</span></dt><dd>sea_surface_wave_significant_height</dd><dt><span>globwave_name :</span></dt><dd>significant_wave_height</dd><dt><span>units :</span></dt><dd>m</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>32000</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>t02</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-4e4400cf-dccf-4445-9945-e3e95c4f4caa' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-4e4400cf-dccf-4445-9945-e3e95c4f4caa' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-5e71cfb2-f675-4a0c-9375-21e79b98bd6f' class='xr-var-data-in' type='checkbox'><label for='data-5e71cfb2-f675-4a0c-9375-21e79b98bd6f' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>mean period T02</dd><dt><span>standard_name :</span></dt><dd>sea_surface_wind_wave_mean_period_from_variance_spectral_density_second_frequency_moment</dd><dt><span>globwave_name :</span></dt><dd>mean_period_t02</dd><dt><span>units :</span></dt><dd>s</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>5000</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>t0m1</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-587b9ed3-c2be-49ff-ba7d-7fbab96ec087' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-587b9ed3-c2be-49ff-ba7d-7fbab96ec087' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-3609fda4-951a-452f-97fe-4f9a32c17207' class='xr-var-data-in' type='checkbox'><label for='data-3609fda4-951a-452f-97fe-4f9a32c17207' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>mean period T0m1</dd><dt><span>standard_name :</span></dt><dd>sea_surface_wind_wave_mean_period_from_variance_spectral_density_inverse_frequency_moment</dd><dt><span>globwave_name :</span></dt><dd>mean_period_t0m1</dd><dt><span>units :</span></dt><dd>s</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>5000</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>t01</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-2d09dfb8-412c-4ccf-8b52-4401fde47229' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-2d09dfb8-412c-4ccf-8b52-4401fde47229' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-9ef08d9b-2074-47d3-9b3f-855011a6ea9c' class='xr-var-data-in' type='checkbox'><label for='data-9ef08d9b-2074-47d3-9b3f-855011a6ea9c' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>mean period T01</dd><dt><span>standard_name :</span></dt><dd>sea_surface_wind_wave_mean_period_from_variance_spectral_density_first_frequency_moment</dd><dt><span>globwave_name :</span></dt><dd>mean_period_t01</dd><dt><span>units :</span></dt><dd>s</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>5000</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>fp</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-7bdd7e9f-e25d-4453-a017-1e266129f338' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-7bdd7e9f-e25d-4453-a017-1e266129f338' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-5f6d3ba0-dd28-48b3-b253-5fd24c211b50' class='xr-var-data-in' type='checkbox'><label for='data-5f6d3ba0-dd28-48b3-b253-5fd24c211b50' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>wave peak frequency</dd><dt><span>standard_name :</span></dt><dd>sea_surface_wave_peak_frequency</dd><dt><span>globwave_name :</span></dt><dd>dominant_wave_frequency</dd><dt><span>units :</span></dt><dd>s-1</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>10000</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>dir</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-b4be1f0b-bea7-43d1-8828-0fdfdec5e873' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-b4be1f0b-bea7-43d1-8828-0fdfdec5e873' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-03df0b54-f1f1-43f7-b905-400eab1299a8' class='xr-var-data-in' type='checkbox'><label for='data-03df0b54-f1f1-43f7-b905-400eab1299a8' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>wave mean direction</dd><dt><span>standard_name :</span></dt><dd>sea_surface_wave_from_direction</dd><dt><span>globwave_name :</span></dt><dd>wave_from_direction</dd><dt><span>units :</span></dt><dd>degree</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>3600</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>dp</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-69301f7e-e671-4ea7-ad87-789056757b8c' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-69301f7e-e671-4ea7-ad87-789056757b8c' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-2d217193-1134-4167-a0c0-c3ae56772578' class='xr-var-data-in' type='checkbox'><label for='data-2d217193-1134-4167-a0c0-c3ae56772578' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>peak direction</dd><dt><span>standard_name :</span></dt><dd>sea_surface_wave_peak_direction</dd><dt><span>globwave_name :</span></dt><dd>dominant_wave_direction</dd><dt><span>units :</span></dt><dd>degree</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>360</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>phs0</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-7c669f1f-18c2-40ca-a623-540c6e0c150e' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-7c669f1f-18c2-40ca-a623-540c6e0c150e' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-a4000c44-a00e-49b3-86a2-7ddfe31bdd8c' class='xr-var-data-in' type='checkbox'><label for='data-a4000c44-a00e-49b3-86a2-7ddfe31bdd8c' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>wave significant height partition 0</dd><dt><span>standard_name :</span></dt><dd>sea_surface_wave_significant_height_partition_0</dd><dt><span>globwave_name :</span></dt><dd>significant_wave_height_partition_0</dd><dt><span>units :</span></dt><dd>m</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>32000</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>phs1</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-78e1428b-5666-40c1-ac31-8c7f57b2db94' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-78e1428b-5666-40c1-ac31-8c7f57b2db94' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-e8e6b7e7-0ed0-4488-bdfd-6289fc2c411a' class='xr-var-data-in' type='checkbox'><label for='data-e8e6b7e7-0ed0-4488-bdfd-6289fc2c411a' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>wave significant height partition 1</dd><dt><span>standard_name :</span></dt><dd>sea_surface_wave_significant_height_partition_1</dd><dt><span>globwave_name :</span></dt><dd>significant_wave_height_partition_1</dd><dt><span>units :</span></dt><dd>m</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>32000</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>phs2</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-cd3d3cae-d728-4a6c-b835-1cbc7519cb20' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-cd3d3cae-d728-4a6c-b835-1cbc7519cb20' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-4a909924-747c-4cca-817e-f6f87ee31ed8' class='xr-var-data-in' type='checkbox'><label for='data-4a909924-747c-4cca-817e-f6f87ee31ed8' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>wave significant height partition 2</dd><dt><span>standard_name :</span></dt><dd>sea_surface_wave_significant_height_partition_2</dd><dt><span>globwave_name :</span></dt><dd>significant_wave_height_partition_2</dd><dt><span>units :</span></dt><dd>m</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>32000</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>ptp0</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-df7667a5-ab67-44df-87aa-e7fd55fb899b' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-df7667a5-ab67-44df-87aa-e7fd55fb899b' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-4e51ed74-e4df-4237-9060-44893fbcb979' class='xr-var-data-in' type='checkbox'><label for='data-4e51ed74-e4df-4237-9060-44893fbcb979' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>peak period partition 0</dd><dt><span>standard_name :</span></dt><dd>sea_surface_wave_peak_period_partition_0</dd><dt><span>globwave_name :</span></dt><dd>dominant_wave_period_partition_0</dd><dt><span>units :</span></dt><dd>s</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>10000</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>ptp1</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-33ad1ded-8e23-4967-abb9-4710d34881f9' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-33ad1ded-8e23-4967-abb9-4710d34881f9' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-8991a8d0-e6e1-4f56-8ba5-32a9817b1157' class='xr-var-data-in' type='checkbox'><label for='data-8991a8d0-e6e1-4f56-8ba5-32a9817b1157' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>peak period partition 1</dd><dt><span>standard_name :</span></dt><dd>sea_surface_wave_peak_period_partition_1</dd><dt><span>globwave_name :</span></dt><dd>dominant_wave_period_partition_1</dd><dt><span>units :</span></dt><dd>s</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>10000</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>ptp2</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-ba1568f0-c672-47a0-bfd8-863c3a2b853c' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-ba1568f0-c672-47a0-bfd8-863c3a2b853c' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-4734be45-0b4b-43f2-9411-6e4bbb68ab5d' class='xr-var-data-in' type='checkbox'><label for='data-4734be45-0b4b-43f2-9411-6e4bbb68ab5d' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>peak period partition 2</dd><dt><span>standard_name :</span></dt><dd>sea_surface_wave_peak_period_partition_2</dd><dt><span>globwave_name :</span></dt><dd>dominant_wave_period_partition_2</dd><dt><span>units :</span></dt><dd>s</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>10000</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>pdir0</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-731d6abe-b2fb-462e-921f-dbf4de5aefc8' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-731d6abe-b2fb-462e-921f-dbf4de5aefc8' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-8e21472e-35ee-4886-b97e-1f9cde7cac28' class='xr-var-data-in' type='checkbox'><label for='data-8e21472e-35ee-4886-b97e-1f9cde7cac28' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>wave mean direction partition 0</dd><dt><span>standard_name :</span></dt><dd>sea_surface_wave_from_direction_partition_0</dd><dt><span>globwave_name :</span></dt><dd>wave_from_direction_partition_0</dd><dt><span>units :</span></dt><dd>degree</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>360</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>pdir1</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-cf0d726e-2cb7-4b0a-bf4a-e51ba50ab8d4' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-cf0d726e-2cb7-4b0a-bf4a-e51ba50ab8d4' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-9d477c68-e2f0-4a88-af12-24aeb2d3f072' class='xr-var-data-in' type='checkbox'><label for='data-9d477c68-e2f0-4a88-af12-24aeb2d3f072' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>wave mean direction partition 1</dd><dt><span>standard_name :</span></dt><dd>sea_surface_wave_from_direction_partition_1</dd><dt><span>globwave_name :</span></dt><dd>wave_from_direction_partition_1</dd><dt><span>units :</span></dt><dd>degree</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>360</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>pdir2</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-b9ca7687-9874-4b05-a937-33b5e0fac65f' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-b9ca7687-9874-4b05-a937-33b5e0fac65f' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-a34acb38-dacf-4d95-8c7a-6acb5217f2bc' class='xr-var-data-in' type='checkbox'><label for='data-a34acb38-dacf-4d95-8c7a-6acb5217f2bc' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>wave mean direction partition 2</dd><dt><span>standard_name :</span></dt><dd>sea_surface_wave_from_direction_partition_2</dd><dt><span>globwave_name :</span></dt><dd>wave_from_direction_partition_2</dd><dt><span>units :</span></dt><dd>degree</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>360</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>pws0</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-96b9975b-482d-4c4d-9210-e079f0a9d955' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-96b9975b-482d-4c4d-9210-e079f0a9d955' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-c4a4b58c-ee5d-404f-9f87-6a201aa43c7f' class='xr-var-data-in' type='checkbox'><label for='data-c4a4b58c-ee5d-404f-9f87-6a201aa43c7f' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>wind sea fraction in partition 0</dd><dt><span>standard_name :</span></dt><dd>wind_sea_fraction_in_partition_0</dd><dt><span>globwave_name :</span></dt><dd>wind_sea_fraction_in_partition_0</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>1000</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>pws1</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-aff657ad-c824-4429-a636-892ae9dbe422' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-aff657ad-c824-4429-a636-892ae9dbe422' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-472de3e2-1545-4939-a9c3-cbd22b1ef516' class='xr-var-data-in' type='checkbox'><label for='data-472de3e2-1545-4939-a9c3-cbd22b1ef516' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>wind sea fraction in partition 1</dd><dt><span>standard_name :</span></dt><dd>wind_sea_fraction_in_partition_1</dd><dt><span>globwave_name :</span></dt><dd>wind_sea_fraction_in_partition_1</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>1000</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>pws2</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-68f46ff2-7711-4268-8c87-b1a3f8c0c419' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-68f46ff2-7711-4268-8c87-b1a3f8c0c419' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-7e8485af-7458-4f93-ba96-dbe9e078f0dc' class='xr-var-data-in' type='checkbox'><label for='data-7e8485af-7458-4f93-ba96-dbe9e078f0dc' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>wind sea fraction in partition 2</dd><dt><span>standard_name :</span></dt><dd>wind_sea_fraction_in_partition_2</dd><dt><span>globwave_name :</span></dt><dd>wind_sea_fraction_in_partition_2</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>1000</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>tws</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-9641997c-17e1-4e6a-b6e6-ad70163bc213' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-9641997c-17e1-4e6a-b6e6-ad70163bc213' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-0a9fe2f2-81e1-48f1-91a5-f9fd2cd195e6' class='xr-var-data-in' type='checkbox'><label for='data-0a9fe2f2-81e1-48f1-91a5-f9fd2cd195e6' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>wind sea fraction</dd><dt><span>standard_name :</span></dt><dd>wind_sea_fraction</dd><dt><span>globwave_name :</span></dt><dd>wind_sea_fraction</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>1000</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>pnr</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-c52baa74-f2d6-46d2-a036-ddd7bc757c77' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-c52baa74-f2d6-46d2-a036-ddd7bc757c77' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-02fc5b0f-e6f0-4de5-9428-14d3502ba5fa' class='xr-var-data-in' type='checkbox'><label for='data-02fc5b0f-e6f0-4de5-9428-14d3502ba5fa' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>number of wave partitions</dd><dt><span>standard_name :</span></dt><dd>number_of_wave_partitions</dd><dt><span>globwave_name :</span></dt><dd>number_of_wave_partitions</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>100</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-21a9b46d-2e96-4642-9b53-75eb77a4b2e5' class='xr-section-summary-in' type='checkbox'  ><label for='section-21a9b46d-2e96-4642-9b53-75eb77a4b2e5' class='xr-section-summary' >Attributes: <span>(16)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'><dt><span>WAVEWATCH_III_version_number :</span></dt><dd>5.16</dd><dt><span>WAVEWATCH_III_switches :</span></dt><dd>F90 SHRD NOGRB NOPA LRB4 NC4 TRKNC PR3 UQ FLX0 LN1 ST4 STAB0 NL1 BT1 DB1 MLIM IC0 IS0 REF0 WNT2 WNX2 RWND CRT1 CRX1 TR0 BS0 XX0 O0 O1 O2 O3 O4 O5 O6 O7</dd><dt><span>SIN4 namelist parameter BETAMAX :</span></dt><dd>1.65</dd><dt><span>product_name :</span></dt><dd>ww3.20220411.nc</dd><dt><span>area :</span></dt><dd>NW Atlantic  6 arc min grd2</dd><dt><span>latitude_resolution :</span></dt><dd>0.1000000</dd><dt><span>longitude_resolution :</span></dt><dd>0.1000000</dd><dt><span>southernmost_latitude :</span></dt><dd>20.00000</dd><dt><span>northernmost_latitude :</span></dt><dd>55.00000</dd><dt><span>westernmost_longitude :</span></dt><dd>-93.00000</dd><dt><span>easternmost_longitude :</span></dt><dd>-55.00000</dd><dt><span>minimum_altitude :</span></dt><dd>-12000 m</dd><dt><span>maximum_altitude :</span></dt><dd>9000 m</dd><dt><span>altitude_resolution :</span></dt><dd>n/a</dd><dt><span>start_date :</span></dt><dd>2022-04-11 12:00:00</dd><dt><span>stop_date :</span></dt><dd>2022-04-11 23:00:00</dd></dl></div></li></ul></div></div></div></div>
+</div>
+<p>PyGeoAPI needs the bounds of the dataset. I’ve already got most of the config needed for the dataset, it just needs updated temporal extents.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&lt;xarray.DataArray &#39;time&#39; ()&gt;
+ array(&#39;2022-04-11T12:00:00.000000000&#39;, dtype=&#39;datetime64[ns]&#39;),
+ &lt;xarray.DataArray &#39;time&#39; ()&gt;
+ array(&#39;2022-04-14T12:00:00.000000000&#39;, dtype=&#39;datetime64[ns]&#39;))
+</pre></div>
+</div>
+</div>
+</div>
+<section id="pygeoapi-configuration">
+<h2>PyGeoAPI configuration<a class="headerlink" href="#pygeoapi-configuration" title="Permalink to this headline">#</a></h2>
+<p>PyGeoAPI uses a YAML config file. Individual datasets are setup as resources, and different providers within a resource are responsible for API types.</p>
+<p>There is a lot of general configuration it does not like you to skip.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>cat ./config.yaml
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>server:
+  bind:
+    host: 0.0.0.0
+    port: 5002
+  cors: true
+  language: en-US
+  manager:
+    connection: /tmp/pygeoapi-process-manager.db
+    name: TinyDB
+    output_dir: /tmp/
+  map:
+    attribution:
+      &lt;a href=&quot;https://wikimediafoundation.org/wiki/Maps_Terms_of_Use&quot;&gt;Wikimedia
+      maps&lt;/a&gt; | Map data &amp;copy; &lt;a href=&quot;https://openstreetmap.org/copyright&quot;&gt;OpenStreetMap
+      contributors&lt;/a&gt;
+    url: https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png
+  url: http://localhost:5002
+logging:
+  level: DEBUG
+metadata:
+  contact:
+    address: 195 New Hampshire Ave, Suite 240
+    city: Portsmouth
+    country: United States
+    email: tom@neracoos.org
+    name: Shyka, Tom
+    phone: +01-603-319-1785
+    position: Product &amp; Engagement Manager
+    postalcode: 03801
+    role: pointOfContact
+    stateorprovince: New Hampshire
+    url: http://neracoos.org
+  identification:
+    description: OGC APIs for NERACOOS services
+    keywords:
+      - geospatial
+      - data
+      - api
+      - oceanographic
+    keywords_type: theme
+    terms_of_service: https://creativecommons.org/licenses/by/4.0/
+    title: data.neracoos.org
+    url: http://neracoos.org
+  license:
+    name: CC-BY 4.0 license
+    url: https://creativecommons.org/licenses/by/4.0/
+  provider:
+    name: NERACOOS
+    url: https://neracoos.org
+resources:
+  bio_ww3_east_coast_latest:
+    description:
+      Bedford Institute of Oceanography Wave Watch 3 72 hour forecast for
+      the East Coast
+    extents:
+      spatial:
+        bbox:
+          - -93.0
+          - 20.0
+          - -55.0
+          - 55.0
+        crs: http://www.opengis.net/def/crs/OGC/1.3/CRS84
+      temporal:
+        begin: 2022-04-11 12:00:00
+        end: 2022-04-14 12:00:00
+    keywords:
+      - forecast
+      - wave
+    links: []
+    providers:
+      - data: ../datasets/ww3_72_east_coast_2022041112.nc
+        format:
+          mimetype: application/x-netcdf
+          name: NetCDF
+        name: xarray-edr
+        time_field: time
+        type: edr
+        x_field: longitude
+        y_field: latitude
+    title:
+      Bedford Institute of Oceanography Wave Watch 3 72 hour forecast for the East
+      Coast
+    type: collection
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="running-pygeoapi">
+<h2>Running PyGeoAPI<a class="headerlink" href="#running-pygeoapi" title="Permalink to this headline">#</a></h2>
+<p>From this directory run <code class="docutils literal notranslate"><span class="pre">PYGEOAPI_CONFIG=./config.yaml</span> <span class="pre">pygeoapi</span> <span class="pre">serve</span></code>.</p>
+<p>Then you should be able to access PyGeoAPI at http://localhost:5002/</p>
+<p><img alt="image.png" src="pygeoapi/attachment:22ec6c7e-7d5a-4c5b-a61f-67eaadc40f67.png" /></p>
+<p>From there you can explore into collections, then check out the collection that we defined.</p>
+<p><img alt="image.png" src="pygeoapi/attachment:92f36e63-cb13-4809-b7c0-eeea1ca930d7.png" /></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./pygeoapi"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../project-overview.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Goals for API</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../xpublish/test_xpublish_access.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Exploring Xpublish</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By IOOS Code Springs<br/>
+  
+      &copy; Copyright 2021.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

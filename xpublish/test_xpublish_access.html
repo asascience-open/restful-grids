@@ -1,0 +1,1513 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Exploring Xpublish &#8212; Restful Grids Exploration</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="PyGeoAPI" href="../pygeoapi/EDR-PyGeoAPI.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Restful Grids Exploration</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../project-overview.html">
+                    Goals for API
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  PyGEO API
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../pygeoapi/EDR-PyGeoAPI.html">
+   PyGeoAPI
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Xpublish Approach
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Exploring Xpublish
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/xpublish/test_xpublish_access.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/xpublish/test_xpublish_access.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Exploring Xpublish</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="exploring-xpublish">
+<h1>Exploring Xpublish<a class="headerlink" href="#exploring-xpublish" title="Permalink to this headline">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">import</span> <span class="nn">xpublish</span>
+
+<span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s2">&quot;../datasets/ww3_72_east_coast_2022041112.nc&quot;</span><span class="p">)</span>
+<span class="n">ds</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewBox="0 0 32 32">
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewBox="0 0 32 32">
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg>
+<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
+ *
+ */
+
+:root {
+  --xr-font-color0: var(--jp-content-font-color0, rgba(0, 0, 0, 1));
+  --xr-font-color2: var(--jp-content-font-color2, rgba(0, 0, 0, 0.54));
+  --xr-font-color3: var(--jp-content-font-color3, rgba(0, 0, 0, 0.38));
+  --xr-border-color: var(--jp-border-color2, #e0e0e0);
+  --xr-disabled-color: var(--jp-layout-color3, #bdbdbd);
+  --xr-background-color: var(--jp-layout-color0, white);
+  --xr-background-color-row-even: var(--jp-layout-color1, white);
+  --xr-background-color-row-odd: var(--jp-layout-color2, #eeeeee);
+}
+
+html[theme=dark],
+body.vscode-dark {
+  --xr-font-color0: rgba(255, 255, 255, 1);
+  --xr-font-color2: rgba(255, 255, 255, 0.54);
+  --xr-font-color3: rgba(255, 255, 255, 0.38);
+  --xr-border-color: #1F1F1F;
+  --xr-disabled-color: #515151;
+  --xr-background-color: #111111;
+  --xr-background-color-row-even: #111111;
+  --xr-background-color-row-odd: #313131;
+}
+
+.xr-wrap {
+  display: block !important;
+  min-width: 300px;
+  max-width: 700px;
+}
+
+.xr-text-repr-fallback {
+  /* fallback to plain text repr when CSS is not injected (untrusted notebook) */
+  display: none;
+}
+
+.xr-header {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin-bottom: 4px;
+  border-bottom: solid 1px var(--xr-border-color);
+}
+
+.xr-header > div,
+.xr-header > ul {
+  display: inline;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.xr-obj-type,
+.xr-array-name {
+  margin-left: 2px;
+  margin-right: 10px;
+}
+
+.xr-obj-type {
+  color: var(--xr-font-color2);
+}
+
+.xr-sections {
+  padding-left: 0 !important;
+  display: grid;
+  grid-template-columns: 150px auto auto 1fr 20px 20px;
+}
+
+.xr-section-item {
+  display: contents;
+}
+
+.xr-section-item input {
+  display: none;
+}
+
+.xr-section-item input + label {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-item input:enabled + label {
+  cursor: pointer;
+  color: var(--xr-font-color2);
+}
+
+.xr-section-item input:enabled + label:hover {
+  color: var(--xr-font-color0);
+}
+
+.xr-section-summary {
+  grid-column: 1;
+  color: var(--xr-font-color2);
+  font-weight: 500;
+}
+
+.xr-section-summary > span {
+  display: inline-block;
+  padding-left: 0.5em;
+}
+
+.xr-section-summary-in:disabled + label {
+  color: var(--xr-font-color2);
+}
+
+.xr-section-summary-in + label:before {
+  display: inline-block;
+  content: '►';
+  font-size: 11px;
+  width: 15px;
+  text-align: center;
+}
+
+.xr-section-summary-in:disabled + label:before {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-summary-in:checked + label:before {
+  content: '▼';
+}
+
+.xr-section-summary-in:checked + label > span {
+  display: none;
+}
+
+.xr-section-summary,
+.xr-section-inline-details {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.xr-section-inline-details {
+  grid-column: 2 / -1;
+}
+
+.xr-section-details {
+  display: none;
+  grid-column: 1 / -1;
+  margin-bottom: 5px;
+}
+
+.xr-section-summary-in:checked ~ .xr-section-details {
+  display: contents;
+}
+
+.xr-array-wrap {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 20px auto;
+}
+
+.xr-array-wrap > label {
+  grid-column: 1;
+  vertical-align: top;
+}
+
+.xr-preview {
+  color: var(--xr-font-color3);
+}
+
+.xr-array-preview,
+.xr-array-data {
+  padding: 0 5px !important;
+  grid-column: 2;
+}
+
+.xr-array-data,
+.xr-array-in:checked ~ .xr-array-preview {
+  display: none;
+}
+
+.xr-array-in:checked ~ .xr-array-data,
+.xr-array-preview {
+  display: inline-block;
+}
+
+.xr-dim-list {
+  display: inline-block !important;
+  list-style: none;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.xr-dim-list li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.xr-dim-list:before {
+  content: '(';
+}
+
+.xr-dim-list:after {
+  content: ')';
+}
+
+.xr-dim-list li:not(:last-child):after {
+  content: ',';
+  padding-right: 5px;
+}
+
+.xr-has-index {
+  font-weight: bold;
+}
+
+.xr-var-list,
+.xr-var-item {
+  display: contents;
+}
+
+.xr-var-item > div,
+.xr-var-item label,
+.xr-var-item > .xr-var-name span {
+  background-color: var(--xr-background-color-row-even);
+  margin-bottom: 0;
+}
+
+.xr-var-item > .xr-var-name:hover span {
+  padding-right: 5px;
+}
+
+.xr-var-list > li:nth-child(odd) > div,
+.xr-var-list > li:nth-child(odd) > label,
+.xr-var-list > li:nth-child(odd) > .xr-var-name span {
+  background-color: var(--xr-background-color-row-odd);
+}
+
+.xr-var-name {
+  grid-column: 1;
+}
+
+.xr-var-dims {
+  grid-column: 2;
+}
+
+.xr-var-dtype {
+  grid-column: 3;
+  text-align: right;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-preview {
+  grid-column: 4;
+}
+
+.xr-var-name,
+.xr-var-dims,
+.xr-var-dtype,
+.xr-preview,
+.xr-attrs dt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+.xr-var-name:hover,
+.xr-var-dims:hover,
+.xr-var-dtype:hover,
+.xr-attrs dt:hover {
+  overflow: visible;
+  width: auto;
+  z-index: 1;
+}
+
+.xr-var-attrs,
+.xr-var-data {
+  display: none;
+  background-color: var(--xr-background-color) !important;
+  padding-bottom: 5px !important;
+}
+
+.xr-var-attrs-in:checked ~ .xr-var-attrs,
+.xr-var-data-in:checked ~ .xr-var-data {
+  display: block;
+}
+
+.xr-var-data > table {
+  float: right;
+}
+
+.xr-var-name span,
+.xr-var-data,
+.xr-attrs {
+  padding-left: 25px !important;
+}
+
+.xr-attrs,
+.xr-var-attrs,
+.xr-var-data {
+  grid-column: 1 / -1;
+}
+
+dl.xr-attrs {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 125px auto;
+}
+
+.xr-attrs dt,
+.xr-attrs dd {
+  padding: 0;
+  margin: 0;
+  float: left;
+  padding-right: 10px;
+  width: auto;
+}
+
+.xr-attrs dt {
+  font-weight: normal;
+  grid-column: 1;
+}
+
+.xr-attrs dt:hover span {
+  display: inline-block;
+  background: var(--xr-background-color);
+  padding-right: 10px;
+}
+
+.xr-attrs dd {
+  grid-column: 2;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.xr-icon-database,
+.xr-icon-file-text2 {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1.5em !important;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+</style><pre class='xr-text-repr-fallback'>&lt;xarray.Dataset&gt;
+Dimensions:                  (longitude: 381, latitude: 351, time: 73,
+                              forecast_reference_time: 1)
+Coordinates:
+  * longitude                (longitude) float32 -93.0 -92.9 ... -55.1 -55.0
+  * latitude                 (latitude) float32 20.0 20.1 20.2 ... 54.9 55.0
+  * time                     (time) datetime64[ns] 2022-04-11T12:00:00 ... 20...
+  * forecast_reference_time  (forecast_reference_time) datetime64[ns] 2022-04...
+Data variables: (12/21)
+    hs                       (forecast_reference_time, time, latitude, longitude) float32 ...
+    t02                      (forecast_reference_time, time, latitude, longitude) float32 ...
+    t0m1                     (forecast_reference_time, time, latitude, longitude) float32 ...
+    t01                      (forecast_reference_time, time, latitude, longitude) float32 ...
+    fp                       (forecast_reference_time, time, latitude, longitude) float32 ...
+    dir                      (forecast_reference_time, time, latitude, longitude) float32 ...
+    ...                       ...
+    pdir2                    (forecast_reference_time, time, latitude, longitude) float32 ...
+    pws0                     (forecast_reference_time, time, latitude, longitude) float32 ...
+    pws1                     (forecast_reference_time, time, latitude, longitude) float32 ...
+    pws2                     (forecast_reference_time, time, latitude, longitude) float32 ...
+    tws                      (forecast_reference_time, time, latitude, longitude) float32 ...
+    pnr                      (forecast_reference_time, time, latitude, longitude) float32 ...
+Attributes: (12/16)
+    WAVEWATCH_III_version_number:     5.16
+    WAVEWATCH_III_switches:           F90 SHRD NOGRB NOPA LRB4 NC4 TRKNC PR3 ...
+    SIN4 namelist parameter BETAMAX:  1.65
+    product_name:                     ww3.20220411.nc
+    area:                             NW Atlantic  6 arc min grd2
+    latitude_resolution:              0.1000000
+    ...                               ...
+    easternmost_longitude:            -55.00000
+    minimum_altitude:                 -12000 m
+    maximum_altitude:                 9000 m
+    altitude_resolution:              n/a
+    start_date:                       2022-04-11 12:00:00
+    stop_date:                        2022-04-11 23:00:00</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.Dataset</div></div><ul class='xr-sections'><li class='xr-section-item'><input id='section-40394445-4af0-41ca-a047-f18b3db27523' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-40394445-4af0-41ca-a047-f18b3db27523' class='xr-section-summary'  title='Expand/collapse section'>Dimensions:</label><div class='xr-section-inline-details'><ul class='xr-dim-list'><li><span class='xr-has-index'>longitude</span>: 381</li><li><span class='xr-has-index'>latitude</span>: 351</li><li><span class='xr-has-index'>time</span>: 73</li><li><span class='xr-has-index'>forecast_reference_time</span>: 1</li></ul></div><div class='xr-section-details'></div></li><li class='xr-section-item'><input id='section-e49c58e4-721d-4e61-89be-dae8ba796df5' class='xr-section-summary-in' type='checkbox'  checked><label for='section-e49c58e4-721d-4e61-89be-dae8ba796df5' class='xr-section-summary' >Coordinates: <span>(4)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>longitude</span></div><div class='xr-var-dims'>(longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>-93.0 -92.9 -92.8 ... -55.1 -55.0</div><input id='attrs-ef6ffbab-6722-4b31-8c90-8b18abe1cc49' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-ef6ffbab-6722-4b31-8c90-8b18abe1cc49' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-8cae0606-ccfb-463d-b097-181c2e9c2c92' class='xr-var-data-in' type='checkbox'><label for='data-8cae0606-ccfb-463d-b097-181c2e9c2c92' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>units :</span></dt><dd>degree_east</dd><dt><span>long_name :</span></dt><dd>longitude</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>valid_min :</span></dt><dd>-180.0</dd><dt><span>valid_max :</span></dt><dd>360.0</dd><dt><span>axis :</span></dt><dd>X</dd></dl></div><div class='xr-var-data'><pre>array([-93. , -92.9, -92.8, ..., -55.2, -55.1, -55. ], dtype=float32)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>latitude</span></div><div class='xr-var-dims'>(latitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>20.0 20.1 20.2 ... 54.8 54.9 55.0</div><input id='attrs-c2356851-9fb1-4c07-8739-9c6899cb699c' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-c2356851-9fb1-4c07-8739-9c6899cb699c' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-8c395aca-81aa-455d-ba19-f0ef755bfc1a' class='xr-var-data-in' type='checkbox'><label for='data-8c395aca-81aa-455d-ba19-f0ef755bfc1a' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>units :</span></dt><dd>degree_north</dd><dt><span>long_name :</span></dt><dd>latitude</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>valid_min :</span></dt><dd>-90.0</dd><dt><span>valid_max :</span></dt><dd>180.0</dd><dt><span>axis :</span></dt><dd>Y</dd></dl></div><div class='xr-var-data'><pre>array([20. , 20.1, 20.2, ..., 54.8, 54.9, 55. ], dtype=float32)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>time</span></div><div class='xr-var-dims'>(time)</div><div class='xr-var-dtype'>datetime64[ns]</div><div class='xr-var-preview xr-preview'>2022-04-11T12:00:00 ... 2022-04-...</div><input id='attrs-e38eecad-62bf-4ca9-8acf-5a15e63455a6' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-e38eecad-62bf-4ca9-8acf-5a15e63455a6' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-a31626bc-6b15-4f4b-ae5d-999968e3551e' class='xr-var-data-in' type='checkbox'><label for='data-a31626bc-6b15-4f4b-ae5d-999968e3551e' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>julian day (UT)</dd><dt><span>standard_name :</span></dt><dd>time</dd><dt><span>conventions :</span></dt><dd>relative julian days with decimal part (as parts of the day )</dd><dt><span>axis :</span></dt><dd>T</dd></dl></div><div class='xr-var-data'><pre>array([&#x27;2022-04-11T12:00:00.000000000&#x27;, &#x27;2022-04-11T12:59:59.999986560&#x27;,
+       &#x27;2022-04-11T14:00:00.000013440&#x27;, &#x27;2022-04-11T15:00:00.000000000&#x27;,
+       &#x27;2022-04-11T15:59:59.999986560&#x27;, &#x27;2022-04-11T17:00:00.000013440&#x27;,
+       &#x27;2022-04-11T18:00:00.000000000&#x27;, &#x27;2022-04-11T18:59:59.999986560&#x27;,
+       &#x27;2022-04-11T20:00:00.000013440&#x27;, &#x27;2022-04-11T21:00:00.000000000&#x27;,
+       &#x27;2022-04-11T21:59:59.999986560&#x27;, &#x27;2022-04-11T23:00:00.000013440&#x27;,
+       &#x27;2022-04-12T00:00:00.000000000&#x27;, &#x27;2022-04-12T00:59:59.999986560&#x27;,
+       &#x27;2022-04-12T02:00:00.000013440&#x27;, &#x27;2022-04-12T03:00:00.000000000&#x27;,
+       &#x27;2022-04-12T03:59:59.999986560&#x27;, &#x27;2022-04-12T05:00:00.000013440&#x27;,
+       &#x27;2022-04-12T06:00:00.000000000&#x27;, &#x27;2022-04-12T06:59:59.999986560&#x27;,
+       &#x27;2022-04-12T08:00:00.000013440&#x27;, &#x27;2022-04-12T09:00:00.000000000&#x27;,
+       &#x27;2022-04-12T09:59:59.999986560&#x27;, &#x27;2022-04-12T11:00:00.000013440&#x27;,
+       &#x27;2022-04-12T12:00:00.000000000&#x27;, &#x27;2022-04-12T12:59:59.999986560&#x27;,
+       &#x27;2022-04-12T14:00:00.000013440&#x27;, &#x27;2022-04-12T15:00:00.000000000&#x27;,
+       &#x27;2022-04-12T15:59:59.999986560&#x27;, &#x27;2022-04-12T17:00:00.000013440&#x27;,
+       &#x27;2022-04-12T18:00:00.000000000&#x27;, &#x27;2022-04-12T18:59:59.999986560&#x27;,
+       &#x27;2022-04-12T20:00:00.000013440&#x27;, &#x27;2022-04-12T21:00:00.000000000&#x27;,
+       &#x27;2022-04-12T21:59:59.999986560&#x27;, &#x27;2022-04-12T23:00:00.000013440&#x27;,
+       &#x27;2022-04-13T00:00:00.000000000&#x27;, &#x27;2022-04-13T00:59:59.999986560&#x27;,
+       &#x27;2022-04-13T02:00:00.000013440&#x27;, &#x27;2022-04-13T03:00:00.000000000&#x27;,
+       &#x27;2022-04-13T03:59:59.999986560&#x27;, &#x27;2022-04-13T05:00:00.000013440&#x27;,
+       &#x27;2022-04-13T06:00:00.000000000&#x27;, &#x27;2022-04-13T06:59:59.999986560&#x27;,
+       &#x27;2022-04-13T08:00:00.000013440&#x27;, &#x27;2022-04-13T09:00:00.000000000&#x27;,
+       &#x27;2022-04-13T09:59:59.999986560&#x27;, &#x27;2022-04-13T11:00:00.000013440&#x27;,
+       &#x27;2022-04-13T12:00:00.000000000&#x27;, &#x27;2022-04-13T12:59:59.999986560&#x27;,
+       &#x27;2022-04-13T14:00:00.000013440&#x27;, &#x27;2022-04-13T15:00:00.000000000&#x27;,
+       &#x27;2022-04-13T15:59:59.999986560&#x27;, &#x27;2022-04-13T17:00:00.000013440&#x27;,
+       &#x27;2022-04-13T18:00:00.000000000&#x27;, &#x27;2022-04-13T18:59:59.999986560&#x27;,
+       &#x27;2022-04-13T20:00:00.000013440&#x27;, &#x27;2022-04-13T21:00:00.000000000&#x27;,
+       &#x27;2022-04-13T21:59:59.999986560&#x27;, &#x27;2022-04-13T23:00:00.000013440&#x27;,
+       &#x27;2022-04-14T00:00:00.000000000&#x27;, &#x27;2022-04-14T00:59:59.999986560&#x27;,
+       &#x27;2022-04-14T02:00:00.000013440&#x27;, &#x27;2022-04-14T03:00:00.000000000&#x27;,
+       &#x27;2022-04-14T03:59:59.999986560&#x27;, &#x27;2022-04-14T05:00:00.000013440&#x27;,
+       &#x27;2022-04-14T06:00:00.000000000&#x27;, &#x27;2022-04-14T06:59:59.999986560&#x27;,
+       &#x27;2022-04-14T08:00:00.000013440&#x27;, &#x27;2022-04-14T09:00:00.000000000&#x27;,
+       &#x27;2022-04-14T09:59:59.999986560&#x27;, &#x27;2022-04-14T11:00:00.000013440&#x27;,
+       &#x27;2022-04-14T12:00:00.000000000&#x27;], dtype=&#x27;datetime64[ns]&#x27;)</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>forecast_reference_time</span></div><div class='xr-var-dims'>(forecast_reference_time)</div><div class='xr-var-dtype'>datetime64[ns]</div><div class='xr-var-preview xr-preview'>2022-04-11T12:00:00</div><input id='attrs-ab8da02e-f4eb-470e-855f-141d577fabd3' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-ab8da02e-f4eb-470e-855f-141d577fabd3' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-f28d04d3-d30c-497f-8b35-b936cf4026dd' class='xr-var-data-in' type='checkbox'><label for='data-f28d04d3-d30c-497f-8b35-b936cf4026dd' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Forecast Reference Time</dd><dt><span>standard_name :</span></dt><dd>forecast_reference_time</dd><dt><span>conventions :</span></dt><dd>relative julian days with decimal part (as parts of the day )</dd></dl></div><div class='xr-var-data'><pre>array([&#x27;2022-04-11T12:00:00.000000000&#x27;], dtype=&#x27;datetime64[ns]&#x27;)</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-b430ddcd-a7f7-402d-9777-86b019c128c6' class='xr-section-summary-in' type='checkbox'  ><label for='section-b430ddcd-a7f7-402d-9777-86b019c128c6' class='xr-section-summary' >Data variables: <span>(21)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>hs</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-f2f37a16-5d8b-4fba-814e-77ea462a6cc5' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-f2f37a16-5d8b-4fba-814e-77ea462a6cc5' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-58ee7fe3-cce7-4ff0-ac4c-9d86104d0732' class='xr-var-data-in' type='checkbox'><label for='data-58ee7fe3-cce7-4ff0-ac4c-9d86104d0732' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>significant height of wind and swell waves</dd><dt><span>standard_name :</span></dt><dd>sea_surface_wave_significant_height</dd><dt><span>globwave_name :</span></dt><dd>significant_wave_height</dd><dt><span>units :</span></dt><dd>m</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>32000</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>t02</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-acbbc128-bc18-49f5-aaa4-7b34fa85a134' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-acbbc128-bc18-49f5-aaa4-7b34fa85a134' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-73c653b1-84e3-4ed0-a1f2-14d3e3773d17' class='xr-var-data-in' type='checkbox'><label for='data-73c653b1-84e3-4ed0-a1f2-14d3e3773d17' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>mean period T02</dd><dt><span>standard_name :</span></dt><dd>sea_surface_wind_wave_mean_period_from_variance_spectral_density_second_frequency_moment</dd><dt><span>globwave_name :</span></dt><dd>mean_period_t02</dd><dt><span>units :</span></dt><dd>s</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>5000</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>t0m1</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-894945a0-d4a4-4a85-8d3d-5386738bc279' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-894945a0-d4a4-4a85-8d3d-5386738bc279' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-70ac624d-9e7e-4da9-a9e4-7a74a8cc46f7' class='xr-var-data-in' type='checkbox'><label for='data-70ac624d-9e7e-4da9-a9e4-7a74a8cc46f7' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>mean period T0m1</dd><dt><span>standard_name :</span></dt><dd>sea_surface_wind_wave_mean_period_from_variance_spectral_density_inverse_frequency_moment</dd><dt><span>globwave_name :</span></dt><dd>mean_period_t0m1</dd><dt><span>units :</span></dt><dd>s</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>5000</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>t01</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-833b91f9-bca4-4840-8338-708f0b7f35bb' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-833b91f9-bca4-4840-8338-708f0b7f35bb' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-4df00570-1470-4a3f-a40a-fcc3001a65eb' class='xr-var-data-in' type='checkbox'><label for='data-4df00570-1470-4a3f-a40a-fcc3001a65eb' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>mean period T01</dd><dt><span>standard_name :</span></dt><dd>sea_surface_wind_wave_mean_period_from_variance_spectral_density_first_frequency_moment</dd><dt><span>globwave_name :</span></dt><dd>mean_period_t01</dd><dt><span>units :</span></dt><dd>s</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>5000</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>fp</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-d62b666b-fe71-446a-b1c8-7f1bd8ec184c' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-d62b666b-fe71-446a-b1c8-7f1bd8ec184c' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-24c7aa32-eb76-4223-aa53-60f5e1a90862' class='xr-var-data-in' type='checkbox'><label for='data-24c7aa32-eb76-4223-aa53-60f5e1a90862' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>wave peak frequency</dd><dt><span>standard_name :</span></dt><dd>sea_surface_wave_peak_frequency</dd><dt><span>globwave_name :</span></dt><dd>dominant_wave_frequency</dd><dt><span>units :</span></dt><dd>s-1</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>10000</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>dir</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-efee0c11-76a4-43e5-afe7-62cd7332ebe8' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-efee0c11-76a4-43e5-afe7-62cd7332ebe8' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-c21cd913-28e1-41be-b108-d6087b2db9fb' class='xr-var-data-in' type='checkbox'><label for='data-c21cd913-28e1-41be-b108-d6087b2db9fb' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>wave mean direction</dd><dt><span>standard_name :</span></dt><dd>sea_surface_wave_from_direction</dd><dt><span>globwave_name :</span></dt><dd>wave_from_direction</dd><dt><span>units :</span></dt><dd>degree</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>3600</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>dp</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-8c598432-3ae4-443f-aed6-db60496ac1ca' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-8c598432-3ae4-443f-aed6-db60496ac1ca' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-2d308dae-bdd8-4ee8-99a3-b2aa76448621' class='xr-var-data-in' type='checkbox'><label for='data-2d308dae-bdd8-4ee8-99a3-b2aa76448621' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>peak direction</dd><dt><span>standard_name :</span></dt><dd>sea_surface_wave_peak_direction</dd><dt><span>globwave_name :</span></dt><dd>dominant_wave_direction</dd><dt><span>units :</span></dt><dd>degree</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>360</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>phs0</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-f0710776-434e-41fc-a684-3bc2bd89b40d' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-f0710776-434e-41fc-a684-3bc2bd89b40d' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-96f2a3f5-703c-4d0c-90b9-a369a6b3b768' class='xr-var-data-in' type='checkbox'><label for='data-96f2a3f5-703c-4d0c-90b9-a369a6b3b768' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>wave significant height partition 0</dd><dt><span>standard_name :</span></dt><dd>sea_surface_wave_significant_height_partition_0</dd><dt><span>globwave_name :</span></dt><dd>significant_wave_height_partition_0</dd><dt><span>units :</span></dt><dd>m</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>32000</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>phs1</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-4ad3977a-b97b-4903-9a94-f6d48488ff68' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-4ad3977a-b97b-4903-9a94-f6d48488ff68' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-6df7adeb-a995-478b-99b0-07f1292aaffa' class='xr-var-data-in' type='checkbox'><label for='data-6df7adeb-a995-478b-99b0-07f1292aaffa' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>wave significant height partition 1</dd><dt><span>standard_name :</span></dt><dd>sea_surface_wave_significant_height_partition_1</dd><dt><span>globwave_name :</span></dt><dd>significant_wave_height_partition_1</dd><dt><span>units :</span></dt><dd>m</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>32000</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>phs2</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-c4ed604d-a808-4cbb-bce5-65a622acf4c9' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-c4ed604d-a808-4cbb-bce5-65a622acf4c9' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-44c148de-d5fa-409d-9fbf-1f91982467dc' class='xr-var-data-in' type='checkbox'><label for='data-44c148de-d5fa-409d-9fbf-1f91982467dc' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>wave significant height partition 2</dd><dt><span>standard_name :</span></dt><dd>sea_surface_wave_significant_height_partition_2</dd><dt><span>globwave_name :</span></dt><dd>significant_wave_height_partition_2</dd><dt><span>units :</span></dt><dd>m</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>32000</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>ptp0</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-84963761-be0e-4b62-97e3-a471f3dd53fa' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-84963761-be0e-4b62-97e3-a471f3dd53fa' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-63addbda-0eaa-4ada-99cd-975c5a3069b6' class='xr-var-data-in' type='checkbox'><label for='data-63addbda-0eaa-4ada-99cd-975c5a3069b6' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>peak period partition 0</dd><dt><span>standard_name :</span></dt><dd>sea_surface_wave_peak_period_partition_0</dd><dt><span>globwave_name :</span></dt><dd>dominant_wave_period_partition_0</dd><dt><span>units :</span></dt><dd>s</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>10000</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>ptp1</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-1e72da13-82f6-4939-97bb-c3a8ed1417cb' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-1e72da13-82f6-4939-97bb-c3a8ed1417cb' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-f32210fa-ecc6-4ce2-967b-1a01ee489c7b' class='xr-var-data-in' type='checkbox'><label for='data-f32210fa-ecc6-4ce2-967b-1a01ee489c7b' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>peak period partition 1</dd><dt><span>standard_name :</span></dt><dd>sea_surface_wave_peak_period_partition_1</dd><dt><span>globwave_name :</span></dt><dd>dominant_wave_period_partition_1</dd><dt><span>units :</span></dt><dd>s</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>10000</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>ptp2</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-fbf5a444-54e4-4374-b1be-4278a249c588' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-fbf5a444-54e4-4374-b1be-4278a249c588' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-edb10fc0-b309-44e7-aece-39aea88d0a9b' class='xr-var-data-in' type='checkbox'><label for='data-edb10fc0-b309-44e7-aece-39aea88d0a9b' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>peak period partition 2</dd><dt><span>standard_name :</span></dt><dd>sea_surface_wave_peak_period_partition_2</dd><dt><span>globwave_name :</span></dt><dd>dominant_wave_period_partition_2</dd><dt><span>units :</span></dt><dd>s</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>10000</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>pdir0</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-640bf03e-3b54-4c56-94bf-61a4f6e638b4' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-640bf03e-3b54-4c56-94bf-61a4f6e638b4' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-bad6429f-b72e-4f57-af12-94cb77031571' class='xr-var-data-in' type='checkbox'><label for='data-bad6429f-b72e-4f57-af12-94cb77031571' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>wave mean direction partition 0</dd><dt><span>standard_name :</span></dt><dd>sea_surface_wave_from_direction_partition_0</dd><dt><span>globwave_name :</span></dt><dd>wave_from_direction_partition_0</dd><dt><span>units :</span></dt><dd>degree</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>360</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>pdir1</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-da7c2cb7-9482-4426-8d64-cb75ae826ab5' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-da7c2cb7-9482-4426-8d64-cb75ae826ab5' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-53d6d3b9-01c2-4b55-ba4f-e18d127b7866' class='xr-var-data-in' type='checkbox'><label for='data-53d6d3b9-01c2-4b55-ba4f-e18d127b7866' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>wave mean direction partition 1</dd><dt><span>standard_name :</span></dt><dd>sea_surface_wave_from_direction_partition_1</dd><dt><span>globwave_name :</span></dt><dd>wave_from_direction_partition_1</dd><dt><span>units :</span></dt><dd>degree</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>360</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>pdir2</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-36861229-83be-46b7-91b3-79fd0eb3d293' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-36861229-83be-46b7-91b3-79fd0eb3d293' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-582c4865-1ca8-4d0b-971f-d26e6c239572' class='xr-var-data-in' type='checkbox'><label for='data-582c4865-1ca8-4d0b-971f-d26e6c239572' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>wave mean direction partition 2</dd><dt><span>standard_name :</span></dt><dd>sea_surface_wave_from_direction_partition_2</dd><dt><span>globwave_name :</span></dt><dd>wave_from_direction_partition_2</dd><dt><span>units :</span></dt><dd>degree</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>360</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>pws0</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-6f0bf3a0-ac9f-4080-b105-b67320ffb607' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-6f0bf3a0-ac9f-4080-b105-b67320ffb607' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-206e2c70-198f-4061-a724-75fc0770c958' class='xr-var-data-in' type='checkbox'><label for='data-206e2c70-198f-4061-a724-75fc0770c958' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>wind sea fraction in partition 0</dd><dt><span>standard_name :</span></dt><dd>wind_sea_fraction_in_partition_0</dd><dt><span>globwave_name :</span></dt><dd>wind_sea_fraction_in_partition_0</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>1000</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>pws1</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-28c75d9b-1fe3-4c6c-b199-b59713557432' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-28c75d9b-1fe3-4c6c-b199-b59713557432' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-fa323513-8ab8-4d6b-b382-bc4f55d1dc36' class='xr-var-data-in' type='checkbox'><label for='data-fa323513-8ab8-4d6b-b382-bc4f55d1dc36' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>wind sea fraction in partition 1</dd><dt><span>standard_name :</span></dt><dd>wind_sea_fraction_in_partition_1</dd><dt><span>globwave_name :</span></dt><dd>wind_sea_fraction_in_partition_1</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>1000</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>pws2</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-9a909626-ba21-4aba-8ddf-082dae96e341' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-9a909626-ba21-4aba-8ddf-082dae96e341' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-af851cb8-247b-47f3-a785-b5f0f51691dc' class='xr-var-data-in' type='checkbox'><label for='data-af851cb8-247b-47f3-a785-b5f0f51691dc' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>wind sea fraction in partition 2</dd><dt><span>standard_name :</span></dt><dd>wind_sea_fraction_in_partition_2</dd><dt><span>globwave_name :</span></dt><dd>wind_sea_fraction_in_partition_2</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>1000</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>tws</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-29b6842f-186d-4b96-90fb-eeae877eac47' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-29b6842f-186d-4b96-90fb-eeae877eac47' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-dd380cd5-9bf1-44b1-b9a4-3052113e734d' class='xr-var-data-in' type='checkbox'><label for='data-dd380cd5-9bf1-44b1-b9a4-3052113e734d' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>wind sea fraction</dd><dt><span>standard_name :</span></dt><dd>wind_sea_fraction</dd><dt><span>globwave_name :</span></dt><dd>wind_sea_fraction</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>1000</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>pnr</span></div><div class='xr-var-dims'>(forecast_reference_time, time, latitude, longitude)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-4def378f-e481-493d-8237-8471fff9b993' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-4def378f-e481-493d-8237-8471fff9b993' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-bfcba885-856b-4b79-860e-60e7619d2862' class='xr-var-data-in' type='checkbox'><label for='data-bfcba885-856b-4b79-860e-60e7619d2862' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>number of wave partitions</dd><dt><span>standard_name :</span></dt><dd>number_of_wave_partitions</dd><dt><span>globwave_name :</span></dt><dd>number_of_wave_partitions</dd><dt><span>units :</span></dt><dd>1</dd><dt><span>valid_min :</span></dt><dd>0</dd><dt><span>valid_max :</span></dt><dd>100</dd></dl></div><div class='xr-var-data'><pre>[9762363 values with dtype=float32]</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-a46d1c6f-aa76-4523-89ee-7d9e399fc706' class='xr-section-summary-in' type='checkbox'  ><label for='section-a46d1c6f-aa76-4523-89ee-7d9e399fc706' class='xr-section-summary' >Attributes: <span>(16)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'><dt><span>WAVEWATCH_III_version_number :</span></dt><dd>5.16</dd><dt><span>WAVEWATCH_III_switches :</span></dt><dd>F90 SHRD NOGRB NOPA LRB4 NC4 TRKNC PR3 UQ FLX0 LN1 ST4 STAB0 NL1 BT1 DB1 MLIM IC0 IS0 REF0 WNT2 WNX2 RWND CRT1 CRX1 TR0 BS0 XX0 O0 O1 O2 O3 O4 O5 O6 O7</dd><dt><span>SIN4 namelist parameter BETAMAX :</span></dt><dd>1.65</dd><dt><span>product_name :</span></dt><dd>ww3.20220411.nc</dd><dt><span>area :</span></dt><dd>NW Atlantic  6 arc min grd2</dd><dt><span>latitude_resolution :</span></dt><dd>0.1000000</dd><dt><span>longitude_resolution :</span></dt><dd>0.1000000</dd><dt><span>southernmost_latitude :</span></dt><dd>20.00000</dd><dt><span>northernmost_latitude :</span></dt><dd>55.00000</dd><dt><span>westernmost_longitude :</span></dt><dd>-93.00000</dd><dt><span>easternmost_longitude :</span></dt><dd>-55.00000</dd><dt><span>minimum_altitude :</span></dt><dd>-12000 m</dd><dt><span>maximum_altitude :</span></dt><dd>9000 m</dd><dt><span>altitude_resolution :</span></dt><dd>n/a</dd><dt><span>start_date :</span></dt><dd>2022-04-11 12:00:00</dd><dt><span>stop_date :</span></dt><dd>2022-04-11 23:00:00</dd></dl></div></li></ul></div></div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span><span class="o">.</span><span class="n">rest</span><span class="o">.</span><span class="n">serve</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">RuntimeError</span><span class="g g-Whitespace">                              </span>Traceback (most recent call last)
+<span class="nn">Input In [2],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">ds</span><span class="o">.</span><span class="n">rest</span><span class="o">.</span><span class="n">serve</span><span class="p">()</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/xpublish/rest.py:255,</span> in <span class="ni">RestAccessor.serve</span><span class="nt">(self, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">242</span> <span class="k">def</span> <span class="nf">serve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">243</span>     <span class="sd">&quot;&quot;&quot;Serve this FastAPI application via :func:`uvicorn.run`.</span>
+<span class="g g-Whitespace">    </span><span class="mi">244</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">245</span><span class="sd">     Parameters</span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">    </span><span class="mi">253</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">254</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">255</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_get_rest_obj</span><span class="p">()</span><span class="o">.</span><span class="n">serve</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/xpublish/rest.py:186,</span> in <span class="ni">Rest.serve</span><span class="nt">(self, host, port, log_level, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">166</span> <span class="k">def</span> <span class="nf">serve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s1">&#39;0.0.0.0&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">9000</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="s1">&#39;debug&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">167</span>     <span class="sd">&quot;&quot;&quot;Serve this FastAPI application via :func:`uvicorn.run`.</span>
+<span class="g g-Whitespace">    </span><span class="mi">168</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">169</span><span class="sd">     Parameters</span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">    </span><span class="mi">184</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">185</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">186</span>     <span class="n">uvicorn</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="n">log_level</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/uvicorn/main.py:463,</span> in <span class="ni">run</span><span class="nt">(app, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">461</span>     <span class="n">Multiprocess</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">server</span><span class="o">.</span><span class="n">run</span><span class="p">,</span> <span class="n">sockets</span><span class="o">=</span><span class="p">[</span><span class="n">sock</span><span class="p">])</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">462</span> <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">463</span>     <span class="n">server</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">464</span> <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">uds</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">465</span>     <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">uds</span><span class="p">)</span>  <span class="c1"># pragma: py-win32</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/uvicorn/server.py:60,</span> in <span class="ni">Server.run</span><span class="nt">(self, sockets)</span>
+<span class="g g-Whitespace">     </span><span class="mi">58</span> <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sockets</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">59</span>     <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">setup_event_loop</span><span class="p">()</span>
+<span class="ne">---&gt; </span><span class="mi">60</span>     <span class="k">return</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">serve</span><span class="p">(</span><span class="n">sockets</span><span class="o">=</span><span class="n">sockets</span><span class="p">))</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/asyncio/runners.py:33,</span> in <span class="ni">run</span><span class="nt">(main, debug)</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="sd">&quot;&quot;&quot;Execute the coroutine and return the result.</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span><span class="sd"> </span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span><span class="sd"> This function runs the passed coroutine, taking care of</span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">     </span><span class="mi">30</span><span class="sd">     asyncio.run(main())</span>
+<span class="g g-Whitespace">     </span><span class="mi">31</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">32</span> <span class="k">if</span> <span class="n">events</span><span class="o">.</span><span class="n">_get_running_loop</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">33</span>     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">34</span>         <span class="s2">&quot;asyncio.run() cannot be called from a running event loop&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">36</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">coroutines</span><span class="o">.</span><span class="n">iscoroutine</span><span class="p">(</span><span class="n">main</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">37</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;a coroutine was expected, got </span><span class="si">{!r}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">main</span><span class="p">))</span>
+
+<span class="ne">RuntimeError</span>: asyncio.run() cannot be called from a running event loop
+</pre></div>
+</div>
+</div>
+</div>
+<p>Can’t embed it into the notebook. Creating <code class="docutils literal notranslate"><span class="pre">test_xpublish.py</span></code> to play with.</p>
+<p>Found that the default port 9000 conflicted with something else, so chang</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;http://0.0.0.0:9000/&quot;</span><span class="p">)</span>
+<span class="n">r</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ConnectionRefusedError</span><span class="g g-Whitespace">                    </span>Traceback (most recent call last)
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/urllib3/connection.py:174,</span> in <span class="ni">HTTPConnection._new_conn</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">173</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">174</span>     <span class="n">conn</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">create_connection</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">175</span>         <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dns_host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span><span class="p">,</span> <span class="o">**</span><span class="n">extra_kw</span>
+<span class="g g-Whitespace">    </span><span class="mi">176</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">178</span> <span class="k">except</span> <span class="n">SocketTimeout</span><span class="p">:</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/urllib3/util/connection.py:95,</span> in <span class="ni">create_connection</span><span class="nt">(address, timeout, source_address, socket_options)</span>
+<span class="g g-Whitespace">     </span><span class="mi">94</span> <span class="k">if</span> <span class="n">err</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">95</span>     <span class="k">raise</span> <span class="n">err</span>
+<span class="g g-Whitespace">     </span><span class="mi">97</span> <span class="k">raise</span> <span class="n">socket</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;getaddrinfo returns an empty list&quot;</span><span class="p">)</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/urllib3/util/connection.py:85,</span> in <span class="ni">create_connection</span><span class="nt">(address, timeout, source_address, socket_options)</span>
+<span class="g g-Whitespace">     </span><span class="mi">84</span>     <span class="n">sock</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">source_address</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">85</span> <span class="n">sock</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">sa</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">86</span> <span class="k">return</span> <span class="n">sock</span>
+
+<span class="ne">ConnectionRefusedError</span>: [Errno 61] Connection refused
+
+<span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
+
+<span class="ne">NewConnectionError</span><span class="g g-Whitespace">                        </span>Traceback (most recent call last)
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/urllib3/connectionpool.py:703,</span> in <span class="ni">HTTPConnectionPool.urlopen</span><span class="nt">(self, method, url, body, headers, retries, redirect, assert_same_host, timeout, pool_timeout, release_conn, chunked, body_pos, **response_kw)</span>
+<span class="g g-Whitespace">    </span><span class="mi">702</span> <span class="c1"># Make the request on the httplib connection object.</span>
+<span class="ne">--&gt; </span><span class="mi">703</span> <span class="n">httplib_response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">704</span>     <span class="n">conn</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">705</span>     <span class="n">method</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">706</span>     <span class="n">url</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">707</span>     <span class="n">timeout</span><span class="o">=</span><span class="n">timeout_obj</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">708</span>     <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">709</span>     <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">710</span>     <span class="n">chunked</span><span class="o">=</span><span class="n">chunked</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">711</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">713</span> <span class="c1"># If we&#39;re going to release the connection in ``finally:``, then</span>
+<span class="g g-Whitespace">    </span><span class="mi">714</span> <span class="c1"># the response doesn&#39;t need to know about the connection. Otherwise</span>
+<span class="g g-Whitespace">    </span><span class="mi">715</span> <span class="c1"># it will also try to release it and we&#39;ll have a double-release</span>
+<span class="g g-Whitespace">    </span><span class="mi">716</span> <span class="c1"># mess.</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/urllib3/connectionpool.py:398,</span> in <span class="ni">HTTPConnectionPool._make_request</span><span class="nt">(self, conn, method, url, timeout, chunked, **httplib_request_kw)</span>
+<span class="g g-Whitespace">    </span><span class="mi">397</span>     <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">398</span>         <span class="n">conn</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">httplib_request_kw</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">400</span> <span class="c1"># We are swallowing BrokenPipeError (errno.EPIPE) since the server is</span>
+<span class="g g-Whitespace">    </span><span class="mi">401</span> <span class="c1"># legitimately able to close the connection after sending a valid response.</span>
+<span class="g g-Whitespace">    </span><span class="mi">402</span> <span class="c1"># With this behaviour, the received response is still readable.</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/urllib3/connection.py:239,</span> in <span class="ni">HTTPConnection.request</span><span class="nt">(self, method, url, body, headers)</span>
+<span class="g g-Whitespace">    </span><span class="mi">238</span>     <span class="n">headers</span><span class="p">[</span><span class="s2">&quot;User-Agent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_get_default_user_agent</span><span class="p">()</span>
+<span class="ne">--&gt; </span><span class="mi">239</span> <span class="nb">super</span><span class="p">(</span><span class="n">HTTPConnection</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/http/client.py:1282,</span> in <span class="ni">HTTPConnection.request</span><span class="nt">(self, method, url, body, headers, encode_chunked)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1281</span> <span class="sd">&quot;&quot;&quot;Send a complete request to the server.&quot;&quot;&quot;</span>
+<span class="ne">-&gt; </span><span class="mi">1282</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send_request</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">headers</span><span class="p">,</span> <span class="n">encode_chunked</span><span class="p">)</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/http/client.py:1328,</span> in <span class="ni">HTTPConnection._send_request</span><span class="nt">(self, method, url, body, headers, encode_chunked)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1327</span>     <span class="n">body</span> <span class="o">=</span> <span class="n">_encode</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="s1">&#39;body&#39;</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1328</span> <span class="bp">self</span><span class="o">.</span><span class="n">endheaders</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="n">encode_chunked</span><span class="o">=</span><span class="n">encode_chunked</span><span class="p">)</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/http/client.py:1277,</span> in <span class="ni">HTTPConnection.endheaders</span><span class="nt">(self, message_body, encode_chunked)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1276</span>     <span class="k">raise</span> <span class="n">CannotSendHeader</span><span class="p">()</span>
+<span class="ne">-&gt; </span><span class="mi">1277</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send_output</span><span class="p">(</span><span class="n">message_body</span><span class="p">,</span> <span class="n">encode_chunked</span><span class="o">=</span><span class="n">encode_chunked</span><span class="p">)</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/http/client.py:1037,</span> in <span class="ni">HTTPConnection._send_output</span><span class="nt">(self, message_body, encode_chunked)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1036</span> <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buffer</span><span class="p">[:]</span>
+<span class="ne">-&gt; </span><span class="mi">1037</span> <span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1039</span> <span class="k">if</span> <span class="n">message_body</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1040</span> 
+<span class="g g-Whitespace">   </span><span class="mi">1041</span>     <span class="c1"># create a consistent interface to message_body</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/http/client.py:975,</span> in <span class="ni">HTTPConnection.send</span><span class="nt">(self, data)</span>
+<span class="g g-Whitespace">    </span><span class="mi">974</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">auto_open</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">975</span>     <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">976</span> <span class="k">else</span><span class="p">:</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/urllib3/connection.py:205,</span> in <span class="ni">HTTPConnection.connect</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">204</span> <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">205</span>     <span class="n">conn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_conn</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">206</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_conn</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/urllib3/connection.py:186,</span> in <span class="ni">HTTPConnection._new_conn</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">185</span> <span class="k">except</span> <span class="n">SocketError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">186</span>     <span class="k">raise</span> <span class="n">NewConnectionError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">187</span>         <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;Failed to establish a new connection: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">e</span>
+<span class="g g-Whitespace">    </span><span class="mi">188</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">190</span> <span class="k">return</span> <span class="n">conn</span>
+
+<span class="ne">NewConnectionError</span>: &lt;urllib3.connection.HTTPConnection object at 0x18aaf8ee0&gt;: Failed to establish a new connection: [Errno 61] Connection refused
+
+<span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
+
+<span class="ne">MaxRetryError</span><span class="g g-Whitespace">                             </span>Traceback (most recent call last)
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/requests/adapters.py:440,</span> in <span class="ni">HTTPAdapter.send</span><span class="nt">(self, request, stream, timeout, verify, cert, proxies)</span>
+<span class="g g-Whitespace">    </span><span class="mi">439</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">chunked</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">440</span>     <span class="n">resp</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">441</span>         <span class="n">method</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">method</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">442</span>         <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">443</span>         <span class="n">body</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">body</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">444</span>         <span class="n">headers</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">445</span>         <span class="n">redirect</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">446</span>         <span class="n">assert_same_host</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">447</span>         <span class="n">preload_content</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">448</span>         <span class="n">decode_content</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">449</span>         <span class="n">retries</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_retries</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">450</span>         <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+<span class="g g-Whitespace">    </span><span class="mi">451</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">453</span> <span class="c1"># Send the request.</span>
+<span class="g g-Whitespace">    </span><span class="mi">454</span> <span class="k">else</span><span class="p">:</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/urllib3/connectionpool.py:785,</span> in <span class="ni">HTTPConnectionPool.urlopen</span><span class="nt">(self, method, url, body, headers, retries, redirect, assert_same_host, timeout, pool_timeout, release_conn, chunked, body_pos, **response_kw)</span>
+<span class="g g-Whitespace">    </span><span class="mi">783</span>     <span class="n">e</span> <span class="o">=</span> <span class="n">ProtocolError</span><span class="p">(</span><span class="s2">&quot;Connection aborted.&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">785</span> <span class="n">retries</span> <span class="o">=</span> <span class="n">retries</span><span class="o">.</span><span class="n">increment</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">786</span>     <span class="n">method</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">error</span><span class="o">=</span><span class="n">e</span><span class="p">,</span> <span class="n">_pool</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">_stacktrace</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">787</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">788</span> <span class="n">retries</span><span class="o">.</span><span class="n">sleep</span><span class="p">()</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/urllib3/util/retry.py:592,</span> in <span class="ni">Retry.increment</span><span class="nt">(self, method, url, response, error, _pool, _stacktrace)</span>
+<span class="g g-Whitespace">    </span><span class="mi">591</span> <span class="k">if</span> <span class="n">new_retry</span><span class="o">.</span><span class="n">is_exhausted</span><span class="p">():</span>
+<span class="ne">--&gt; </span><span class="mi">592</span>     <span class="k">raise</span> <span class="n">MaxRetryError</span><span class="p">(</span><span class="n">_pool</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">error</span> <span class="ow">or</span> <span class="n">ResponseError</span><span class="p">(</span><span class="n">cause</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">594</span> <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Incremented Retry for (url=&#39;</span><span class="si">%s</span><span class="s2">&#39;): </span><span class="si">%r</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">new_retry</span><span class="p">)</span>
+
+<span class="ne">MaxRetryError</span>: HTTPConnectionPool(host=&#39;0.0.0.0&#39;, port=9000): Max retries exceeded with url: / (Caused by NewConnectionError(&#39;&lt;urllib3.connection.HTTPConnection object at 0x18aaf8ee0&gt;: Failed to establish a new connection: [Errno 61] Connection refused&#39;))
+
+<span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
+
+<span class="ne">ConnectionError</span><span class="g g-Whitespace">                           </span>Traceback (most recent call last)
+<span class="nn">Input In [9],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;http://0.0.0.0:9000/&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">r</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/requests/api.py:75,</span> in <span class="ni">get</span><span class="nt">(url, params, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">64</span> <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">65</span>     <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Sends a GET request.</span>
+<span class="g g-Whitespace">     </span><span class="mi">66</span><span class="sd"> </span>
+<span class="g g-Whitespace">     </span><span class="mi">67</span><span class="sd">     :param url: URL for the new :class:`Request` object.</span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">     </span><span class="mi">72</span><span class="sd">     :rtype: requests.Response</span>
+<span class="g g-Whitespace">     </span><span class="mi">73</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">---&gt; </span><span class="mi">75</span>     <span class="k">return</span> <span class="n">request</span><span class="p">(</span><span class="s1">&#39;get&#39;</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/requests/api.py:61,</span> in <span class="ni">request</span><span class="nt">(method, url, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">57</span> <span class="c1"># By using the &#39;with&#39; statement we are sure the session is closed, thus we</span>
+<span class="g g-Whitespace">     </span><span class="mi">58</span> <span class="c1"># avoid leaving sockets open which can trigger a ResourceWarning in some</span>
+<span class="g g-Whitespace">     </span><span class="mi">59</span> <span class="c1"># cases, and look like a memory leak in others.</span>
+<span class="g g-Whitespace">     </span><span class="mi">60</span> <span class="k">with</span> <span class="n">sessions</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">61</span>     <span class="k">return</span> <span class="n">session</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/requests/sessions.py:529,</span> in <span class="ni">Session.request</span><span class="nt">(self, method, url, params, data, headers, cookies, files, auth, timeout, allow_redirects, proxies, hooks, stream, verify, cert, json)</span>
+<span class="g g-Whitespace">    </span><span class="mi">524</span> <span class="n">send_kwargs</span> <span class="o">=</span> <span class="p">{</span>
+<span class="g g-Whitespace">    </span><span class="mi">525</span>     <span class="s1">&#39;timeout&#39;</span><span class="p">:</span> <span class="n">timeout</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">526</span>     <span class="s1">&#39;allow_redirects&#39;</span><span class="p">:</span> <span class="n">allow_redirects</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">527</span> <span class="p">}</span>
+<span class="g g-Whitespace">    </span><span class="mi">528</span> <span class="n">send_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">529</span> <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">prep</span><span class="p">,</span> <span class="o">**</span><span class="n">send_kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">531</span> <span class="k">return</span> <span class="n">resp</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/requests/sessions.py:645,</span> in <span class="ni">Session.send</span><span class="nt">(self, request, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">642</span> <span class="n">start</span> <span class="o">=</span> <span class="n">preferred_clock</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">644</span> <span class="c1"># Send the request</span>
+<span class="ne">--&gt; </span><span class="mi">645</span> <span class="n">r</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">647</span> <span class="c1"># Total elapsed time of the request (approximately)</span>
+<span class="g g-Whitespace">    </span><span class="mi">648</span> <span class="n">elapsed</span> <span class="o">=</span> <span class="n">preferred_clock</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/requests/adapters.py:519,</span> in <span class="ni">HTTPAdapter.send</span><span class="nt">(self, request, stream, timeout, verify, cert, proxies)</span>
+<span class="g g-Whitespace">    </span><span class="mi">515</span>     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">reason</span><span class="p">,</span> <span class="n">_SSLError</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">516</span>         <span class="c1"># This branch is for urllib3 v1.22 and later.</span>
+<span class="g g-Whitespace">    </span><span class="mi">517</span>         <span class="k">raise</span> <span class="n">SSLError</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">519</span>     <span class="k">raise</span> <span class="ne">ConnectionError</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">521</span> <span class="k">except</span> <span class="n">ClosedPoolError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">522</span>     <span class="k">raise</span> <span class="ne">ConnectionError</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">)</span>
+
+<span class="ne">ConnectionError</span>: HTTPConnectionPool(host=&#39;0.0.0.0&#39;, port=9000): Max retries exceeded with url: / (Caused by NewConnectionError(&#39;&lt;urllib3.connection.HTTPConnection object at 0x18aaf8ee0&gt;: Failed to establish a new connection: [Errno 61] Connection refused&#39;))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">fsspec.implementations.http</span> <span class="kn">import</span> <span class="n">HTTPFileSystem</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fs</span> <span class="o">=</span> <span class="n">HTTPFileSystem</span><span class="p">()</span>
+<span class="n">http_map</span> <span class="o">=</span> <span class="n">fs</span><span class="o">.</span><span class="n">get_mapper</span><span class="p">(</span><span class="s2">&quot;http://0.0.0.0:9005&quot;</span><span class="p">)</span>
+<span class="n">http_map</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;fsspec.mapping.FSMap at 0x1850ace20&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;.metadata&quot;</span><span class="p">,</span> <span class="s2">&quot;keys&quot;</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">http_map</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ConnectionRefusedError</span><span class="g g-Whitespace">                    </span>Traceback (most recent call last)
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/aiohttp/connector.py:986,</span> in <span class="ni">TCPConnector._wrap_create_connection</span><span class="nt">(self, req, timeout, client_error, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">985</span>     <span class="k">async</span> <span class="k">with</span> <span class="n">ceil_timeout</span><span class="p">(</span><span class="n">timeout</span><span class="o">.</span><span class="n">sock_connect</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">986</span>         <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loop</span><span class="o">.</span><span class="n">create_connection</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># type: ignore[return-value]  # noqa</span>
+<span class="g g-Whitespace">    </span><span class="mi">987</span> <span class="k">except</span> <span class="n">cert_errors</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/asyncio/base_events.py:1064,</span> in <span class="ni">BaseEventLoop.create_connection</span><span class="nt">(self, protocol_factory, host, port, ssl, family, proto, flags, sock, local_addr, server_hostname, ssl_handshake_timeout, happy_eyeballs_delay, interleave)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1063</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">exceptions</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1064</span>     <span class="k">raise</span> <span class="n">exceptions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="g g-Whitespace">   </span><span class="mi">1065</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1066</span>     <span class="c1"># If they all have the same str(), raise one.</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/asyncio/base_events.py:1049,</span> in <span class="ni">BaseEventLoop.create_connection</span><span class="nt">(self, protocol_factory, host, port, ssl, family, proto, flags, sock, local_addr, server_hostname, ssl_handshake_timeout, happy_eyeballs_delay, interleave)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1048</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1049</span>     <span class="n">sock</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connect_sock</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1050</span>         <span class="n">exceptions</span><span class="p">,</span> <span class="n">addrinfo</span><span class="p">,</span> <span class="n">laddr_infos</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1051</span>     <span class="k">break</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/asyncio/base_events.py:960,</span> in <span class="ni">BaseEventLoop._connect_sock</span><span class="nt">(self, exceptions, addr_info, local_addr_infos)</span>
+<span class="g g-Whitespace">    </span><span class="mi">959</span>         <span class="k">raise</span> <span class="n">my_exceptions</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="ne">--&gt; </span><span class="mi">960</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">sock_connect</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="n">address</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">961</span> <span class="k">return</span> <span class="n">sock</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/asyncio/selector_events.py:499,</span> in <span class="ni">BaseSelectorEventLoop.sock_connect</span><span class="nt">(self, sock, address)</span>
+<span class="g g-Whitespace">    </span><span class="mi">498</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sock_connect</span><span class="p">(</span><span class="n">fut</span><span class="p">,</span> <span class="n">sock</span><span class="p">,</span> <span class="n">address</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">499</span> <span class="k">return</span> <span class="k">await</span> <span class="n">fut</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/asyncio/selector_events.py:534,</span> in <span class="ni">BaseSelectorEventLoop._sock_connect_cb</span><span class="nt">(self, fut, sock, address)</span>
+<span class="g g-Whitespace">    </span><span class="mi">532</span>     <span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">533</span>         <span class="c1"># Jump to any except clause below.</span>
+<span class="ne">--&gt; </span><span class="mi">534</span>         <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Connect call failed </span><span class="si">{</span><span class="n">address</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">535</span> <span class="k">except</span> <span class="p">(</span><span class="ne">BlockingIOError</span><span class="p">,</span> <span class="ne">InterruptedError</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">536</span>     <span class="c1"># socket is still registered, the callback will be retried later</span>
+
+<span class="ne">ConnectionRefusedError</span>: [Errno 61] Connect call failed (&#39;0.0.0.0&#39;, 9005)
+
+<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
+
+<span class="ne">ClientConnectorError</span><span class="g g-Whitespace">                      </span>Traceback (most recent call last)
+<span class="nn">Input In [7],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;.metadata&quot;</span><span class="p">,</span> <span class="s2">&quot;keys&quot;</span><span class="p">]:</span>
+<span class="ne">----&gt; </span><span class="mi">2</span>     <span class="nb">print</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">http_map</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/fsspec/mapping.py:135,</span> in <span class="ni">FSMap.__getitem__</span><span class="nt">(self, key, default)</span>
+<span class="g g-Whitespace">    </span><span class="mi">133</span> <span class="n">k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_key_to_str</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">134</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">135</span>     <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">136</span> <span class="k">except</span> <span class="bp">self</span><span class="o">.</span><span class="n">missing_exceptions</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">137</span>     <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/fsspec/asyn.py:85,</span> in <span class="ni">sync_wrapper.&lt;locals&gt;.wrapper</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">82</span> <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">83</span> <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">84</span>     <span class="bp">self</span> <span class="o">=</span> <span class="n">obj</span> <span class="ow">or</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="ne">---&gt; </span><span class="mi">85</span>     <span class="k">return</span> <span class="n">sync</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loop</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/fsspec/asyn.py:65,</span> in <span class="ni">sync</span><span class="nt">(loop, func, timeout, *args, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">63</span>     <span class="k">raise</span> <span class="n">FSTimeoutError</span> <span class="kn">from</span> <span class="nn">return_result</span>
+<span class="g g-Whitespace">     </span><span class="mi">64</span> <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">return_result</span><span class="p">,</span> <span class="ne">BaseException</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">65</span>     <span class="k">raise</span> <span class="n">return_result</span>
+<span class="g g-Whitespace">     </span><span class="mi">66</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">67</span>     <span class="k">return</span> <span class="n">return_result</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/fsspec/asyn.py:25,</span> in <span class="ni">_runner</span><span class="nt">(event, coro, result, timeout)</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span>     <span class="n">coro</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait_for</span><span class="p">(</span><span class="n">coro</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">25</span>     <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="k">await</span> <span class="n">coro</span>
+<span class="g g-Whitespace">     </span><span class="mi">26</span> <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">27</span>     <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">ex</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/fsspec/asyn.py:397,</span> in <span class="ni">AsyncFileSystem._cat</span><span class="nt">(self, path, recursive, on_error, batch_size, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">395</span>     <span class="n">ex</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="n">is_exception</span><span class="p">,</span> <span class="n">out</span><span class="p">),</span> <span class="kc">False</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">396</span>     <span class="k">if</span> <span class="n">ex</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">397</span>         <span class="k">raise</span> <span class="n">ex</span>
+<span class="g g-Whitespace">    </span><span class="mi">398</span> <span class="k">if</span> <span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">399</span>     <span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span>
+<span class="g g-Whitespace">    </span><span class="mi">400</span>     <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">401</span>     <span class="ow">or</span> <span class="n">paths</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_strip_protocol</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">402</span> <span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">403</span>     <span class="k">return</span> <span class="p">{</span>
+<span class="g g-Whitespace">    </span><span class="mi">404</span>         <span class="n">k</span><span class="p">:</span> <span class="n">v</span>
+<span class="nn">    405         for k, v</span> in <span class="ni">zip</span><span class="nt">(paths, out)</span>
+<span class="g g-Whitespace">    </span><span class="mi">406</span>         <span class="k">if</span> <span class="n">on_error</span> <span class="o">!=</span> <span class="s2">&quot;omit&quot;</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">is_exception</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">407</span>     <span class="p">}</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/asyncio/tasks.py:408,</span> in <span class="ni">wait_for</span><span class="nt">(fut, timeout)</span>
+<span class="g g-Whitespace">    </span><span class="mi">405</span> <span class="n">loop</span> <span class="o">=</span> <span class="n">events</span><span class="o">.</span><span class="n">get_running_loop</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">407</span> <span class="k">if</span> <span class="n">timeout</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">408</span>     <span class="k">return</span> <span class="k">await</span> <span class="n">fut</span>
+<span class="g g-Whitespace">    </span><span class="mi">410</span> <span class="k">if</span> <span class="n">timeout</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">411</span>     <span class="n">fut</span> <span class="o">=</span> <span class="n">ensure_future</span><span class="p">(</span><span class="n">fut</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="n">loop</span><span class="p">)</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/fsspec/implementations/http.py:224,</span> in <span class="ni">HTTPFileSystem._cat_file</span><span class="nt">(self, url, start, end, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">222</span>     <span class="n">kw</span><span class="p">[</span><span class="s2">&quot;headers&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">headers</span>
+<span class="g g-Whitespace">    </span><span class="mi">223</span> <span class="n">session</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_session</span><span class="p">()</span>
+<span class="ne">--&gt; </span><span class="mi">224</span> <span class="k">async</span> <span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span> <span class="k">as</span> <span class="n">r</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">225</span>     <span class="n">out</span> <span class="o">=</span> <span class="k">await</span> <span class="n">r</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">226</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_raise_not_found_for_status</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/aiohttp/client.py:1138,</span> in <span class="ni">_BaseRequestContextManager.__aenter__</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1137</span> <span class="k">async</span> <span class="k">def</span> <span class="fm">__aenter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_RetType</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1138</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coro</span>
+<span class="g g-Whitespace">   </span><span class="mi">1139</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resp</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/aiohttp/client.py:535,</span> in <span class="ni">ClientSession._request</span><span class="nt">(self, method, str_or_url, params, data, json, cookies, headers, skip_auto_headers, auth, allow_redirects, max_redirects, compress, chunked, expect100, raise_for_status, read_until_eof, proxy, proxy_auth, timeout, verify_ssl, fingerprint, ssl_context, ssl, proxy_headers, trace_request_ctx, read_bufsize)</span>
+<span class="g g-Whitespace">    </span><span class="mi">533</span>     <span class="k">async</span> <span class="k">with</span> <span class="n">ceil_timeout</span><span class="p">(</span><span class="n">real_timeout</span><span class="o">.</span><span class="n">connect</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">534</span>         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connector</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+<span class="ne">--&gt; </span><span class="mi">535</span>         <span class="n">conn</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connector</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">536</span>             <span class="n">req</span><span class="p">,</span> <span class="n">traces</span><span class="o">=</span><span class="n">traces</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">real_timeout</span>
+<span class="g g-Whitespace">    </span><span class="mi">537</span>         <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">538</span> <span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TimeoutError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">539</span>     <span class="k">raise</span> <span class="n">ServerTimeoutError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">540</span>         <span class="s2">&quot;Connection timeout &quot;</span> <span class="s2">&quot;to host </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">541</span>     <span class="p">)</span> <span class="kn">from</span> <span class="nn">exc</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/aiohttp/connector.py:542,</span> in <span class="ni">BaseConnector.connect</span><span class="nt">(self, req, traces, timeout)</span>
+<span class="g g-Whitespace">    </span><span class="mi">539</span>         <span class="k">await</span> <span class="n">trace</span><span class="o">.</span><span class="n">send_connection_create_start</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">541</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">542</span>     <span class="n">proto</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_connection</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">traces</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">543</span>     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_closed</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">544</span>         <span class="n">proto</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/aiohttp/connector.py:907,</span> in <span class="ni">TCPConnector._create_connection</span><span class="nt">(self, req, traces, timeout)</span>
+<span class="g g-Whitespace">    </span><span class="mi">905</span>     <span class="n">_</span><span class="p">,</span> <span class="n">proto</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_proxy_connection</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">traces</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">906</span> <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">907</span>     <span class="n">_</span><span class="p">,</span> <span class="n">proto</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_direct_connection</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">traces</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">909</span> <span class="k">return</span> <span class="n">proto</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/aiohttp/connector.py:1206,</span> in <span class="ni">TCPConnector._create_direct_connection</span><span class="nt">(self, req, traces, timeout, client_error)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1204</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1205</span>     <span class="k">assert</span> <span class="n">last_exc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+<span class="ne">-&gt; </span><span class="mi">1206</span>     <span class="k">raise</span> <span class="n">last_exc</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/aiohttp/connector.py:1175,</span> in <span class="ni">TCPConnector._create_direct_connection</span><span class="nt">(self, req, traces, timeout, client_error)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1172</span> <span class="n">port</span> <span class="o">=</span> <span class="n">hinfo</span><span class="p">[</span><span class="s2">&quot;port&quot;</span><span class="p">]</span>
+<span class="g g-Whitespace">   </span><span class="mi">1174</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1175</span>     <span class="n">transp</span><span class="p">,</span> <span class="n">proto</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wrap_create_connection</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1176</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_factory</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1177</span>         <span class="n">host</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1178</span>         <span class="n">port</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1179</span>         <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1180</span>         <span class="n">ssl</span><span class="o">=</span><span class="n">sslcontext</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1181</span>         <span class="n">family</span><span class="o">=</span><span class="n">hinfo</span><span class="p">[</span><span class="s2">&quot;family&quot;</span><span class="p">],</span>
+<span class="g g-Whitespace">   </span><span class="mi">1182</span>         <span class="n">proto</span><span class="o">=</span><span class="n">hinfo</span><span class="p">[</span><span class="s2">&quot;proto&quot;</span><span class="p">],</span>
+<span class="g g-Whitespace">   </span><span class="mi">1183</span>         <span class="n">flags</span><span class="o">=</span><span class="n">hinfo</span><span class="p">[</span><span class="s2">&quot;flags&quot;</span><span class="p">],</span>
+<span class="g g-Whitespace">   </span><span class="mi">1184</span>         <span class="n">server_hostname</span><span class="o">=</span><span class="n">hinfo</span><span class="p">[</span><span class="s2">&quot;hostname&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="n">sslcontext</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1185</span>         <span class="n">local_addr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_local_addr</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1186</span>         <span class="n">req</span><span class="o">=</span><span class="n">req</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1187</span>         <span class="n">client_error</span><span class="o">=</span><span class="n">client_error</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1188</span>     <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1189</span> <span class="k">except</span> <span class="n">ClientConnectorError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1190</span>     <span class="n">last_exc</span> <span class="o">=</span> <span class="n">exc</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/aiohttp/connector.py:992,</span> in <span class="ni">TCPConnector._wrap_create_connection</span><span class="nt">(self, req, timeout, client_error, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">990</span>     <span class="k">raise</span> <span class="n">ClientConnectorSSLError</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">connection_key</span><span class="p">,</span> <span class="n">exc</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">exc</span>
+<span class="g g-Whitespace">    </span><span class="mi">991</span> <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">992</span>     <span class="k">raise</span> <span class="n">client_error</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">connection_key</span><span class="p">,</span> <span class="n">exc</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">exc</span>
+
+<span class="ne">ClientConnectorError</span>: Cannot connect to host 0.0.0.0:9005 ssl:default [Connect call failed (&#39;0.0.0.0&#39;, 9005)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds_published</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_zarr</span><span class="p">(</span><span class="n">http_map</span><span class="p">,</span> <span class="n">consolidated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ds_published</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ConnectionRefusedError</span><span class="g g-Whitespace">                    </span>Traceback (most recent call last)
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/aiohttp/connector.py:986,</span> in <span class="ni">TCPConnector._wrap_create_connection</span><span class="nt">(self, req, timeout, client_error, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">985</span>     <span class="k">async</span> <span class="k">with</span> <span class="n">ceil_timeout</span><span class="p">(</span><span class="n">timeout</span><span class="o">.</span><span class="n">sock_connect</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">986</span>         <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loop</span><span class="o">.</span><span class="n">create_connection</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># type: ignore[return-value]  # noqa</span>
+<span class="g g-Whitespace">    </span><span class="mi">987</span> <span class="k">except</span> <span class="n">cert_errors</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/asyncio/base_events.py:1064,</span> in <span class="ni">BaseEventLoop.create_connection</span><span class="nt">(self, protocol_factory, host, port, ssl, family, proto, flags, sock, local_addr, server_hostname, ssl_handshake_timeout, happy_eyeballs_delay, interleave)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1063</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">exceptions</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1064</span>     <span class="k">raise</span> <span class="n">exceptions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="g g-Whitespace">   </span><span class="mi">1065</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1066</span>     <span class="c1"># If they all have the same str(), raise one.</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/asyncio/base_events.py:1049,</span> in <span class="ni">BaseEventLoop.create_connection</span><span class="nt">(self, protocol_factory, host, port, ssl, family, proto, flags, sock, local_addr, server_hostname, ssl_handshake_timeout, happy_eyeballs_delay, interleave)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1048</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1049</span>     <span class="n">sock</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connect_sock</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1050</span>         <span class="n">exceptions</span><span class="p">,</span> <span class="n">addrinfo</span><span class="p">,</span> <span class="n">laddr_infos</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1051</span>     <span class="k">break</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/asyncio/base_events.py:960,</span> in <span class="ni">BaseEventLoop._connect_sock</span><span class="nt">(self, exceptions, addr_info, local_addr_infos)</span>
+<span class="g g-Whitespace">    </span><span class="mi">959</span>         <span class="k">raise</span> <span class="n">my_exceptions</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="ne">--&gt; </span><span class="mi">960</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">sock_connect</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="n">address</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">961</span> <span class="k">return</span> <span class="n">sock</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/asyncio/selector_events.py:499,</span> in <span class="ni">BaseSelectorEventLoop.sock_connect</span><span class="nt">(self, sock, address)</span>
+<span class="g g-Whitespace">    </span><span class="mi">498</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sock_connect</span><span class="p">(</span><span class="n">fut</span><span class="p">,</span> <span class="n">sock</span><span class="p">,</span> <span class="n">address</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">499</span> <span class="k">return</span> <span class="k">await</span> <span class="n">fut</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/asyncio/selector_events.py:534,</span> in <span class="ni">BaseSelectorEventLoop._sock_connect_cb</span><span class="nt">(self, fut, sock, address)</span>
+<span class="g g-Whitespace">    </span><span class="mi">532</span>     <span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">533</span>         <span class="c1"># Jump to any except clause below.</span>
+<span class="ne">--&gt; </span><span class="mi">534</span>         <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Connect call failed </span><span class="si">{</span><span class="n">address</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">535</span> <span class="k">except</span> <span class="p">(</span><span class="ne">BlockingIOError</span><span class="p">,</span> <span class="ne">InterruptedError</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">536</span>     <span class="c1"># socket is still registered, the callback will be retried later</span>
+
+<span class="ne">ConnectionRefusedError</span>: [Errno 61] Connect call failed (&#39;0.0.0.0&#39;, 9005)
+
+<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
+
+<span class="ne">ClientConnectorError</span><span class="g g-Whitespace">                      </span>Traceback (most recent call last)
+<span class="nn">Input In [8],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">ds_published</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_zarr</span><span class="p">(</span><span class="n">http_map</span><span class="p">,</span> <span class="n">consolidated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">ds_published</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/xarray/backends/zarr.py:752,</span> in <span class="ni">open_zarr</span><span class="nt">(store, group, synchronizer, chunks, decode_cf, mask_and_scale, decode_times, concat_characters, decode_coords, drop_variables, consolidated, overwrite_encoded_chunks, chunk_store, storage_options, decode_timedelta, use_cftime, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">739</span>     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">740</span>         <span class="s2">&quot;open_zarr() got unexpected keyword arguments &quot;</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="g g-Whitespace">    </span><span class="mi">741</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">743</span> <span class="n">backend_kwargs</span> <span class="o">=</span> <span class="p">{</span>
+<span class="g g-Whitespace">    </span><span class="mi">744</span>     <span class="s2">&quot;synchronizer&quot;</span><span class="p">:</span> <span class="n">synchronizer</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">745</span>     <span class="s2">&quot;consolidated&quot;</span><span class="p">:</span> <span class="n">consolidated</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">749</span>     <span class="s2">&quot;stacklevel&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">750</span> <span class="p">}</span>
+<span class="ne">--&gt; </span><span class="mi">752</span> <span class="n">ds</span> <span class="o">=</span> <span class="n">open_dataset</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">753</span>     <span class="n">filename_or_obj</span><span class="o">=</span><span class="n">store</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">754</span>     <span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">755</span>     <span class="n">decode_cf</span><span class="o">=</span><span class="n">decode_cf</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">756</span>     <span class="n">mask_and_scale</span><span class="o">=</span><span class="n">mask_and_scale</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">757</span>     <span class="n">decode_times</span><span class="o">=</span><span class="n">decode_times</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">758</span>     <span class="n">concat_characters</span><span class="o">=</span><span class="n">concat_characters</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">759</span>     <span class="n">decode_coords</span><span class="o">=</span><span class="n">decode_coords</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">760</span>     <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;zarr&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">761</span>     <span class="n">chunks</span><span class="o">=</span><span class="n">chunks</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">762</span>     <span class="n">drop_variables</span><span class="o">=</span><span class="n">drop_variables</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">763</span>     <span class="n">backend_kwargs</span><span class="o">=</span><span class="n">backend_kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">764</span>     <span class="n">decode_timedelta</span><span class="o">=</span><span class="n">decode_timedelta</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">765</span>     <span class="n">use_cftime</span><span class="o">=</span><span class="n">use_cftime</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">766</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">767</span> <span class="k">return</span> <span class="n">ds</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/xarray/backends/api.py:495,</span> in <span class="ni">open_dataset</span><span class="nt">(filename_or_obj, engine, chunks, cache, decode_cf, mask_and_scale, decode_times, decode_timedelta, use_cftime, concat_characters, decode_coords, drop_variables, backend_kwargs, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">483</span> <span class="n">decoders</span> <span class="o">=</span> <span class="n">_resolve_decoders_kwargs</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">484</span>     <span class="n">decode_cf</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">485</span>     <span class="n">open_backend_dataset_parameters</span><span class="o">=</span><span class="n">backend</span><span class="o">.</span><span class="n">open_dataset_parameters</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">491</span>     <span class="n">decode_coords</span><span class="o">=</span><span class="n">decode_coords</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">492</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">494</span> <span class="n">overwrite_encoded_chunks</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;overwrite_encoded_chunks&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">495</span> <span class="n">backend_ds</span> <span class="o">=</span> <span class="n">backend</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">496</span>     <span class="n">filename_or_obj</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">497</span>     <span class="n">drop_variables</span><span class="o">=</span><span class="n">drop_variables</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">498</span>     <span class="o">**</span><span class="n">decoders</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">499</span>     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">500</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">501</span> <span class="n">ds</span> <span class="o">=</span> <span class="n">_dataset_from_backend_dataset</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">502</span>     <span class="n">backend_ds</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">503</span>     <span class="n">filename_or_obj</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">510</span>     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">511</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">512</span> <span class="k">return</span> <span class="n">ds</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/xarray/backends/zarr.py:800,</span> in <span class="ni">ZarrBackendEntrypoint.open_dataset</span><span class="nt">(self, filename_or_obj, mask_and_scale, decode_times, concat_characters, decode_coords, drop_variables, use_cftime, decode_timedelta, group, mode, synchronizer, consolidated, chunk_store, storage_options, stacklevel)</span>
+<span class="g g-Whitespace">    </span><span class="mi">780</span> <span class="k">def</span> <span class="nf">open_dataset</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">781</span>     <span class="bp">self</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">782</span>     <span class="n">filename_or_obj</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">796</span>     <span class="n">stacklevel</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">797</span> <span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">799</span>     <span class="n">filename_or_obj</span> <span class="o">=</span> <span class="n">_normalize_path</span><span class="p">(</span><span class="n">filename_or_obj</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">800</span>     <span class="n">store</span> <span class="o">=</span> <span class="n">ZarrStore</span><span class="o">.</span><span class="n">open_group</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">801</span>         <span class="n">filename_or_obj</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">802</span>         <span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">803</span>         <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">804</span>         <span class="n">synchronizer</span><span class="o">=</span><span class="n">synchronizer</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">805</span>         <span class="n">consolidated</span><span class="o">=</span><span class="n">consolidated</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">806</span>         <span class="n">consolidate_on_close</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">807</span>         <span class="n">chunk_store</span><span class="o">=</span><span class="n">chunk_store</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">808</span>         <span class="n">storage_options</span><span class="o">=</span><span class="n">storage_options</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">809</span>         <span class="n">stacklevel</span><span class="o">=</span><span class="n">stacklevel</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">810</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">812</span>     <span class="n">store_entrypoint</span> <span class="o">=</span> <span class="n">StoreBackendEntrypoint</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">813</span>     <span class="k">with</span> <span class="n">close_on_error</span><span class="p">(</span><span class="n">store</span><span class="p">):</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/xarray/backends/zarr.py:368,</span> in <span class="ni">ZarrStore.open_group</span><span class="nt">(cls, store, mode, synchronizer, group, consolidated, consolidate_on_close, chunk_store, storage_options, append_dim, write_region, safe_chunks, stacklevel)</span>
+<span class="g g-Whitespace">    </span><span class="mi">365</span>         <span class="n">zarr_group</span> <span class="o">=</span> <span class="n">zarr</span><span class="o">.</span><span class="n">open_group</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="o">**</span><span class="n">open_kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">366</span> <span class="k">elif</span> <span class="n">consolidated</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">367</span>     <span class="c1"># TODO: an option to pass the metadata_key keyword</span>
+<span class="ne">--&gt; </span><span class="mi">368</span>     <span class="n">zarr_group</span> <span class="o">=</span> <span class="n">zarr</span><span class="o">.</span><span class="n">open_consolidated</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="o">**</span><span class="n">open_kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">369</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">370</span>     <span class="n">zarr_group</span> <span class="o">=</span> <span class="n">zarr</span><span class="o">.</span><span class="n">open_group</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="o">**</span><span class="n">open_kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/zarr/convenience.py:1187,</span> in <span class="ni">open_consolidated</span><span class="nt">(store, metadata_key, mode, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1183</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;invalid mode, expected either &#39;r&#39; or &#39;r+&#39;; found </span><span class="si">{!r}</span><span class="s2">&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1184</span>                      <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mode</span><span class="p">))</span>
+<span class="g g-Whitespace">   </span><span class="mi">1186</span> <span class="c1"># setup metadata store</span>
+<span class="ne">-&gt; </span><span class="mi">1187</span> <span class="n">meta_store</span> <span class="o">=</span> <span class="n">ConsolidatedMetadataStore</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="n">metadata_key</span><span class="o">=</span><span class="n">metadata_key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1189</span> <span class="c1"># pass through</span>
+<span class="g g-Whitespace">   </span><span class="mi">1190</span> <span class="n">chunk_store</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;chunk_store&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="n">store</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/zarr/storage.py:2644,</span> in <span class="ni">ConsolidatedMetadataStore.__init__</span><span class="nt">(self, store, metadata_key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2641</span> <span class="bp">self</span><span class="o">.</span><span class="n">store</span> <span class="o">=</span> <span class="n">Store</span><span class="o">.</span><span class="n">_ensure_store</span><span class="p">(</span><span class="n">store</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2643</span> <span class="c1"># retrieve consolidated metadata</span>
+<span class="ne">-&gt; </span><span class="mi">2644</span> <span class="n">meta</span> <span class="o">=</span> <span class="n">json_loads</span><span class="p">(</span><span class="n">store</span><span class="p">[</span><span class="n">metadata_key</span><span class="p">])</span>
+<span class="g g-Whitespace">   </span><span class="mi">2646</span> <span class="c1"># check format of consolidated metadata</span>
+<span class="g g-Whitespace">   </span><span class="mi">2647</span> <span class="n">consolidated_format</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;zarr_consolidated_format&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/zarr/storage.py:545,</span> in <span class="ni">KVStore.__getitem__</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">    </span><span class="mi">544</span> <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">545</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mutable_mapping</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/fsspec/mapping.py:135,</span> in <span class="ni">FSMap.__getitem__</span><span class="nt">(self, key, default)</span>
+<span class="g g-Whitespace">    </span><span class="mi">133</span> <span class="n">k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_key_to_str</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">134</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">135</span>     <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fs</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">136</span> <span class="k">except</span> <span class="bp">self</span><span class="o">.</span><span class="n">missing_exceptions</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">137</span>     <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/fsspec/asyn.py:85,</span> in <span class="ni">sync_wrapper.&lt;locals&gt;.wrapper</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">82</span> <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">83</span> <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">84</span>     <span class="bp">self</span> <span class="o">=</span> <span class="n">obj</span> <span class="ow">or</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="ne">---&gt; </span><span class="mi">85</span>     <span class="k">return</span> <span class="n">sync</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loop</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/fsspec/asyn.py:65,</span> in <span class="ni">sync</span><span class="nt">(loop, func, timeout, *args, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">63</span>     <span class="k">raise</span> <span class="n">FSTimeoutError</span> <span class="kn">from</span> <span class="nn">return_result</span>
+<span class="g g-Whitespace">     </span><span class="mi">64</span> <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">return_result</span><span class="p">,</span> <span class="ne">BaseException</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">65</span>     <span class="k">raise</span> <span class="n">return_result</span>
+<span class="g g-Whitespace">     </span><span class="mi">66</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">67</span>     <span class="k">return</span> <span class="n">return_result</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/fsspec/asyn.py:25,</span> in <span class="ni">_runner</span><span class="nt">(event, coro, result, timeout)</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span>     <span class="n">coro</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait_for</span><span class="p">(</span><span class="n">coro</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">25</span>     <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="k">await</span> <span class="n">coro</span>
+<span class="g g-Whitespace">     </span><span class="mi">26</span> <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">27</span>     <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">ex</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/fsspec/asyn.py:397,</span> in <span class="ni">AsyncFileSystem._cat</span><span class="nt">(self, path, recursive, on_error, batch_size, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">395</span>     <span class="n">ex</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="n">is_exception</span><span class="p">,</span> <span class="n">out</span><span class="p">),</span> <span class="kc">False</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">396</span>     <span class="k">if</span> <span class="n">ex</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">397</span>         <span class="k">raise</span> <span class="n">ex</span>
+<span class="g g-Whitespace">    </span><span class="mi">398</span> <span class="k">if</span> <span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">399</span>     <span class="nb">len</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span>
+<span class="g g-Whitespace">    </span><span class="mi">400</span>     <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">401</span>     <span class="ow">or</span> <span class="n">paths</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_strip_protocol</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">402</span> <span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">403</span>     <span class="k">return</span> <span class="p">{</span>
+<span class="g g-Whitespace">    </span><span class="mi">404</span>         <span class="n">k</span><span class="p">:</span> <span class="n">v</span>
+<span class="nn">    405         for k, v</span> in <span class="ni">zip</span><span class="nt">(paths, out)</span>
+<span class="g g-Whitespace">    </span><span class="mi">406</span>         <span class="k">if</span> <span class="n">on_error</span> <span class="o">!=</span> <span class="s2">&quot;omit&quot;</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">is_exception</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">407</span>     <span class="p">}</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/asyncio/tasks.py:408,</span> in <span class="ni">wait_for</span><span class="nt">(fut, timeout)</span>
+<span class="g g-Whitespace">    </span><span class="mi">405</span> <span class="n">loop</span> <span class="o">=</span> <span class="n">events</span><span class="o">.</span><span class="n">get_running_loop</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">407</span> <span class="k">if</span> <span class="n">timeout</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">408</span>     <span class="k">return</span> <span class="k">await</span> <span class="n">fut</span>
+<span class="g g-Whitespace">    </span><span class="mi">410</span> <span class="k">if</span> <span class="n">timeout</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">411</span>     <span class="n">fut</span> <span class="o">=</span> <span class="n">ensure_future</span><span class="p">(</span><span class="n">fut</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="n">loop</span><span class="p">)</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/fsspec/implementations/http.py:224,</span> in <span class="ni">HTTPFileSystem._cat_file</span><span class="nt">(self, url, start, end, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">222</span>     <span class="n">kw</span><span class="p">[</span><span class="s2">&quot;headers&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">headers</span>
+<span class="g g-Whitespace">    </span><span class="mi">223</span> <span class="n">session</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_session</span><span class="p">()</span>
+<span class="ne">--&gt; </span><span class="mi">224</span> <span class="k">async</span> <span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span> <span class="k">as</span> <span class="n">r</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">225</span>     <span class="n">out</span> <span class="o">=</span> <span class="k">await</span> <span class="n">r</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">226</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_raise_not_found_for_status</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/aiohttp/client.py:1138,</span> in <span class="ni">_BaseRequestContextManager.__aenter__</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1137</span> <span class="k">async</span> <span class="k">def</span> <span class="fm">__aenter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">_RetType</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1138</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_resp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_coro</span>
+<span class="g g-Whitespace">   </span><span class="mi">1139</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resp</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/aiohttp/client.py:535,</span> in <span class="ni">ClientSession._request</span><span class="nt">(self, method, str_or_url, params, data, json, cookies, headers, skip_auto_headers, auth, allow_redirects, max_redirects, compress, chunked, expect100, raise_for_status, read_until_eof, proxy, proxy_auth, timeout, verify_ssl, fingerprint, ssl_context, ssl, proxy_headers, trace_request_ctx, read_bufsize)</span>
+<span class="g g-Whitespace">    </span><span class="mi">533</span>     <span class="k">async</span> <span class="k">with</span> <span class="n">ceil_timeout</span><span class="p">(</span><span class="n">real_timeout</span><span class="o">.</span><span class="n">connect</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">534</span>         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connector</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+<span class="ne">--&gt; </span><span class="mi">535</span>         <span class="n">conn</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connector</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">536</span>             <span class="n">req</span><span class="p">,</span> <span class="n">traces</span><span class="o">=</span><span class="n">traces</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">real_timeout</span>
+<span class="g g-Whitespace">    </span><span class="mi">537</span>         <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">538</span> <span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TimeoutError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">539</span>     <span class="k">raise</span> <span class="n">ServerTimeoutError</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">540</span>         <span class="s2">&quot;Connection timeout &quot;</span> <span class="s2">&quot;to host </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">541</span>     <span class="p">)</span> <span class="kn">from</span> <span class="nn">exc</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/aiohttp/connector.py:542,</span> in <span class="ni">BaseConnector.connect</span><span class="nt">(self, req, traces, timeout)</span>
+<span class="g g-Whitespace">    </span><span class="mi">539</span>         <span class="k">await</span> <span class="n">trace</span><span class="o">.</span><span class="n">send_connection_create_start</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">541</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">542</span>     <span class="n">proto</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_connection</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">traces</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">543</span>     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_closed</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">544</span>         <span class="n">proto</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/aiohttp/connector.py:907,</span> in <span class="ni">TCPConnector._create_connection</span><span class="nt">(self, req, traces, timeout)</span>
+<span class="g g-Whitespace">    </span><span class="mi">905</span>     <span class="n">_</span><span class="p">,</span> <span class="n">proto</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_proxy_connection</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">traces</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">906</span> <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">907</span>     <span class="n">_</span><span class="p">,</span> <span class="n">proto</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_direct_connection</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">traces</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">909</span> <span class="k">return</span> <span class="n">proto</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/aiohttp/connector.py:1206,</span> in <span class="ni">TCPConnector._create_direct_connection</span><span class="nt">(self, req, traces, timeout, client_error)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1204</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1205</span>     <span class="k">assert</span> <span class="n">last_exc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+<span class="ne">-&gt; </span><span class="mi">1206</span>     <span class="k">raise</span> <span class="n">last_exc</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/aiohttp/connector.py:1175,</span> in <span class="ni">TCPConnector._create_direct_connection</span><span class="nt">(self, req, traces, timeout, client_error)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1172</span> <span class="n">port</span> <span class="o">=</span> <span class="n">hinfo</span><span class="p">[</span><span class="s2">&quot;port&quot;</span><span class="p">]</span>
+<span class="g g-Whitespace">   </span><span class="mi">1174</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1175</span>     <span class="n">transp</span><span class="p">,</span> <span class="n">proto</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wrap_create_connection</span><span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">1176</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_factory</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1177</span>         <span class="n">host</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1178</span>         <span class="n">port</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1179</span>         <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1180</span>         <span class="n">ssl</span><span class="o">=</span><span class="n">sslcontext</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1181</span>         <span class="n">family</span><span class="o">=</span><span class="n">hinfo</span><span class="p">[</span><span class="s2">&quot;family&quot;</span><span class="p">],</span>
+<span class="g g-Whitespace">   </span><span class="mi">1182</span>         <span class="n">proto</span><span class="o">=</span><span class="n">hinfo</span><span class="p">[</span><span class="s2">&quot;proto&quot;</span><span class="p">],</span>
+<span class="g g-Whitespace">   </span><span class="mi">1183</span>         <span class="n">flags</span><span class="o">=</span><span class="n">hinfo</span><span class="p">[</span><span class="s2">&quot;flags&quot;</span><span class="p">],</span>
+<span class="g g-Whitespace">   </span><span class="mi">1184</span>         <span class="n">server_hostname</span><span class="o">=</span><span class="n">hinfo</span><span class="p">[</span><span class="s2">&quot;hostname&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="n">sslcontext</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1185</span>         <span class="n">local_addr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_local_addr</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1186</span>         <span class="n">req</span><span class="o">=</span><span class="n">req</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1187</span>         <span class="n">client_error</span><span class="o">=</span><span class="n">client_error</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">1188</span>     <span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1189</span> <span class="k">except</span> <span class="n">ClientConnectorError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1190</span>     <span class="n">last_exc</span> <span class="o">=</span> <span class="n">exc</span>
+
+<span class="nn">File ~/opt/anaconda3/envs/code-sprint-2022/lib/python3.10/site-packages/aiohttp/connector.py:992,</span> in <span class="ni">TCPConnector._wrap_create_connection</span><span class="nt">(self, req, timeout, client_error, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">990</span>     <span class="k">raise</span> <span class="n">ClientConnectorSSLError</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">connection_key</span><span class="p">,</span> <span class="n">exc</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">exc</span>
+<span class="g g-Whitespace">    </span><span class="mi">991</span> <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">992</span>     <span class="k">raise</span> <span class="n">client_error</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">connection_key</span><span class="p">,</span> <span class="n">exc</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">exc</span>
+
+<span class="ne">ClientConnectorError</span>: Cannot connect to host 0.0.0.0:9005 ssl:default [Connect call failed (&#39;0.0.0.0&#39;, 9005)]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./xpublish"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../pygeoapi/EDR-PyGeoAPI.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">PyGeoAPI</p>
+        </div>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By IOOS Code Springs<br/>
+  
+      &copy; Copyright 2021.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
