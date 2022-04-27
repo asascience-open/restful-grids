@@ -1,5 +1,5 @@
 format: jb-book
-root: project-overview
+root: README
 parts:
 - caption: Notes
   chapters:
