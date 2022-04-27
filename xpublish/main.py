@@ -7,6 +7,8 @@ from xpublish.routers import base_router, zarr_router
 
 from edr_router import edr_router
 from tree_router import tree_router
+from image_router import image_router
+
 
 ww3 = xr.open_dataset("../datasets/ww3_72_east_coast_2022041112.nc")
 
@@ -21,6 +23,7 @@ rest = xpublish.Rest(
         base_router,
         (edr_router, {"tags": ["edr"], "prefix": "/edr"}),
         (tree_router, {"tags": ["datatree"], "prefix": "/tree"}),
+        (image_router, {"tags": ["image"], "prefix": "/image"}),
         (zarr_router, {"tags": ["zarr"], "prefix": "/zarr"}),
     ],
 )
@@ -53,3 +56,9 @@ app.openapi_tags = [
         # "Zarr access to NetCDF dataset"
     },
 ]
+
+if __name__ == '__main__':
+    import uvicorn
+
+    # When run directly, run in debug mode 
+    uvicorn.run("main:app", host="0.0.0.0", port=9005, reload=True, log_level="debug", debug=True)
