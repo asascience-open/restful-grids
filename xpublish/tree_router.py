@@ -108,8 +108,17 @@ def get_datatree(
     levels: int = Depends(get_levels),
     dataset: xr.Dataset = Depends(get_dataset),
     pixels_per_tile: int = Depends(get_pixels_per_tile),
+    cache: cachey.Cache = Depends(get_cache),
 ) -> dt.DataTree:
-    return pyramid_regrid(dataset, levels=levels, pixels_per_tile=pixels_per_tile)
+    cache_key = cache_key_for(dataset, "datatree")
+    dt = cache.get(cache_key)
+
+    if dt is None:
+        dt = pyramid_regrid(dataset, levels=levels, pixels_per_tile=pixels_per_tile)
+
+        # cache.put(cache_key, dt, 99999)
+
+    return dt
 
 
 @tree_router.get("/.zmetadata")
