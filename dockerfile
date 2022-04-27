@@ -37,8 +37,14 @@ ADD ./environment.yml .
 RUN mamba env update --file ./environment.yml &&\
     conda clean -tipy
 
+COPY . .
+
 # For interactive shell
 RUN conda init bash
 RUN echo "conda activate base" >> /home/$USERNAME/.bashrc
 
-COPY . .
+WORKDIR xpublish
+
+#ENTRYPOINT ["python" "uvicorn" "--port" "9005" "main:app" "--reload"]
+#CMD ["uvicorn" "--port" "9005" "main:app" "--reload"]
+CMD python main.py
