@@ -1,5 +1,13 @@
 # Accomplishments
 
+## Day 2 - 4/27/2022
+
+* Dockerized and deployed to cloud
+* Improved image endpoints
+* (Working) Trying to serve zarr that is dynamically chunked
+* Improved documentation and use-cases
+* General code improvements and decoupling
+
 ## Day 1 - 4/26/2022
 
 * Alex: OGC EDR API implementation for point data using xpublish
