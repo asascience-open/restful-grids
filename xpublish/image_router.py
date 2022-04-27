@@ -26,6 +26,7 @@ class ImageQuery(BaseModel):
     width: int = Field(..., title="Output image width in pixels")
     height: int = Field(..., title="Output image height in pixels")
     parameter: str = Field(..., title="Parameter to map")
+    datetime: str = Field(..., title="The datestamp of the map image to get")
     crs: str = Field(..., title="CRS of the requested bbox and resulting image")
     cmap: Optional[str] = None
 
@@ -35,9 +36,10 @@ def image_query(
     width: int, 
     height: int, 
     parameter: str, 
+    datetime: str,
     crs: str = None,
     cmap: Optional[str] = None):
-    return ImageQuery(bbox=bbox, width=width, height=height, parameter=parameter, cmap=cmap, crs=crs)
+    return ImageQuery(bbox=bbox, width=width, height=height, parameter=parameter, cmap=cmap, datetime=datetime, crs=crs)
 
 
 @image_router.get('/', response_class=Response)
@@ -51,7 +53,7 @@ async def get_image(query: ImageQuery = Depends(image_query), dataset: xr.Datase
     else: 
         min_coord = [xmin, ymin]
         max_coord = [xmax, ymax]
-    q = dataset.sel({'latitude': slice(min_coord[1], max_coord[1]), 'longitude': slice(min_coord[0], max_coord[0])}).squeeze()
+    q = dataset.cf.sel({'X' : slice(min_coord[0], max_coord[0]), 'Y': slice(min_coord[1], max_coord[1]), 'T': query.datetime }).squeeze()
 
     # Hack, do everything via cf
     if not q.rio.crs:
@@ -59,7 +61,7 @@ async def get_image(query: ImageQuery = Depends(image_query), dataset: xr.Datase
 
     # CRS is hard coded for now, to avoid dealing with reprojecting before slicing, 
     # TODO: Full reprojection handling 
-    resampled_data = q[query.parameter][0].rio.reproject(
+    resampled_data = q[query.parameter].rio.reproject(
         query.crs,
         shape=(query.width, query.height), 
         resampling=Resampling.bilinear,
