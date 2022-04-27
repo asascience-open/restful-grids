@@ -67,6 +67,8 @@ def create_tree_metadata(levels: int, pixels_per_tile: int, dataset: xr.Dataset)
     }
 
     for level in range(levels):
+        metadata["metadata"][f"{level}/.zgroup"] = {"zarr_format": 2}
+
         for key, da in dataset.variables.items():
             # da needs to be resized based on level
 
@@ -141,11 +143,18 @@ def get_zgroup(level: int, metadata: dict = Depends(get_tree_metadata)):
     return metadata["metadata"][f"{level}/.zgroup"]
 
 
+@tree_router.get("/{level}/{var_name}/.zattrs")
+def get_variable_zattrs(
+    level: int, var_name: str, metadata: dict = Depends(get_tree_metadata)
+):
+    return metadata["metadata"][f"{level}/{var_name}/.zattrs"]
+
 @tree_router.get("/{level}/{var_name}/.zarray")
 def get_variable_zarray(
     level: int, var_name: str, metadata: dict = Depends(get_tree_metadata)
 ):
-    return metadata["metadata"][f"{level}/{var_name}/{attrs_key}"]
+    return metadata["metadata"][f"{level}/{var_name}/.zarray"]
+
 
 
 @tree_router.get("/{level}/{var_name}/{chunk}")
