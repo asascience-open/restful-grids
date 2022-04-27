@@ -18,3 +18,4 @@ Pillow
 cf_xarray
 shapely
 ndpyramid
+pyproj
