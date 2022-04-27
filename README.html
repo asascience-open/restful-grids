@@ -357,6 +357,12 @@ Several zarr datasets have been added to it. It also contains a static STAC cata
 <p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">code-sprint-2022</span></code></p>
 <p>To update your conda environment with any new packages added or removed to the <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> file use</p>
 <p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">env</span> <span class="pre">update</span> <span class="pre">-f</span> <span class="pre">environment.yml</span> <span class="pre">--prune</span></code></p>
+<p>Alternatively, you can install dependencies with <code class="docutils literal notranslate"><span class="pre">pip</span></code> and <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>virutalenv env/
+<span class="nb">source</span> env/bin/activate
+pip install -r requirements.txt
+</pre></div>
+</div>
 </section>
 </section>
 
