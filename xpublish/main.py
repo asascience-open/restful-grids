@@ -3,7 +3,6 @@ import fsspec
 import xarray as xr
 import cf_xarray
 import xpublish
-import rioxarray
 from xpublish.routers import base_router, zarr_router
 
 from edr_router import edr_router

@@ -4,6 +4,7 @@ from typing import Optional
 
 import numpy as np
 import cf_xarray
+from pydantic import BaseModel, Field
 import xarray as xr
 from xpublish.dependencies import get_dataset
 from fastapi import APIRouter, Depends, Response
@@ -17,18 +18,38 @@ import rioxarray
 
 image_router = APIRouter()
 
+
+class ImageQuery(BaseModel):
+    bbox: str = Field(..., title="Bbox in xmin,ymin,xmax,ymax format")
+    width: int = Field(..., title="Output image width in pixels")
+    height: int = Field(..., title="Output image height in pixels")
+    parameter: str = Field(..., title="Parameter to map")
+    cmap: Optional[str] = None
+    crs: Optional[str] = None
+
+
+def image_query(
+    bbox: str, 
+    width: int, 
+    height: int, 
+    parameter: str, 
+    cmap: Optional[str] = None, 
+    crs: Optional[str] = None):
+    return ImageQuery(bbox=bbox, width=width, height=height, parameter=parameter, cmap=cmap, crs=crs)
+
+
 @image_router.get('/', response_class=Response)
-async def get_image(bbox: str, width: int, height: int, var: str, cmap: Optional[str]=None, dataset: xr.Dataset = Depends(get_dataset)):
-    xmin, ymin, xmax, ymax = [float(x) for x in bbox.split(',')]
+async def get_image(query: ImageQuery = Depends(image_query), dataset: xr.Dataset = Depends(get_dataset)):
+    xmin, ymin, xmax, ymax = [float(x) for x in query.bbox.split(',')]
     q = dataset.sel({'latitude': slice(ymin, ymax), 'longitude': slice(xmin, xmax)})
 
     # Hack, do everything via cf
     if not q.rio.crs:
         q = q.rio.write_crs(4326)
 
-    resampled_data = q[var][0][0].rio.reproject(
+    resampled_data = q[query.parameter][0][0].rio.reproject(
         "EPSG:4326",
-        shape=(width, height), 
+        shape=(query.width, query.height), 
         resampling=Resampling.cubic,
     )
 
@@ -42,9 +63,9 @@ async def get_image(bbox: str, width: int, height: int, var: str, cmap: Optional
 
     # Let user pick cm from here https://predictablynoisy.com/matplotlib/gallery/color/colormap_reference.html#sphx-glr-gallery-color-colormap-reference-py
     # Otherwise default to rainbow
-    if not cmap:
-        cmap = 'rainbow'
-    im = Image.fromarray(np.uint8(cm.get_cmap(cmap)(ds_scaled)*255))
+    if not query.cmap:
+        query.cmap = 'rainbow'
+    im = Image.fromarray(np.uint8(cm.get_cmap(query.cmap)(ds_scaled)*255))
 
     image_bytes = io.BytesIO()
     im.save(image_bytes, format='PNG')
