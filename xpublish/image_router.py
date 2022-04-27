@@ -24,8 +24,8 @@ class ImageQuery(BaseModel):
     width: int = Field(..., title="Output image width in pixels")
     height: int = Field(..., title="Output image height in pixels")
     parameter: str = Field(..., title="Parameter to map")
-    cmap: Optional[str] = None
     crs: Optional[str] = None
+    cmap: Optional[str] = None
 
 
 def image_query(
@@ -33,8 +33,8 @@ def image_query(
     width: int, 
     height: int, 
     parameter: str, 
-    cmap: Optional[str] = None, 
-    crs: Optional[str] = None):
+    crs: Optional[str] = None,
+    cmap: Optional[str] = None):
     return ImageQuery(bbox=bbox, width=width, height=height, parameter=parameter, cmap=cmap, crs=crs)
 
 
@@ -47,6 +47,8 @@ async def get_image(query: ImageQuery = Depends(image_query), dataset: xr.Datase
     if not q.rio.crs:
         q = q.rio.write_crs(4326)
 
+    # CRS is hard coded for now, to avoid dealing with reprojecting before slicing, 
+    # TODO: Full reprojection handling 
     resampled_data = q[query.parameter][0][0].rio.reproject(
         "EPSG:4326",
         shape=(query.width, query.height), 
