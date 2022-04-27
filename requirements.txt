@@ -1,6 +1,7 @@
 xarray
 jupyterlab
 dask
+dask[distributed]
 zarr
 rioxarray
 fsspec
@@ -16,3 +17,4 @@ rasterio
 Pillow
 cf_xarray
 shapely
+ndpyramid
