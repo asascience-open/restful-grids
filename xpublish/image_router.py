@@ -52,7 +52,7 @@ async def get_image(query: ImageQuery = Depends(image_query), dataset: xr.Datase
     resampled_data = q[query.parameter][0][0].rio.reproject(
         "EPSG:4326",
         shape=(query.width, query.height), 
-        resampling=Resampling.cubic,
+        resampling=Resampling.bilinear,
     )
 
     # This is autoscaling, we can add more params to make this user controlled 
