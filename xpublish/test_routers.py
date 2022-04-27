@@ -81,7 +81,7 @@ def to_covjson(ds: xr.Dataset):
     covjson = {
         "type": "Coverage",
         "domainType": "Grid",
-        "axes": {},
+        "domain": {"axes": {}},
         "parameters": {},
         "ranges": {},
     }
@@ -97,7 +97,8 @@ def to_covjson(ds: xr.Dataset):
             cov_range = {
                 "type": "NdArray",
                 "dataType": str(da.dtype),
-                # "axisNames": ds[var].dims,
+                "axisNames": da.dims,
+                "shape": da.shape,
                 "values": da.values.ravel().tolist(),
             }
 
