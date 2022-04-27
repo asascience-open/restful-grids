@@ -32,7 +32,6 @@ jobs:
     # Build the book
     - name: Build the book
       run: |
-        cd notebooks
         jupyter-book build .
     # Deploy the book's HTML to gh-pages branch
     - name: GitHub Pages action
@@ -40,4 +39,4 @@ jobs:
       if: github.ref == 'refs/heads/main'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: notebooks/_build/html
+        publish_dir: _build/html
