@@ -18,6 +18,9 @@ from pyproj import CRS, Transformer
 import rioxarray
 
 
+logger = logging.getLogger("api")
+logger.setLevel(logging.DEBUG)
+
 image_router = APIRouter()
 
 
@@ -51,9 +54,12 @@ async def get_image(query: ImageQuery = Depends(image_query), dataset: xr.Datase
         min_coord = transformer.transform(xmin, ymin)
         max_coord = transformer.transform(xmax, ymax)
     else: 
-        min_coord = [xmin, ymin]
-        max_coord = [xmax, ymax]
-    q = dataset.cf.sel({'X' : slice(min_coord[0], max_coord[0]), 'Y': slice(min_coord[1], max_coord[1]), 'T': query.datetime }).squeeze()
+        min_coord = [ymin, xmin]
+        max_coord = [ymax, xmax]
+
+    logger.warning(min_coord)
+    logger.warning(max_coord)
+    q = dataset.cf.sel({'X' : slice(min_coord[1], max_coord[1]), 'Y': slice(min_coord[0], max_coord[0]), 'T': query.datetime }).squeeze()
 
     # Hack, do everything via cf
     if not q.rio.crs:

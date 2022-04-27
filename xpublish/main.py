@@ -1,9 +1,11 @@
 # Run with `uvicorn --port 9005 main:app --reload`
+from cgitb import html
 import fsspec
 import xarray as xr
 import cf_xarray
 import xpublish
 from xpublish.routers import base_router, zarr_router
+from fastapi.staticfiles import StaticFiles
 
 from edr_router import edr_router
 from tree_router import tree_router
@@ -56,6 +58,8 @@ app.openapi_tags = [
         # "Zarr access to NetCDF dataset"
     },
 ]
+
+app.mount("/static", StaticFiles(directory="static", html=True), name="static")
 
 if __name__ == '__main__':
     import uvicorn
