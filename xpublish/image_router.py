@@ -51,7 +51,7 @@ async def get_image(query: ImageQuery = Depends(image_query), dataset: xr.Datase
     else: 
         min_coord = [xmin, ymin]
         max_coord = [xmax, ymax]
-    q = dataset.sel({'latitude': slice(min_coord[1], max_coord[1]), 'longitude': slice(min_coord[0], max_coord[0])})
+    q = dataset.sel({'latitude': slice(min_coord[1], max_coord[1]), 'longitude': slice(min_coord[0], max_coord[0])}).squeeze()
 
     # Hack, do everything via cf
     if not q.rio.crs:
