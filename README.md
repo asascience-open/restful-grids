@@ -18,3 +18,11 @@ Once you install the environment, you will need to activate it using
 To update your conda environment with any new packages added or removed to the `environment.yml` file use
 
 `conda env update -f environment.yml --prune`
+
+Alternatively, you can install dependencies with `pip` and `virtualenv`: 
+
+```bash
+virutalenv env/
+source env/bin/activate
+pip install -r requirements.txt
+```

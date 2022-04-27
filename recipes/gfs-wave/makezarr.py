@@ -19,7 +19,7 @@ recipe.storage_config = StorageConfig(target, cache)
 from pangeo_forge_recipes.recipes import setup_logging
 setup_logging(level="INFO")
 
-recipe_pruned = recipe.copy_pruned(10)
+recipe_pruned = recipe.copy_pruned(96)
 
 recipe_function = recipe_pruned.to_function()
 
