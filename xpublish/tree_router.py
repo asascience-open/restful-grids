@@ -67,6 +67,8 @@ def create_tree_metadata(levels: int, pixels_per_tile: int, dataset: xr.Dataset)
     }
 
     for level in range(levels):
+        metadata["metadata"][f"{level}/.zgroup"] = {"zarr_format": 2}
+
         for key, da in dataset.variables.items():
             # da needs to be resized based on level
 
