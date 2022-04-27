@@ -81,8 +81,15 @@ def create_tree_metadata(levels: int, pixels_per_tile: int, dataset: xr.Dataset)
                 encoded_da, encoding, encoded_da.dtype
             )
 
-    return metadata
+            # convert compressor to dict
+            compressor = metadata['metadata'][f'{level}/{key}/{array_meta_key}']['compressor']
+            if compressor is not None:
+                compressor_config = metadata['metadata'][f'{level}/{key}/{array_meta_key}'][
+                    'compressor'
+                ].get_config()
+                metadata['metadata'][f'{level}/{key}/{array_meta_key}']['compressor'] = compressor_config
 
+    return metadata
 
 def get_tree_metadata(
     levels: int = Depends(get_levels),
