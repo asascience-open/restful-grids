@@ -143,11 +143,18 @@ def get_zgroup(level: int, metadata: dict = Depends(get_tree_metadata)):
     return metadata["metadata"][f"{level}/.zgroup"]
 
 
+@tree_router.get("/{level}/{var_name}/.zattrs")
+def get_variable_zattrs(
+    level: int, var_name: str, metadata: dict = Depends(get_tree_metadata)
+):
+    return metadata["metadata"][f"{level}/{var_name}/.zattrs"]
+
 @tree_router.get("/{level}/{var_name}/.zarray")
 def get_variable_zarray(
     level: int, var_name: str, metadata: dict = Depends(get_tree_metadata)
 ):
-    return metadata["metadata"][f"{level}/{var_name}/{attrs_key}"]
+    return metadata["metadata"][f"{level}/{var_name}/.zarray"]
+
 
 
 @tree_router.get("/{level}/{var_name}/{chunk}")
