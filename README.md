@@ -27,6 +27,10 @@ source env/bin/activate
 pip install -r requirements.txt
 ```
 
+## Taking a Look at the Notebook Example
+We have an example notebook in the `/examples` directory, which can be run using the `enivronment.yml` file
+- [Link to rendered notebook](https://nbviewer.org/github/asascience/restful-grids/blob/main/examples/demo-apis.ipynb)
+
 ## Running This Work-In-Progress
 
 Once you install your environment, you can run your local server with the:
