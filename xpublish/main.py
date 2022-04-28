@@ -2,6 +2,7 @@
 import fsspec
 import xarray as xr
 from xpublish.routers import base_router, zarr_router
+from fastapi.staticfiles import StaticFiles
 
 from demo_rest import DemoRest
 from edr_router import edr_router
@@ -72,6 +73,8 @@ app.openapi_tags = [
     {"name": "zarr", "description": zarr_description},
 ]
 
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 if __name__ == "__main__":
     import uvicorn
 
@@ -84,4 +87,3 @@ if __name__ == "__main__":
         log_level="debug",
         debug=True,
     )
-
