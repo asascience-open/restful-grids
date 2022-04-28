@@ -387,7 +387,7 @@ title="Print to PDF"
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
 <span class="kn">from</span> <span class="nn">dask.distributed</span> <span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">LocalCluster</span>
 <span class="kn">import</span> <span class="nn">rioxarray</span>
-<span class="kn">from</span> <span class="nn">ndpyramid</span> <span class="kn">import</span> <span class="n">pyramid_coarsen</span><span class="p">,</span> <span class="n">pyramid_reproject</span>
+<span class="kn">from</span> <span class="nn">ndpyramid</span> <span class="kn">import</span> <span class="n">pyramid_coarsen</span><span class="p">,</span> <span class="n">pyramid_reproject</span><span class="p">,</span> <span class="n">pyramid_regrid</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 </pre></div>
 </div>
@@ -402,11 +402,17 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-04-28 08:25:36,270 - distributed.diskutils - INFO - Found stale lock file and directory &#39;/Users/matthewiannucci/Developer/restful-grids/pyramid/dask-worker-space/worker-p6iu6q93&#39;, purging
+2022-04-28 08:25:36,270 - distributed.diskutils - INFO - Found stale lock file and directory &#39;/Users/matthewiannucci/Developer/restful-grids/pyramid/dask-worker-space/worker-031c5o2j&#39;, purging
+2022-04-28 08:25:36,271 - distributed.diskutils - INFO - Found stale lock file and directory &#39;/Users/matthewiannucci/Developer/restful-grids/pyramid/dask-worker-space/worker-2wr270ul&#39;, purging
+2022-04-28 08:25:36,271 - distributed.diskutils - INFO - Found stale lock file and directory &#39;/Users/matthewiannucci/Developer/restful-grids/pyramid/dask-worker-space/worker-lu43oi4d&#39;, purging
+</pre></div>
+</div>
 <div class="output text_html"><div>
     <div style="width: 24px; height: 24px; background-color: #e1e1e1; border: 3px solid #9D9D9D; border-radius: 5px; position: absolute;"> </div>
     <div style="margin-left: 48px;">
         <h3 style="margin-bottom: 0px;">Client</h3>
-        <p style="color: #9D9D9D; margin-bottom: 0px;">Client-0dfd1b7e-c638-11ec-86dc-acde48001122</p>
+        <p style="color: #9D9D9D; margin-bottom: 0px;">Client-b07232e0-c6f6-11ec-af44-acde48001122</p>
         <table style="width: 100%; text-align: left;">
 
         <tr>
@@ -435,7 +441,7 @@ title="Print to PDF"
     </div>
     <div style="margin-left: 48px;">
         <h3 style="margin-bottom: 0px; margin-top: 0px;">LocalCluster</h3>
-        <p style="color: #9D9D9D; margin-bottom: 0px;">4804b16c</p>
+        <p style="color: #9D9D9D; margin-bottom: 0px;">97694447</p>
         <table style="width: 100%; text-align: left;">
             <tr>
                 <td style="text-align: left;">
@@ -472,11 +478,11 @@ title="Print to PDF"
         <div style="width: 24px; height: 24px; background-color: #FFF7E5; border: 3px solid #FF6132; border-radius: 5px; position: absolute;"> </div>
         <div style="margin-left: 48px;">
             <h3 style="margin-bottom: 0px;">Scheduler</h3>
-            <p style="color: #9D9D9D; margin-bottom: 0px;">Scheduler-b8873e18-bc62-403e-88a5-311c8d119ff7</p>
+            <p style="color: #9D9D9D; margin-bottom: 0px;">Scheduler-5eae96c5-7322-49ae-85bd-436e15910f88</p>
             <table style="width: 100%; text-align: left;">
                 <tr>
                     <td style="text-align: left;">
-                        <strong>Comm:</strong> tcp://127.0.0.1:65471
+                        <strong>Comm:</strong> tcp://127.0.0.1:64913
                     </td>
                     <td style="text-align: left;">
                         <strong>Workers:</strong> 4
@@ -518,7 +524,7 @@ title="Print to PDF"
                 <table style="width: 100%; text-align: left;">
                     <tr>
                         <td style="text-align: left;">
-                            <strong>Comm: </strong> tcp://127.0.0.1:65489
+                            <strong>Comm: </strong> tcp://127.0.0.1:64931
                         </td>
                         <td style="text-align: left;">
                             <strong>Total threads: </strong> 4
@@ -526,7 +532,7 @@ title="Print to PDF"
                     </tr>
                     <tr>
                         <td style="text-align: left;">
-                            <strong>Dashboard: </strong> <a href="http://127.0.0.1:65490/status" target="_blank">http://127.0.0.1:65490/status</a>
+                            <strong>Dashboard: </strong> <a href="http://127.0.0.1:64933/status" target="_blank">http://127.0.0.1:64933/status</a>
                         </td>
                         <td style="text-align: left;">
                             <strong>Memory: </strong> 8.00 GiB
@@ -534,13 +540,13 @@ title="Print to PDF"
                     </tr>
                     <tr>
                         <td style="text-align: left;">
-                            <strong>Nanny: </strong> tcp://127.0.0.1:65475
+                            <strong>Nanny: </strong> tcp://127.0.0.1:64919
                         </td>
                         <td style="text-align: left;"></td>
                     </tr>
                     <tr>
                         <td colspan="2" style="text-align: left;">
-                            <strong>Local directory: </strong> /Users/matthewiannucci/Developer/restful-grids/pyramid/dask-worker-space/worker-2wr270ul
+                            <strong>Local directory: </strong> /Users/matthewiannucci/Developer/restful-grids/pyramid/dask-worker-space/worker-c8avtt9s
                         </td>
                     </tr>
 
@@ -563,7 +569,7 @@ title="Print to PDF"
                 <table style="width: 100%; text-align: left;">
                     <tr>
                         <td style="text-align: left;">
-                            <strong>Comm: </strong> tcp://127.0.0.1:65486
+                            <strong>Comm: </strong> tcp://127.0.0.1:64932
                         </td>
                         <td style="text-align: left;">
                             <strong>Total threads: </strong> 4
@@ -571,7 +577,7 @@ title="Print to PDF"
                     </tr>
                     <tr>
                         <td style="text-align: left;">
-                            <strong>Dashboard: </strong> <a href="http://127.0.0.1:65487/status" target="_blank">http://127.0.0.1:65487/status</a>
+                            <strong>Dashboard: </strong> <a href="http://127.0.0.1:64935/status" target="_blank">http://127.0.0.1:64935/status</a>
                         </td>
                         <td style="text-align: left;">
                             <strong>Memory: </strong> 8.00 GiB
@@ -579,13 +585,13 @@ title="Print to PDF"
                     </tr>
                     <tr>
                         <td style="text-align: left;">
-                            <strong>Nanny: </strong> tcp://127.0.0.1:65474
+                            <strong>Nanny: </strong> tcp://127.0.0.1:64918
                         </td>
                         <td style="text-align: left;"></td>
                     </tr>
                     <tr>
                         <td colspan="2" style="text-align: left;">
-                            <strong>Local directory: </strong> /Users/matthewiannucci/Developer/restful-grids/pyramid/dask-worker-space/worker-031c5o2j
+                            <strong>Local directory: </strong> /Users/matthewiannucci/Developer/restful-grids/pyramid/dask-worker-space/worker-7mac2x_t
                         </td>
                     </tr>
 
@@ -608,7 +614,7 @@ title="Print to PDF"
                 <table style="width: 100%; text-align: left;">
                     <tr>
                         <td style="text-align: left;">
-                            <strong>Comm: </strong> tcp://127.0.0.1:65494
+                            <strong>Comm: </strong> tcp://127.0.0.1:64937
                         </td>
                         <td style="text-align: left;">
                             <strong>Total threads: </strong> 4
@@ -616,7 +622,7 @@ title="Print to PDF"
                     </tr>
                     <tr>
                         <td style="text-align: left;">
-                            <strong>Dashboard: </strong> <a href="http://127.0.0.1:65496/status" target="_blank">http://127.0.0.1:65496/status</a>
+                            <strong>Dashboard: </strong> <a href="http://127.0.0.1:64938/status" target="_blank">http://127.0.0.1:64938/status</a>
                         </td>
                         <td style="text-align: left;">
                             <strong>Memory: </strong> 8.00 GiB
@@ -624,13 +630,13 @@ title="Print to PDF"
                     </tr>
                     <tr>
                         <td style="text-align: left;">
-                            <strong>Nanny: </strong> tcp://127.0.0.1:65477
+                            <strong>Nanny: </strong> tcp://127.0.0.1:64917
                         </td>
                         <td style="text-align: left;"></td>
                     </tr>
                     <tr>
                         <td colspan="2" style="text-align: left;">
-                            <strong>Local directory: </strong> /Users/matthewiannucci/Developer/restful-grids/pyramid/dask-worker-space/worker-lu43oi4d
+                            <strong>Local directory: </strong> /Users/matthewiannucci/Developer/restful-grids/pyramid/dask-worker-space/worker-l88xa77v
                         </td>
                     </tr>
 
@@ -653,7 +659,7 @@ title="Print to PDF"
                 <table style="width: 100%; text-align: left;">
                     <tr>
                         <td style="text-align: left;">
-                            <strong>Comm: </strong> tcp://127.0.0.1:65492
+                            <strong>Comm: </strong> tcp://127.0.0.1:64928
                         </td>
                         <td style="text-align: left;">
                             <strong>Total threads: </strong> 4
@@ -661,7 +667,7 @@ title="Print to PDF"
                     </tr>
                     <tr>
                         <td style="text-align: left;">
-                            <strong>Dashboard: </strong> <a href="http://127.0.0.1:65493/status" target="_blank">http://127.0.0.1:65493/status</a>
+                            <strong>Dashboard: </strong> <a href="http://127.0.0.1:64929/status" target="_blank">http://127.0.0.1:64929/status</a>
                         </td>
                         <td style="text-align: left;">
                             <strong>Memory: </strong> 8.00 GiB
@@ -669,13 +675,13 @@ title="Print to PDF"
                     </tr>
                     <tr>
                         <td style="text-align: left;">
-                            <strong>Nanny: </strong> tcp://127.0.0.1:65476
+                            <strong>Nanny: </strong> tcp://127.0.0.1:64916
                         </td>
                         <td style="text-align: left;"></td>
                     </tr>
                     <tr>
                         <td colspan="2" style="text-align: left;">
-                            <strong>Local directory: </strong> /Users/matthewiannucci/Developer/restful-grids/pyramid/dask-worker-space/worker-p6iu6q93
+                            <strong>Local directory: </strong> /Users/matthewiannucci/Developer/restful-grids/pyramid/dask-worker-space/worker-z82siquu
                         </td>
                     </tr>
 
@@ -708,6 +714,7 @@ title="Print to PDF"
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s2">&quot;s3://ioos-code-sprint-2022/gfs-wave.zarr&quot;</span><span class="p">,</span>
                      <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;zarr&#39;</span><span class="p">,</span>
                      <span class="n">storage_options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;anon&quot;</span><span class="p">:</span><span class="kc">True</span><span class="p">})</span>
+<span class="c1">#ds.rio.write_crs(4326)</span>
 </pre></div>
 </div>
 </div>
@@ -717,15 +724,40 @@ title="Print to PDF"
 <h2>Coarsen the dataset, and access via ndpyramid<a class="headerlink" href="#coarsen-the-dataset-and-access-via-ndpyramid" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># make a coarsened pyramid</span>
-<span class="n">pyramid</span> <span class="o">=</span> <span class="n">pyramid_coarsen</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">factors</span><span class="o">=</span><span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">,</span> <span class="s1">&#39;longitude&#39;</span><span class="p">],</span> <span class="n">boundary</span><span class="o">=</span><span class="s1">&#39;trim&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># make a coarsened pyramid]</span>
+<span class="c1">#pyramid = pyramid_coarsen(ds, factors=[16, 8, 4, 3, 2, 1], dims=[&#39;latitude&#39;, &#39;longitude&#39;], boundary=&#39;trim&#39;)</span>
 
 <span class="c1"># make a reprojected (EPSG:4326) pyramid</span>
 <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">write_crs</span><span class="p">(</span><span class="s1">&#39;EPSG:4326&#39;</span><span class="p">)</span>
-<span class="c1">#pyramid = pyramid_reproject(ds, levels=2)</span>
+<span class="n">pyramid</span> <span class="o">=</span> <span class="n">pyramid_reproject</span><span class="p">(</span><span class="n">ds</span><span class="p">[</span><span class="s1">&#39;hs&#39;</span><span class="p">],</span> <span class="n">levels</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
 
 <span class="c1"># write the pyramid to zarr</span>
 <span class="n">pyramid</span><span class="o">.</span><span class="n">to_zarr</span><span class="p">(</span><span class="s1">&#39;gfs-wave-resampled&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="nn">/Users/matthewiannucci/Developer/restful-grids/pyramid/test-ndpyramid.ipynb Cell 7&#39;</span> in <span class="ni">&lt;cell line: 6&gt;</span><span class="nt">()</span>
+      <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;vscode-notebook-cell:/Users/matthewiannucci/Developer/restful-grids/pyramid/test-ndpyramid.ipynb#ch0000006?line=0&#39;</span><span class="o">&gt;</span><span class="mi">1</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="c1"># make a coarsened pyramid]</span>
+      <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;vscode-notebook-cell:/Users/matthewiannucci/Developer/restful-grids/pyramid/test-ndpyramid.ipynb#ch0000006?line=1&#39;</span><span class="o">&gt;</span><span class="mi">2</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="c1">#pyramid = pyramid_coarsen(ds, factors=[16, 8, 4, 3, 2, 1], dims=[&#39;latitude&#39;, &#39;longitude&#39;], boundary=&#39;trim&#39;)</span>
+      <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;vscode-notebook-cell:/Users/matthewiannucci/Developer/restful-grids/pyramid/test-ndpyramid.ipynb#ch0000006?line=2&#39;</span><span class="o">&gt;</span><span class="mi">3</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> 
+      <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;vscode-notebook-cell:/Users/matthewiannucci/Developer/restful-grids/pyramid/test-ndpyramid.ipynb#ch0000006?line=3&#39;</span><span class="o">&gt;</span><span class="mi">4</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="c1"># make a reprojected (EPSG:4326) pyramid</span>
+      <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;vscode-notebook-cell:/Users/matthewiannucci/Developer/restful-grids/pyramid/test-ndpyramid.ipynb#ch0000006?line=4&#39;</span><span class="o">&gt;</span><span class="mi">5</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="n">ds</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">write_crs</span><span class="p">(</span><span class="s1">&#39;EPSG:4326&#39;</span><span class="p">)</span>
+<span class="o">----&gt;</span> <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;vscode-notebook-cell:/Users/matthewiannucci/Developer/restful-grids/pyramid/test-ndpyramid.ipynb#ch0000006?line=5&#39;</span><span class="o">&gt;</span><span class="mi">6</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="n">pyramid</span> <span class="o">=</span> <span class="n">pyramid_reproject</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+      <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;vscode-notebook-cell:/Users/matthewiannucci/Developer/restful-grids/pyramid/test-ndpyramid.ipynb#ch0000006?line=8&#39;</span><span class="o">&gt;</span><span class="mi">9</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="c1"># write the pyramid to zarr</span>
+     <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;vscode-notebook-cell:/Users/matthewiannucci/Developer/restful-grids/pyramid/test-ndpyramid.ipynb#ch0000006?line=9&#39;</span><span class="o">&gt;</span><span class="mi">10</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="n">pyramid</span><span class="o">.</span><span class="n">to_zarr</span><span class="p">(</span><span class="s1">&#39;gfs-wave-resampled&#39;</span><span class="p">)</span>
+
+<span class="nn">File ~/Developer/restful-grids/env/lib/python3.9/site-packages/ndpyramid/core.py:135,</span> in <span class="ni">pyramid_reproject</span><span class="nt">(ds, levels, pixels_per_tile, other_chunks, resampling, extra_dim)</span>
+    <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;file:///Users/matthewiannucci/Developer/restful-grids/env/lib/python3.9/site-packages/ndpyramid/core.py?line=132&#39;</span><span class="o">&gt;</span><span class="mi">133</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+    <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;file:///Users/matthewiannucci/Developer/restful-grids/env/lib/python3.9/site-packages/ndpyramid/core.py?line=133&#39;</span><span class="o">&gt;</span><span class="mi">134</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span>     <span class="k">if</span> <span class="n">extra_dim</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="o">--&gt;</span> <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;file:///Users/matthewiannucci/Developer/restful-grids/env/lib/python3.9/site-packages/ndpyramid/core.py?line=134&#39;</span><span class="o">&gt;</span><span class="mi">135</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span>         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;must specify &#39;extra_dim&#39; to iterate over 4d data&quot;</span><span class="p">)</span>
+    <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;file:///Users/matthewiannucci/Developer/restful-grids/env/lib/python3.9/site-packages/ndpyramid/core.py?line=135&#39;</span><span class="o">&gt;</span><span class="mi">136</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span>     <span class="n">da_all</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;file:///Users/matthewiannucci/Developer/restful-grids/env/lib/python3.9/site-packages/ndpyramid/core.py?line=136&#39;</span><span class="o">&gt;</span><span class="mi">137</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span>     <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">ds</span><span class="p">[</span><span class="n">extra_dim</span><span class="p">]:</span>
+
+<span class="ne">ValueError</span>: must specify &#39;extra_dim&#39; to iterate over 4d data
 </pre></div>
 </div>
 </div>
