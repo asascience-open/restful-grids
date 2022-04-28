@@ -1,15 +1,18 @@
 format: jb-book
 root: README
 parts:
-- caption: Notes
-  chapters:
-    - glob: notes/*
-- caption: PyGEO API
-  chapters:
-    - glob: pygeoapi/*
-- caption: Xpublish Approach
-  chapters:
-    - glob: xpublish/*
-- caption: NdPyramid
-  chapters:
-    - glob: pyramid/*
+  - caption: Xpublish Routers
+    chapters:
+      - glob: xpublish_routers/*
+  - caption: Notes
+    chapters:
+      - glob: notes/*
+  - caption: PyGEO API
+    chapters:
+      - glob: pygeoapi/*
+  - caption: Xpublish Approach
+    chapters:
+      - glob: xpublish/*
+  - caption: NdPyramid
+    chapters:
+      - glob: pyramid/*

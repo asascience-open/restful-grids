@@ -4,3 +4,4 @@ pygeoapi/.ipynb_checkpoints
 *.pyc
 pyramid/dask-worker-space
 pyramid/gfs-wave-resampled
+_build
