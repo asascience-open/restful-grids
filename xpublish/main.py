@@ -1,33 +1,21 @@
 # Run with `uvicorn --port 9005 main:app --reload`
-import fsspec
-import xarray as xr
-import cf_xarray
-import rioxarray
-import xpublish
 from xpublish.routers import base_router, zarr_router
 from fastapi.staticfiles import StaticFiles
 
+from demo_rest import DemoRest
 from edr_router import edr_router
 from tree_router import tree_router
 from image_router import image_router
 
 
-ww3 = xr.open_dataset("../datasets/ww3_72_east_coast_2022041112.nc")
-
-gfs_mapper = fsspec.get_mapper(
-    "https://ioos-code-sprint-2022.s3.amazonaws.com/gfs-wave.zarr"
-)
-gfs = xr.open_zarr(gfs_mapper, consolidated=True)
-
-rest = xpublish.Rest(
-    {"ww3": ww3, "gfs": gfs},
+rest = DemoRest(
     routers=[
         (base_router, {"tags": ["info"]}),
         (edr_router, {"tags": ["edr"], "prefix": "/edr"}),
         (tree_router, {"tags": ["datatree"], "prefix": "/tree"}),
         (image_router, {"tags": ["image"], "prefix": "/image"}),
         (zarr_router, {"tags": ["zarr"], "prefix": "/zarr"}),
-    ],
+    ]
 )
 
 app = rest.app
@@ -74,9 +62,9 @@ app.openapi_tags = [
     {"name": "zarr", "description": zarr_description},
 ]
 
-app.mount('/static', StaticFiles(directory='static'), name='static')
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import uvicorn
 
     # When run directly, run in debug mode

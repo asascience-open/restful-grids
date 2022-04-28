@@ -109,7 +109,7 @@ def get_position(
 
     if query.parameters:
         try:
-            ds = ds[query.parameters.split(",")]
+            ds = ds.cf[query.parameters.split(",")]
         except KeyError as e:
             raise HTTPException(status_code=404, detail=f"Invalid variable: {e}")
 
