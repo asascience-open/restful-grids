@@ -20,7 +20,7 @@ gfs = xr.open_zarr(gfs_mapper, consolidated=True)
 rest = xpublish.Rest(
     {"ww3": ww3, "gfs": gfs},
     routers=[
-        base_router,
+        (base_router, {"tags": ["info"]}),
         (edr_router, {"tags": ["edr"], "prefix": "/edr"}),
         (tree_router, {"tags": ["datatree"], "prefix": "/tree"}),
         (image_router, {"tags": ["image"], "prefix": "/image"}),
@@ -32,6 +32,19 @@ app = rest.app
 
 app.description = "Hacking on xpublish during the IOOS Code Sprint"
 app.title = "IOOS xpublish"
+
+edr_description = """
+OGC Environmental Data Retrieval API
+
+Currently the position query is supported, which takes a single Well Known Text point.
+"""
+
+datatree_description = """
+Dynamic generation of Zarr ndpyramid/Datatree for access from webmaps.
+
+- [carbonplan/maps](https://carbonplan.org/blog/maps-library-release)
+- [xpublish#92](https://github.com/xarray-contrib/xpublish/issues/92)
+"""
 
 zarr_description = """
 Zarr access to NetCDF datasets.
@@ -45,20 +58,30 @@ ds = xr.open_zarr(mapper, consolidated=True)
 """
 
 app.openapi_tags = [
-    {"name": "edr", "description": "OGC Environmental Data Retrieval API"},
+    {"name": "info"},
     {
-        "name": "datatree",
-        "description": "Dynamic generation of Zarr ndpyramid/Datatree for access from webmaps.",
+        "name": "edr",
+        "description": edr_description,
+        "externalDocs": {
+            "description": "OGC EDR Reference",
+            "url": "https://ogcapi.ogc.org/edr/",
+        },
     },
-    {
-        "name": "zarr",
-        "description": zarr_description
-        # "Zarr access to NetCDF dataset"
-    },
+    {"name": "image", "description": "WMS-like image generation"},
+    {"name": "datatree", "description": datatree_description},
+    {"name": "zarr", "description": zarr_description},
 ]
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import uvicorn
 
-    # When run directly, run in debug mode 
-    uvicorn.run("main:app", host="0.0.0.0", port=9005, reload=True, log_level="debug", debug=True)
+    # When run directly, run in debug mode
+    uvicorn.run(
+        "main:app",
+        host="0.0.0.0",
+        port=9005,
+        reload=True,
+        log_level="debug",
+        debug=True,
+    )
+
