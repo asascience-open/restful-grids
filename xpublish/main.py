@@ -1,10 +1,9 @@
 # Run with `uvicorn --port 9005 main:app --reload`
 import fsspec
 import xarray as xr
-import cf_xarray
-import xpublish
 from xpublish.routers import base_router, zarr_router
 
+from demo_rest import DemoRest
 from edr_router import edr_router
 from tree_router import tree_router
 from image_router import image_router
@@ -17,15 +16,16 @@ gfs_mapper = fsspec.get_mapper(
 )
 gfs = xr.open_zarr(gfs_mapper, consolidated=True)
 
-rest = xpublish.Rest(
-    {"ww3": ww3, "gfs": gfs},
+# rest = xpublish.Rest(
+#     {"ww3": ww3, "gfs": gfs},
+rest = DemoRest(
     routers=[
         (base_router, {"tags": ["info"]}),
         (edr_router, {"tags": ["edr"], "prefix": "/edr"}),
         (tree_router, {"tags": ["datatree"], "prefix": "/tree"}),
         (image_router, {"tags": ["image"], "prefix": "/image"}),
         (zarr_router, {"tags": ["zarr"], "prefix": "/zarr"}),
-    ],
+    ]
 )
 
 app = rest.app
