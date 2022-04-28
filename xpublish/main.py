@@ -2,6 +2,7 @@
 import fsspec
 import xarray as xr
 import cf_xarray
+import rioxarray
 import xpublish
 from xpublish.routers import base_router, zarr_router
 
