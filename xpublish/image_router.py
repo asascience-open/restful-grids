@@ -95,7 +95,7 @@ async def get_image(query: ImageQuery = Depends(image_query), dataset: xr.Datase
 @image_router.get('/tile/{parameter}/{t}/{z}/{x}/{y}', response_class=Response)
 async def get_image_tile(parameter: str, t: str, z: int, x: int, y: int, size: int = 256, dataset: xr.Dataset = Depends(get_dataset)):
     if not dataset.rio.crs:
-        dataset = dataset.rio.write_crs(4326)  
+        dataset = dataset.rio.write_crs(4326)
     q = dataset.cf.sel({'T': t }).squeeze()
     bbox = mercantile.bounds(x, y, z)
     logger.warning(bbox)
@@ -107,9 +107,11 @@ async def get_image_tile(parameter: str, t: str, z: int, x: int, y: int, size: i
     })
 
     regridder = xe.Regridder(q, ds_out, "bilinear")
-    resampled_data = regridder(q['hs'])
+    resampled_data = regridder(q[parameter])
+    resampled_data = resampled_data.rio.write_crs(4326).rio.set_spatial_dims('lon', 'lat')
 
     logger.warning(resampled_data)
+    resampled_data = resampled_data.rio.reproject("EPSG:3857")
 
     # This is autoscaling, we can add more params to make this user controlled 
     # if not min_value: 
