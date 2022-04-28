@@ -8,6 +8,7 @@ import cf_xarray
 from pydantic import BaseModel, Field
 import pyproj
 import xarray as xr
+import xesmf as xe
 from xpublish.dependencies import get_dataset
 from fastapi import APIRouter, Depends, Response
 from rasterio.enums import Resampling
@@ -96,15 +97,19 @@ async def get_image_tile(parameter: str, t: str, z: int, x: int, y: int, size: i
     if not dataset.rio.crs:
         dataset = dataset.rio.write_crs(4326)  
     q = dataset.cf.sel({'T': t }).squeeze()
-    q = q[parameter].rio.reproject("EPSG:3857")
-    bbox = mercantile.xy_bounds(x, y, z)
-    q = q.cf.sel({'X': slice(bbox.left, bbox.right), 'Y': slice(bbox.bottom, bbox.top)})
+    bbox = mercantile.bounds(x, y, z)
+    logger.warning(bbox)
 
-    resampled_data = q.rio.reproject(
-        q.rio.crs, 
-        size=(size, size),
-        resampling=Resampling.bilinear,
-    )
+    # Given the bounds of the tile, regid to the tile specific coords
+    ds_out = xr.Dataset({
+        "lat": (["lat"], np.linspace(bbox.south, bbox.north, size)),
+        "lon": (["lon"], np.linspace(bbox.west, bbox.east, size)),
+    })
+
+    regridder = xe.Regridder(q, ds_out, "bilinear")
+    resampled_data = regridder(q['hs'])
+
+    logger.warning(resampled_data)
 
     # This is autoscaling, we can add more params to make this user controlled 
     # if not min_value: 
