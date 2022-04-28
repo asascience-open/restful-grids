@@ -9,3 +9,6 @@ parse:
 html:
   comments:
     hypothesis: true
+sphinx:
+  extra_extensions:
+    - sphinxcontrib.openapi

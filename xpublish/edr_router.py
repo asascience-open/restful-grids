@@ -56,7 +56,7 @@ def edr_query(
     f: Optional[str] = Query(
         None,
         title="Response format",
-        description="Data is returned as a CoverageJSON by default, but NetCDF is supported with `f=nc`",
+        description="Data is returned as a CoverageJSON by default, but NetCDF is supported with `f=nc`, or CSV with `csv`",
     ),
 ):
     return EDRQuery(
@@ -148,6 +148,17 @@ def get_position(
                     },
                 )
 
+    if query.format == "csv":
+        ds = ds.squeeze()
+        df = ds.to_pandas()
+        csv = df.to_csv()
+
+        return Response(
+            csv,
+            media_type="text/csv",
+            headers={"Content-Disposition": 'attachment; filename="position.csv"'},
+        )
+
     return to_covjson(ds)
 
 
@@ -176,7 +187,7 @@ def to_covjson(ds: xr.Dataset):
             values = np.where(np.isnan(values), None, values).tolist()
         try:
             if not isinstance(values, list):
-                values = [values]
+                values = [values.item()]
             covjson["domain"]["axes"][inverted_dims.get(name, name)] = {
                 "values": values
             }
