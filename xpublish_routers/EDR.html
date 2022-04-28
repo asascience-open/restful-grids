@@ -1,0 +1,883 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>EDR Router &#8212; Restful Grids Exploration</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Accomplishments" href="../notes/accomplishments.html" />
+    <link rel="prev" title="restful-grids" href="../README.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/ioos_logo.jpeg" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Restful Grids Exploration</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../README.html">
+                    restful-grids
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Xpublish Routers
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   EDR Router
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Notes
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../notes/accomplishments.html">
+   Accomplishments
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  PyGEO API
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../pygeoapi/EDR-PyGeoAPI.html">
+   PyGeoAPI
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Xpublish Approach
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../xpublish/test_xpublish_access.html">
+   Exploring Xpublish
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  NdPyramid
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../pyramid/test-ndpyramid.html">
+   Look into ndpyramid
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/xpublish_routers/EDR.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/xpublish_routers/EDR.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setting-up-the-router">
+   Setting up the router
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#making-a-request">
+   Making a request
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#parameter-name">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       parameter-name
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#datetime">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       datetime
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#f-for-format">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       f
+      </span>
+     </code>
+     for format
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#extra-coordinates">
+     Extra coordinates
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#api-reference">
+   API Reference
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>EDR Router</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setting-up-the-router">
+   Setting up the router
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#making-a-request">
+   Making a request
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#parameter-name">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       parameter-name
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#datetime">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       datetime
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#f-for-format">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       f
+      </span>
+     </code>
+     for format
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#extra-coordinates">
+     Extra coordinates
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#api-reference">
+   API Reference
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="edr-router">
+<h1>EDR Router<a class="headerlink" href="#edr-router" title="Permalink to this headline">#</a></h1>
+<p>The OGC <a class="reference external" href="https://ogcapi.ogc.org/edr/">Environmental Data Retrieval</a> API is designed to be a common web mapping focused method for querying data.</p>
+<p>In <code class="docutils literal notranslate"><span class="pre">restful-grids/xpublish/edr_router.py</span></code>, we’ve implemented <code class="docutils literal notranslate"><span class="pre">edr_router</span></code> which currently provides an EDR position endpoint. This endpoint is especially useful for querying a time series from a gridded dataset.</p>
+<p>The default response for EDR endpoints is <a class="reference external" href="https://covjson.org/">CoverageJSON</a>, but we’ve also decided to support NetCDF responses if <code class="docutils literal notranslate"><span class="pre">f=nc</span></code> is added to the query parameters, or CSV with <code class="docutils literal notranslate"><span class="pre">f=csv</span></code>.</p>
+<section id="setting-up-the-router">
+<h2>Setting up the router<a class="headerlink" href="#setting-up-the-router" title="Permalink to this headline">#</a></h2>
+<p>The edr_router expects datasets that have <a class="reference external" href="http://cfconventions.org/">CF conventions</a> attributes that <a class="reference external" href="https://cf-xarray.readthedocs.io/">cf-xarray</a> can read. Specifically it’s looking for attributes that the <code class="docutils literal notranslate"><span class="pre">ds.cf.axes</span></code> can find <code class="docutils literal notranslate"><span class="pre">X</span></code> and <code class="docutils literal notranslate"><span class="pre">Y</span></code> axes (<code class="docutils literal notranslate"><span class="pre">Z</span></code> and <code class="docutils literal notranslate"><span class="pre">T</span></code> will also be used if found).</p>
+<p>If a dataset doesn’t have full CF attributes, you can set them with <code class="docutils literal notranslate"><span class="pre">ds[X_COORD].attrs[&quot;axis&quot;]</span> <span class="pre">=</span> <span class="pre">&quot;X&quot;</span></code> and similar for the other axes.</p>
+<p>Then you can import and include <code class="docutils literal notranslate"><span class="pre">edr_router</span></code> when instantiating <code class="docutils literal notranslate"><span class="pre">xpublish.Rest</span></code> or subclass. We suggest including a prefix for routers to avoid conflicts, similar to:</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="n">rest</span> <span class="o">=</span> <span class="n">xpublish</span><span class="o">.</span><span class="n">Rest</span><span class="p">(</span>
+    <span class="n">DATASETS_DICT</span><span class="p">,</span>
+    <span class="n">routers</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">(</span><span class="n">base_router</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;info&quot;</span><span class="p">]}),</span>
+        <span class="p">(</span><span class="n">edr_router</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;edr&quot;</span><span class="p">],</span> <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;/edr&quot;</span><span class="p">}),</span>
+        <span class="p">(</span><span class="n">zarr_router</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;zarr&quot;</span><span class="p">],</span> <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;/zarr&quot;</span><span class="p">}),</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>At this point you will get an EDR endpoint at <code class="docutils literal notranslate"><span class="pre">/datasets/{dataset_id}/edr/position</span></code> (or <code class="docutils literal notranslate"><span class="pre">/edr/position</span></code> if you only have a single dataset).</p>
+</section>
+<section id="making-a-request">
+<h2>Making a request<a class="headerlink" href="#making-a-request" title="Permalink to this headline">#</a></h2>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<div class="admonition-a-note-on-wkt admonition">
+<p class="admonition-title">A Note on WKT</p>
+<p>Well Known Text uses X Y coordinate order, or long lat for those of us who are dyslexic.</p>
+<p>So <code class="docutils literal notranslate"><span class="pre">POINT(-69.35</span> <span class="pre">43.72)</span></code> gives you a point off in the Gulf of Maine where NERACOOS’s buoy N should be.</p>
+</div>
+</aside>
+<p>The minimum path and query params you need for a request is a <code class="docutils literal notranslate"><span class="pre">dataset_id</span></code> (see <code class="docutils literal notranslate"><span class="pre">/datasets/</span></code>) and a <a class="reference external" href="https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry#Geometric_objects">Well Known Text point</a> for the <code class="docutils literal notranslate"><span class="pre">coords</span></code> query string.</p>
+<p>The endpoint will try to find the nearest values to the point.</p>
+<section id="parameter-name">
+<h3><code class="docutils literal notranslate"><span class="pre">parameter-name</span></code><a class="headerlink" href="#parameter-name" title="Permalink to this headline">#</a></h3>
+<p>We are also going to add a <code class="docutils literal notranslate"><span class="pre">parameter-name</span></code> to keep this somewhat reasonable, though that is not necessary and the endpoint will respond with all variables.</p>
+<p>Multiple parameters (variables) can also be given by comma seperating them, and due to the magic of cf-xarray, <a class="reference external" href="https://cf-xarray.readthedocs.io/en/latest/selecting.html#by-standard-name">CF standard names can also be used</a> and will return the associated variables. (in this case <code class="docutils literal notranslate"><span class="pre">&amp;parameter-name=sea_surface_wave_significant_height</span></code> would return the <code class="docutils literal notranslate"><span class="pre">hs</span></code> variable.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+</pre></div>
+</div>
+</div>
+</div>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>No commas between the strings means they will be recombined. This makes it a little easier to read when URLs get long.</p>
+</aside>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+    <span class="s2">&quot;http://0.0.0.0:9005/datasets/ww3/edr/position&quot;</span>
+    <span class="s2">&quot;?coords=POINT(-69.35 43.72)&quot;</span>
+    <span class="s2">&quot;&amp;parameter-name=sea_surface_wave_significant_height&quot;</span>
+<span class="p">)</span>
+<span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;type&#39;: &#39;Coverage&#39;,
+ &#39;domain&#39;: {&#39;type&#39;: &#39;Domain&#39;,
+  &#39;domainType&#39;: &#39;Grid&#39;,
+  &#39;axes&#39;: {&#39;t&#39;: {&#39;values&#39;: [&#39;2022-04-11T12:00:00&#39;,
+     &#39;2022-04-11T12:59:59&#39;,
+     &#39;2022-04-11T14:00:00&#39;,
+     &#39;2022-04-11T15:00:00&#39;,
+     &#39;2022-04-11T15:59:59&#39;,
+     &#39;2022-04-11T17:00:00&#39;,
+     &#39;2022-04-11T18:00:00&#39;,
+     &#39;2022-04-11T18:59:59&#39;,
+     &#39;2022-04-11T20:00:00&#39;,
+     &#39;2022-04-11T21:00:00&#39;,
+     &#39;2022-04-11T21:59:59&#39;,
+     &#39;2022-04-11T23:00:00&#39;,
+     &#39;2022-04-12T00:00:00&#39;,
+     &#39;2022-04-12T00:59:59&#39;,
+     &#39;2022-04-12T02:00:00&#39;,
+     &#39;2022-04-12T03:00:00&#39;,
+     &#39;2022-04-12T03:59:59&#39;,
+     &#39;2022-04-12T05:00:00&#39;,
+     &#39;2022-04-12T06:00:00&#39;,
+     &#39;2022-04-12T06:59:59&#39;,
+     &#39;2022-04-12T08:00:00&#39;,
+     &#39;2022-04-12T09:00:00&#39;,
+     &#39;2022-04-12T09:59:59&#39;,
+     &#39;2022-04-12T11:00:00&#39;,
+     &#39;2022-04-12T12:00:00&#39;,
+     &#39;2022-04-12T12:59:59&#39;,
+     &#39;2022-04-12T14:00:00&#39;,
+     &#39;2022-04-12T15:00:00&#39;,
+     &#39;2022-04-12T15:59:59&#39;,
+     &#39;2022-04-12T17:00:00&#39;,
+     &#39;2022-04-12T18:00:00&#39;,
+     &#39;2022-04-12T18:59:59&#39;,
+     &#39;2022-04-12T20:00:00&#39;,
+     &#39;2022-04-12T21:00:00&#39;,
+     &#39;2022-04-12T21:59:59&#39;,
+     &#39;2022-04-12T23:00:00&#39;,
+     &#39;2022-04-13T00:00:00&#39;,
+     &#39;2022-04-13T00:59:59&#39;,
+     &#39;2022-04-13T02:00:00&#39;,
+     &#39;2022-04-13T03:00:00&#39;,
+     &#39;2022-04-13T03:59:59&#39;,
+     &#39;2022-04-13T05:00:00&#39;,
+     &#39;2022-04-13T06:00:00&#39;,
+     &#39;2022-04-13T06:59:59&#39;,
+     &#39;2022-04-13T08:00:00&#39;,
+     &#39;2022-04-13T09:00:00&#39;,
+     &#39;2022-04-13T09:59:59&#39;,
+     &#39;2022-04-13T11:00:00&#39;,
+     &#39;2022-04-13T12:00:00&#39;,
+     &#39;2022-04-13T12:59:59&#39;,
+     &#39;2022-04-13T14:00:00&#39;,
+     &#39;2022-04-13T15:00:00&#39;,
+     &#39;2022-04-13T15:59:59&#39;,
+     &#39;2022-04-13T17:00:00&#39;,
+     &#39;2022-04-13T18:00:00&#39;,
+     &#39;2022-04-13T18:59:59&#39;,
+     &#39;2022-04-13T20:00:00&#39;,
+     &#39;2022-04-13T21:00:00&#39;,
+     &#39;2022-04-13T21:59:59&#39;,
+     &#39;2022-04-13T23:00:00&#39;,
+     &#39;2022-04-14T00:00:00&#39;,
+     &#39;2022-04-14T00:59:59&#39;,
+     &#39;2022-04-14T02:00:00&#39;,
+     &#39;2022-04-14T03:00:00&#39;,
+     &#39;2022-04-14T03:59:59&#39;,
+     &#39;2022-04-14T05:00:00&#39;,
+     &#39;2022-04-14T06:00:00&#39;,
+     &#39;2022-04-14T06:59:59&#39;,
+     &#39;2022-04-14T08:00:00&#39;,
+     &#39;2022-04-14T09:00:00&#39;,
+     &#39;2022-04-14T09:59:59&#39;,
+     &#39;2022-04-14T11:00:00&#39;,
+     &#39;2022-04-14T12:00:00&#39;]},
+   &#39;forecast_reference_time&#39;: {&#39;values&#39;: [&#39;2022-04-11T12:00:00&#39;]}},
+  &#39;referencing&#39;: []},
+ &#39;parameters&#39;: {&#39;hs&#39;: {&#39;type&#39;: &#39;Parameter&#39;,
+   &#39;observedProperty&#39;: {&#39;label&#39;: {&#39;en&#39;: &#39;significant height of wind and swell waves&#39;}},
+   &#39;description&#39;: {&#39;en&#39;: &#39;significant height of wind and swell waves&#39;},
+   &#39;unit&#39;: {&#39;label&#39;: {&#39;en&#39;: &#39;m&#39;}}}},
+ &#39;ranges&#39;: {&#39;hs&#39;: {&#39;type&#39;: &#39;NdArray&#39;,
+   &#39;dataType&#39;: &#39;float&#39;,
+   &#39;axisNames&#39;: [&#39;forecast_reference_time&#39;, &#39;t&#39;],
+   &#39;shape&#39;: [1, 73],
+   &#39;values&#39;: [0.33467215299606323,
+    0.3588910698890686,
+    0.3660368025302887,
+    0.3152061402797699,
+    0.2875429093837738,
+    0.33364781737327576,
+    0.42414912581443787,
+    0.5218766927719116,
+    0.599566638469696,
+    0.6628382802009583,
+    0.6959347724914551,
+    0.7017455697059631,
+    0.6900897026062012,
+    0.6990023255348206,
+    0.7459676861763,
+    0.8135576248168945,
+    0.8708090782165527,
+    0.9190717339515686,
+    0.9822579026222229,
+    1.0730650424957275,
+    1.1682802438735962,
+    1.2368590831756592,
+    1.2590762376785278,
+    1.2461904287338257,
+    1.2177737951278687,
+    1.190627098083496,
+    1.1743522882461548,
+    1.1686142683029175,
+    1.168257474899292,
+    1.1705492734909058,
+    1.1713541746139526,
+    1.1505155563354492,
+    1.1002039909362793,
+    1.029807448387146,
+    0.9527088403701782,
+    0.8763468265533447,
+    0.8059961199760437,
+    0.7473487257957458,
+    0.6959123611450195,
+    0.6488614678382874,
+    0.6027891635894775,
+    0.5554247498512268,
+    0.5091127157211304,
+    0.4687694013118744,
+    0.4349559545516968,
+    0.40602195262908936,
+    0.3779057264328003,
+    0.3484857380390167,
+    0.3213227689266205,
+    0.30005601048469543,
+    0.2922517955303192,
+    0.3058054745197296,
+    0.34318259358406067,
+    0.39665448665618896,
+    0.4514908790588379,
+    0.4962618947029114,
+    0.5274868011474609,
+    0.5485127568244934,
+    0.5546026825904846,
+    0.5439878106117249,
+    0.5306615829467773,
+    0.521487832069397,
+    0.5167329907417297,
+    0.513405442237854,
+    0.5168517827987671,
+    0.531062662601471,
+    0.5381449460983276,
+    0.5489262938499451,
+    0.570189356803894,
+    0.6079721450805664,
+    0.6753485798835754,
+    0.7782320976257324,
+    0.9024170637130737]}}}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="datetime">
+<h3><code class="docutils literal notranslate"><span class="pre">datetime</span></code><a class="headerlink" href="#datetime" title="Permalink to this headline">#</a></h3>
+<p>The next query param of interest to most users will be datetime. This will take either a single datetime and a range as <a class="reference external" href="https://en.wikipedia.org/wiki/ISO_8601">ISO formatted string</a>. To use a range, put a slash between the two times.</p>
+<div class="warning admonition">
+<p class="admonition-title">The trouble with timezones</p>
+<p>The date format needs to match if the dataset is timezone aware, or not.</p>
+</div>
+<p>So we can add <code class="docutils literal notranslate"><span class="pre">&amp;datetime=2022-04-11T12:00:00/2022-04-11T23:00:00</span></code> to our previous query to restrict down the response further.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+    <span class="s2">&quot;http://0.0.0.0:9005/datasets/ww3/edr/position&quot;</span>
+    <span class="s2">&quot;?coords=POINT(-69.35 43.72)&quot;</span>
+    <span class="s2">&quot;&amp;parameter-name=sea_surface_wave_significant_height&quot;</span>
+    <span class="s2">&quot;&amp;datetime=2022-04-11T12:00:00/2022-04-11T23:00:00&quot;</span>
+<span class="p">)</span>
+<span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;type&#39;: &#39;Coverage&#39;,
+ &#39;domain&#39;: {&#39;type&#39;: &#39;Domain&#39;,
+  &#39;domainType&#39;: &#39;Grid&#39;,
+  &#39;axes&#39;: {&#39;t&#39;: {&#39;values&#39;: [&#39;2022-04-11T12:00:00&#39;,
+     &#39;2022-04-11T12:59:59&#39;,
+     &#39;2022-04-11T14:00:00&#39;,
+     &#39;2022-04-11T15:00:00&#39;,
+     &#39;2022-04-11T15:59:59&#39;,
+     &#39;2022-04-11T17:00:00&#39;,
+     &#39;2022-04-11T18:00:00&#39;,
+     &#39;2022-04-11T18:59:59&#39;,
+     &#39;2022-04-11T20:00:00&#39;,
+     &#39;2022-04-11T21:00:00&#39;,
+     &#39;2022-04-11T21:59:59&#39;,
+     &#39;2022-04-11T23:00:00&#39;]},
+   &#39;forecast_reference_time&#39;: {&#39;values&#39;: [&#39;2022-04-11T12:00:00&#39;]}},
+  &#39;referencing&#39;: []},
+ &#39;parameters&#39;: {&#39;hs&#39;: {&#39;type&#39;: &#39;Parameter&#39;,
+   &#39;observedProperty&#39;: {&#39;label&#39;: {&#39;en&#39;: &#39;significant height of wind and swell waves&#39;}},
+   &#39;description&#39;: {&#39;en&#39;: &#39;significant height of wind and swell waves&#39;},
+   &#39;unit&#39;: {&#39;label&#39;: {&#39;en&#39;: &#39;m&#39;}}}},
+ &#39;ranges&#39;: {&#39;hs&#39;: {&#39;type&#39;: &#39;NdArray&#39;,
+   &#39;dataType&#39;: &#39;float&#39;,
+   &#39;axisNames&#39;: [&#39;forecast_reference_time&#39;, &#39;t&#39;],
+   &#39;shape&#39;: [1, 12],
+   &#39;values&#39;: [0.33467215299606323,
+    0.3588910698890686,
+    0.3660368025302887,
+    0.3152061402797699,
+    0.2875429093837738,
+    0.33364781737327576,
+    0.42414912581443787,
+    0.5218766927719116,
+    0.599566638469696,
+    0.6628382802009583,
+    0.6959347724914551,
+    0.7017455697059631]}}}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="f-for-format">
+<h3><code class="docutils literal notranslate"><span class="pre">f</span></code> for format<a class="headerlink" href="#f-for-format" title="Permalink to this headline">#</a></h3>
+<p>While CoverageJSON is useful for browser based access, other formats can be useful in other contexts. For that the <code class="docutils literal notranslate"><span class="pre">f</span></code> query parameter can be passed.</p>
+<p>Currently <code class="docutils literal notranslate"><span class="pre">csv</span></code> for CSV files, and <code class="docutils literal notranslate"><span class="pre">nc</span></code> for NetCDF files have been added.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<div class="admonition-future-formats admonition">
+<p class="admonition-title">Future formats</p>
+<p>Once we build a package to make the EDR router easier to install,
+it could be interesting to use <a class="reference external" href="https://amir.rachum.com/blog/2017/07/28/python-entry-points/">entrypoints</a> to support the addition of more formats.</p>
+</div>
+</aside>
+</section>
+<section id="extra-coordinates">
+<h3>Extra coordinates<a class="headerlink" href="#extra-coordinates" title="Permalink to this headline">#</a></h3>
+<p>If there are extra coordinates to select or slice on, they can also be included as query parameters.</p>
+<p>For this dataset, if we used <code class="docutils literal notranslate"><span class="pre">&amp;time=2022-04-11T12:00:00/2022-04-11T23:00:00</span></code> we would have gotten the same result as the last query.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">full_url</span> <span class="o">=</span> <span class="s2">&quot;http://0.0.0.0:9005/datasets/ww3/edr/position?coords=POINT(-69.35 43.72)&amp;parameter-name=sea_surface_wave_significant_height,dir,t02&amp;datetime=2022-04-11T12:00:00/2022-04-11T23:00:00&amp;f=csv&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">#</a></h2>
+<dl class="http get">
+<dt class="sig sig-object http" id="get--datasets-dataset_id-edr-position">
+<span class="sig-name descname"><span class="pre">GET</span> </span><span class="sig-name descname"><span class="pre">/datasets/{dataset_id}/edr/position</span></span><a class="headerlink" href="#get--datasets-dataset_id-edr-position" title="Permalink to this definition">#</a></dt>
+<dd><p><strong>Position query</strong></p>
+<p>Return position data based on WKT Point(lon lat) coordinate.</p>
+<p>Extra selecting/slicing parameters can be provided as additional query strings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset_id</strong> (<em>string</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Query Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>coords</strong> (<em>string</em>) – Well Known Text coordinates
+(Required)</p></li>
+<li><p><strong>z</strong> (<em>string</em>) – Height or depth of query</p></li>
+<li><p><strong>datetime</strong> (<em>string</em>) – Query by a single ISO time or a range of ISO times. To query by a range, split the times with a slash</p></li>
+<li><p><strong>parameter-name</strong> (<em>string</em>) – xarray variables to query</p></li>
+<li><p><strong>crs</strong> (<em>string</em>) – CRS is not yet implemented</p></li>
+<li><p><strong>f</strong> (<em>string</em>) – Data is returned as a CoverageJSON by default, but NetCDF is supported with <cite>f=nc</cite>, or CSV with <cite>csv</cite></p></li>
+</ul>
+</dd>
+<dt class="field-odd">Status Codes</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span><a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a></span> – Successful Response</p></li>
+<li><p><span><a class="reference external" href="https://tools.ietf.org/html/rfc4918#section-11.2">422 Unprocessable Entity</a></span> – Validation Error</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "restful-grids"
+        },
+        kernelOptions: {
+            kernelName: "restful-grids",
+            path: "./xpublish_routers"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'restful-grids'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../README.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">restful-grids</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../notes/accomplishments.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Accomplishments</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By IOOS Code Springs<br/>
+  
+      &copy; Copyright 2021.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
