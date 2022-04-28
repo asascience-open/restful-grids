@@ -7,6 +7,7 @@ import mercantile
 import cf_xarray
 from pydantic import BaseModel, Field
 import pyproj
+import scipy
 import xarray as xr
 import xesmf as xe
 from xpublish.dependencies import get_dataset
@@ -45,7 +46,6 @@ def image_query(
     crs: str = None,
     cmap: Optional[str] = None):
     return ImageQuery(bbox=bbox, width=width, height=height, parameter=parameter, cmap=cmap, datetime=datetime, crs=crs)
-
 
 @image_router.get('/', response_class=Response)
 async def get_image(query: ImageQuery = Depends(image_query), dataset: xr.Dataset = Depends(get_dataset)):
@@ -109,15 +109,13 @@ async def get_image_tile(parameter: str, t: str, z: int, x: int, y: int, size: i
     regridder = xe.Regridder(q, ds_out, "bilinear")
     resampled_data = regridder(q[parameter])
     resampled_data = resampled_data.rio.write_crs(4326).rio.set_spatial_dims('lon', 'lat')
-
-    logger.warning(resampled_data)
     resampled_data = resampled_data.rio.reproject("EPSG:3857")
 
     # This is autoscaling, we can add more params to make this user controlled 
     # if not min_value: 
-    min_value = resampled_data.min()
+    min_value = 0
     # if not max_value:
-    max_value = resampled_data.max()
+    max_value = 5
 
     ds_scaled = (resampled_data - min_value) / (max_value - min_value)
 

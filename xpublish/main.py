@@ -5,6 +5,7 @@ import cf_xarray
 import rioxarray
 import xpublish
 from xpublish.routers import base_router, zarr_router
+from fastapi.staticfiles import StaticFiles
 
 from edr_router import edr_router
 from tree_router import tree_router
@@ -57,6 +58,8 @@ app.openapi_tags = [
         # "Zarr access to NetCDF dataset"
     },
 ]
+
+app.mount('/static', StaticFiles(directory='static'), name='static')
 
 if __name__ == '__main__':
     import uvicorn

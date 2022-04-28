@@ -9,9 +9,11 @@ const map = new mapboxgl.Map({
 
 map.on('load', () => {
     map.addSource('ww3', {
-        type: 'image', 
-        url: '/datasets/ww3/image/?bbox=&parameter=hs&width=256&height=256&cmap=jet&crs=EPSG:4326&datetime=2022-04-12T21:00'
-
+        type: 'raster',
+        tileSize: 512, 
+        tiles: [
+            '/datasets/ww3/image/tile/hs/2022-04-12T21:00:00.00/{z}/{x}/{y}?size=512'
+        ]
     });
 
     map.addLayer({
@@ -19,7 +21,7 @@ map.on('load', () => {
         source: 'ww3', 
         type: 'raster', 
         paint: {
-            'raster-opacity': 0.8,
+            'raster-opacity': 0.5,
         },
     });
 });
