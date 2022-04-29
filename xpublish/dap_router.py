@@ -35,7 +35,7 @@ dtype_dap = {np.dtype(k): v for k, v in dtype_dap.items()}
 def dap_dtype(da: xr.DataArray):
     """ Return a DAP type for the xr.DataArray """
     try:
-        return dtype_dap[da.dtype]
+        return dtype_dap[da.encoding["dtype"]]
     except KeyError as e:
         logger.warning(
             f"Unable to match dtype for {da.name}. Going to assume string will work for now... ({e})"
