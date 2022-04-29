@@ -340,8 +340,8 @@ title="Print to PDF"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#subset-a-region-image">
-     Subset a Region/Image
+    <a class="reference internal nav-link" href="#subset-a-tile">
+     Subset a Tile
     </a>
    </li>
   </ul>
@@ -396,8 +396,8 @@ title="Print to PDF"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#subset-a-region-image">
-     Subset a Region/Image
+    <a class="reference internal nav-link" href="#subset-a-tile">
+     Subset a Tile
     </a>
    </li>
   </ul>
@@ -484,22 +484,25 @@ pip install -r requirements.txt
 </pre></div>
 </div>
 </section>
-<section id="subset-a-region-image">
-<h3>Subset a Region/Image<a class="headerlink" href="#subset-a-region-image" title="Permalink to this headline">#</a></h3>
-<p>The other method of accessing/visualizing data is through the <code class="docutils literal notranslate"><span class="pre">ImageRouter</span></code>, which given a:</p>
+<section id="subset-a-tile">
+<h3>Subset a Tile<a class="headerlink" href="#subset-a-tile" title="Permalink to this headline">#</a></h3>
+<p>The other method of accessing/visualizing data is through the <code class="docutils literal notranslate"><span class="pre">TileRouter</span></code>, which given a:</p>
 <ul class="simple">
-<li><p>bbox (bounding box) - Lon min, Lat min, Lon max, Lat max</p></li>
 <li><p>parameter (which field) - variable name</p></li>
-<li><p>height - width of the plot</p></li>
-<li><p>width - height of the plot</p></li>
-<li><p>cmap - matplotlib colormap</p></li>
-<li><p>crs - EPSG projection</p></li>
-<li><p>datetime - datetime selection</p></li>
+<li><p>time - time step to view</p></li>
+<li><p>z,x,y - tile coordinate (see <a class="reference external" href="https://www.maptiler.com/google-maps-coordinates-tile-bounds-projection">here</a>)</p></li>
+</ul>
+<p>and optionally a:</p>
+<ul class="simple">
+<li><p>cmap - matplotlib colormap name</p></li>
+<li><p>color_range - color mapping range for teh data value in the format min,max</p></li>
 </ul>
 <p>For example, the following:</p>
-<p>http://localhost:9005/datasets/ww3/image/?bbox=-75,35,-65,45&amp;parameter=hs&amp;width=1024&amp;height=1024&amp;cmap=magma&amp;crs=EPSG:4326&amp;datetime=2022-04-12T21:00:00.000000000</p>
+<p>http://localhost:9005/datasets/ww3/tile/hs/2022-04-12T21:00:00.00/0/0/0?size=1024&amp;color_range=0,2</p>
 <p>Would result in this plot:</p>
 <p><img alt="Example Image API" src="_images/example-image-api.png" /></p>
+<p>Or visualized on a tiled map:</p>
+<p><img alt="Map Image Example" src="_images/map-tile-example.png" /></p>
 </section>
 </section>
 <div class="toctree-wrapper compound">
