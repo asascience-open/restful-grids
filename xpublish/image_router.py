@@ -1,6 +1,6 @@
 import io
 import logging
-from typing import Optional
+from typing import Dict, Optional
 
 import numpy as np
 import mercantile
@@ -17,12 +17,16 @@ from rasterio.transform import Affine
 from PIL import Image
 from matplotlib import cm
 from pyproj import CRS, Transformer
+from ndpyramid.regrid import make_grid_ds
 
 # rioxarray will show as not being used but its necesary for enabling rio extensions for xarray
 import rioxarray
 
 
 logger = logging.getLogger("api")
+
+# Cache the regridder so that we can rapidly create tiles from the same level 
+regrid_cache: Dict[str, xe.Regridder] = {}
 
 image_router = APIRouter()
 
@@ -58,11 +62,11 @@ async def get_image(query: ImageQuery = Depends(image_query), dataset: xr.Datase
     else: 
         min_coord = [xmin, ymin]
         max_coord = [xmax, ymax]
-    q = dataset.cf.sel({'X' : slice(min_coord[0], max_coord[0]), 'Y': slice(min_coord[1], max_coord[1]), 'T': query.datetime }).squeeze()
+    q = dataset.cf.sel({'T': query.datetime }).squeeze()
 
     # Hack, do everything via cf
     if not q.rio.crs:
-        q = q.rio.write_crs(4326)    
+        q = q.rio.write_crs(4326)
 
     # CRS is hard coded for now, to avoid dealing with reprojecting before slicing, 
     # TODO: Full reprojection handling 
@@ -73,10 +77,11 @@ async def get_image(query: ImageQuery = Depends(image_query), dataset: xr.Datase
     )
 
     # This is autoscaling, we can add more params to make this user controlled 
+    # For now, turn off autoscaling so we can test tiling 
     # if not min_value: 
-    min_value = resampled_data.min()
+    min_value = 0
     # if not max_value:
-    max_value = resampled_data.max()
+    max_value = 5
 
     ds_scaled = (resampled_data - min_value) / (max_value - min_value)
 
@@ -97,20 +102,20 @@ async def get_image_tile(parameter: str, t: str, z: int, x: int, y: int, size: i
     if not dataset.rio.crs:
         dataset = dataset.rio.write_crs(4326)
     q = dataset.cf.sel({'T': t }).squeeze()
-    bbox = mercantile.bounds(x, y, z)
-    logger.warning(bbox)
+    bbox = mercantile.xy_bounds(x, y, z)
 
-    # Given the bounds of the tile, regid to the tile specific coords
-    ds_out = xr.Dataset({
-        "lat": (["lat"], np.linspace(bbox.south, bbox.north, size)),
-        "lon": (["lon"], np.linspace(bbox.west, bbox.east, size)),
-    })
+    dim = (2 ** z) * size
+    transform = Affine.translation(bbox.left, bbox.top) * Affine.scale(
+       (20037508.342789244 * 2) / float(dim), -(20037508.342789244 * 2) / float(dim)
+    )
 
-    regridder = xe.Regridder(q, ds_out, "bilinear")
-    resampled_data = regridder(q[parameter])
-    resampled_data = resampled_data.rio.write_crs(4326).rio.set_spatial_dims('lon', 'lat')
-    resampled_data = resampled_data.rio.reproject("EPSG:3857")
-
+    resampled_data = q[parameter].rio.reproject(
+        'EPSG:3857', 
+        shape=(size, size), 
+        resampling=Resampling.nearest, 
+        transform=transform,
+    )
+    
     # This is autoscaling, we can add more params to make this user controlled 
     # if not min_value: 
     min_value = 0
