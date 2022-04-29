@@ -34,3 +34,4 @@ dependencies:
   - ipytree
   - xesmf
   - mercantile
+  - opendap-protocol
