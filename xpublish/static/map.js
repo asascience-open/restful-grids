@@ -3,8 +3,8 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWF0dC1pYW5udWNjaS1ycHMiLCJhIjoiY2wyaHh3cnZsM
 const map = new mapboxgl.Map({
     container: document.getElementById('map'),
     style: 'mapbox://styles/mapbox/dark-v8',
-    center: [-71, 41],
-    zoom: 8,
+    center: [-71, 40],
+    zoom: 6,
 });
 
 map.on('load', () => {
@@ -12,7 +12,7 @@ map.on('load', () => {
         type: 'raster',
         tileSize: 512, 
         tiles: [
-            '/datasets/ww3/image/tile/hs/2022-04-12T21:00:00.00/{z}/{x}/{y}?size=512'
+            '/datasets/ww3/tile/hs/2022-04-12T21:00:00.00/{z}/{x}/{y}?size=512'
         ]
     });
 
