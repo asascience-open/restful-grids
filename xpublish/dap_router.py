@@ -28,6 +28,8 @@ dtype_dap = {
     np.float32: dap.Float32,
     np.float64: dap.Float64,
     np.str_: dap.String,
+    # Not a direct mapping
+    np.int64: dap.Float64,
 }
 dtype_dap = {np.dtype(k): v for k, v in dtype_dap.items()}
 
@@ -35,7 +37,7 @@ dtype_dap = {np.dtype(k): v for k, v in dtype_dap.items()}
 def dap_dtype(da: xr.DataArray):
     """ Return a DAP type for the xr.DataArray """
     try:
-        return dtype_dap[da.encoding["dtype"]]
+        return dtype_dap[da.dtype]
     except KeyError as e:
         logger.warning(
             f"Unable to match dtype for {da.name}. Going to assume string will work for now... ({e})"
@@ -45,19 +47,20 @@ def dap_dtype(da: xr.DataArray):
 
 def dap_dimension(da: xr.DataArray) -> dap.Array:
     """ Transform an xarray dimension into a DAP dimension """
-    dim = dap.Array(name=da.name, data=da.values, dtype=dap_dtype(da))
+    encoded_da = xr.conventions.encode_cf_variable(da)
+    dim = dap.Array(name=da.name, data=encoded_da.values, dtype=dap_dtype(encoded_da))
 
-    for k, v in da.attrs.items():
+    for k, v in encoded_da.attrs.items():
         dim.append(dap.Attribute(name=k, value=v, dtype=dap.String))
 
     return dim
 
 
-def dap_array(da: xr.DataArray, dims: dict[str, dap.Array]) -> dap.Grid:
+def dap_grid(da: xr.DataArray, dims: dict[str, dap.Array]) -> dap.Grid:
     """ Transform an xarray DataArray into a DAP Grid"""
     data_array = dap.Grid(
         name=da.name,
-        data=da.data,
+        data=da.astype(da.encoding["dtype"]).data,
         dtype=dap_dtype(da),
         dimensions=[dims[dim] for dim in da.dims],
     )
@@ -80,7 +83,7 @@ def dap_dataset(ds: xr.Dataset, name: str) -> dap.Dataset:
 
     for var in ds.variables:
         if var not in ds.dims:
-            data_array = dap_array(ds[var], dims)
+            data_array = dap_grid(ds[var], dims)
             dataset.append(data_array)
 
     for k, v in ds.attrs.items():
