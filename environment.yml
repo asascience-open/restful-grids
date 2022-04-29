@@ -28,6 +28,7 @@ dependencies:
   - bokeh
   - pip:
       - git+https://github.com/xarray-contrib/xpublish.git@632a720aadba39cebaf062da7043835262d9fa3d
+      - opendap-protocol
   - Pillow
   - rasterio
   - pyproj
