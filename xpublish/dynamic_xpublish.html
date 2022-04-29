@@ -1,0 +1,613 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Dynamically loading datasets with xpublish &#8212; Restful Grids Exploration</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script async="async" kind="hypothesis" src="https://hypothes.is/embed.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="test_xarray_queries.html" />
+    <link rel="prev" title="PyGeoAPI" href="../pygeoapi/EDR-PyGeoAPI.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/ioos_logo.jpeg" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Restful Grids Exploration</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../README.html">
+                    restful-grids
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Xpublish Routers
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../xpublish_routers/EDR.html">
+   EDR Router
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Notes
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../notes/accomplishments.html">
+   Accomplishments
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  PyGEO API
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../pygeoapi/EDR-PyGeoAPI.html">
+   PyGeoAPI
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Xpublish Approach
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Dynamically loading datasets with xpublish
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="test_xpublish_access.html">
+   Exploring Xpublish
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  NdPyramid
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../pyramid/test-ndpyramid.html">
+   Look into ndpyramid
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/xpublish/dynamic_xpublish.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#borrowing-the-pangeo-forge-api">
+   Borrowing the Pangeo-Forge API
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dataset-loader">
+   Dataset Loader
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#connecting-it-together-in-the-init-method">
+   Connecting it together in the
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     __init__
+    </span>
+   </code>
+   method
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-next">
+   What next?
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Dynamically loading datasets with xpublish</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#borrowing-the-pangeo-forge-api">
+   Borrowing the Pangeo-Forge API
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dataset-loader">
+   Dataset Loader
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#connecting-it-together-in-the-init-method">
+   Connecting it together in the
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     __init__
+    </span>
+   </code>
+   method
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-next">
+   What next?
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="dynamically-loading-datasets-with-xpublish">
+<h1>Dynamically loading datasets with xpublish<a class="headerlink" href="#dynamically-loading-datasets-with-xpublish" title="Permalink to this headline">#</a></h1>
+<p>Currently <a class="reference external" href="https://xpublish.readthedocs.io/en/latest/generated/xpublish.Rest.html"><code class="docutils literal notranslate"><span class="pre">xpublish.Rest</span></code></a> requires datasets to be loaded ahead of time, but with a little subclassing, it’s possible to load the datasets on demand.</p>
+<section id="borrowing-the-pangeo-forge-api">
+<h2>Borrowing the Pangeo-Forge API<a class="headerlink" href="#borrowing-the-pangeo-forge-api" title="Permalink to this headline">#</a></h2>
+<p>We attempted this with the <a class="reference external" href="https://pangeo-forge.org/">Pangeo-Forge</a> recipe_runs API: https://api.pangeo-forge.org/recipe_runs/</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="w"></span>
+<span class="w">  </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;recipe_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;noaa-oisst-avhrr-only&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;bakery_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;feedstock_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;head_sha&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;c975c63bec53029fcb299bbd98eac2abb43d2cfe&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.0&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;started_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2022-03-04T13:27:43&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;completed_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2022-03-04T13:37:43&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;conclusion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;completed&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;is_test&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;dataset_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;zarr&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;dataset_public_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://ncsa.osn.xsede.org/Pangeo/pangeo-forge-test/prod/recipe-run-5/pangeo-forge/staged-recipes/noaa-oisst-avhrr-only.zarr&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;{\&quot;flow_id\&quot;: \&quot;871c003c-e273-41d8-8440-2622492a2ead\&quot;}&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="p">]</span><span class="w"></span>
+</pre></div>
+</div>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<div class="admonition-incomplete admonition">
+<p class="admonition-title">Incomplete</p>
+<p>This isn’t the best representation of the datasets on Pangeo-Forge, as this API is focused around the processing steps, rather than the datasets themselves.
+Therefore, some datasets are duplicated, and others may be missing when the API paginates, but it’s good enough to test ideas out with.</p>
+</div>
+</aside>
+<p>With this API, we can use the <code class="docutils literal notranslate"><span class="pre">recipe_id</span></code> and the <code class="docutils literal notranslate"><span class="pre">dataset_public_url</span></code> to make a mapping of datasets that then we can use with xpublish.</p>
+<p>With that we can build a mapper from <code class="docutils literal notranslate"><span class="pre">recipe_id</span></code>s to the Zarr URLs needed to load them.</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pangeo_forge_dataset_map</span><span class="p">():</span>
+    <span class="n">datasets</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">recipe_runs_url</span><span class="p">)</span>
+    <span class="n">datasets</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">datasets</span> <span class="k">if</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;dataset_public_url&quot;</span><span class="p">]]</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;recipe_id&quot;</span><span class="p">]:</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;dataset_public_url&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="dataset-loader">
+<h2>Dataset Loader<a class="headerlink" href="#dataset-loader" title="Permalink to this headline">#</a></h2>
+<p>From there, we need a function that can will take a <code class="docutils literal notranslate"><span class="pre">dataset_id</span></code> as a string, and return an xarray dataset. xpublish by default <a class="reference external" href="https://github.com/xarray-contrib/xpublish/blob/632a720aadba39cebaf062da7043835262d9fa3d/xpublish/rest.py#L16-L28">curries a function</a> with the <a class="reference external" href="https://github.com/xarray-contrib/xpublish/blob/632a720aadba39cebaf062da7043835262d9fa3d/xpublish/rest.py#L118">datasets passed to the init method as a loader</a>, but we can get more creative and delay dataset access until needed.</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_pangeo_forge_dataset</span><span class="p">(</span><span class="n">dataset_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">:</span>
+    <span class="n">dataset_map</span> <span class="o">=</span> <span class="n">pangeo_forge_dataset_map</span><span class="p">()</span>
+    <span class="n">zarr_url</span> <span class="o">=</span> <span class="n">dataset_map</span><span class="p">[</span><span class="n">dataset_id</span><span class="p">]</span>
+
+    <span class="n">mapper</span> <span class="o">=</span> <span class="n">fsspec</span><span class="o">.</span><span class="n">get_mapper</span><span class="p">(</span><span class="n">zarr_url</span><span class="p">)</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_zarr</span><span class="p">(</span><span class="n">mapper</span><span class="p">,</span> <span class="n">consolidated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ds</span>
+</pre></div>
+</div>
+</section>
+<section id="connecting-it-together-in-the-init-method">
+<h2>Connecting it together in the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method<a class="headerlink" href="#connecting-it-together-in-the-init-method" title="Permalink to this headline">#</a></h2>
+<p>Instead of calling super in the init method and having to pass in mock info, we can override the whole init and change the signature.</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">DynamicRest</span><span class="p">(</span><span class="n">xpublish</span><span class="o">.</span><span class="n">Rest</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">routers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cache_kws</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">app_kws</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_get_dataset_func</span> <span class="o">=</span> <span class="n">get_pangeo_forge_dataset</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_datasets</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">pangeo_forge_dataset_map</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">dataset_route_prefix</span> <span class="o">=</span> <span class="s2">&quot;/datasets/</span><span class="si">{dataset_id}</span><span class="s2">&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_app_routers</span> <span class="o">=</span> <span class="n">rest</span><span class="o">.</span><span class="n">_set_app_routers</span><span class="p">(</span><span class="n">routers</span><span class="p">,</span> <span class="n">dataset_route_prefix</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_app</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_app_kws</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="n">app_kws</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_app_kws</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">app_kws</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cache_kws</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;available_bytes&quot;</span><span class="p">:</span> <span class="mf">1e6</span><span class="p">}</span>
+        <span class="k">if</span> <span class="n">cache_kws</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cache_kws</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">cache_kws</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The first three lines of the method are the key ones. We are setting our dataset function for the get_dataset_func, listing the ids of our datasets, and setting the prefix that we want to have multiple dataset access.</p>
+<p>The rest of the method is unchanged.</p>
+<p>From there, you can call <code class="docutils literal notranslate"><span class="pre">rest</span> <span class="pre">=</span> <span class="pre">DynamicRest()</span></code> or pass in routers as normal with xpublish.</p>
+</section>
+<section id="what-next">
+<h2>What next?<a class="headerlink" href="#what-next" title="Permalink to this headline">#</a></h2>
+<p>There are a few things that could be further improved with this method.
+The biggest improvement would be to cache the <code class="docutils literal notranslate"><span class="pre">dataset_id</span></code>s and datasets themselves.</p>
+<p>Since both of these are used as FastAPI dependencies, they can also use dependencies themselves.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<div class="warning admonition">
+<p class="admonition-title">Untested</p>
+<p>Use as is at your own peril.</p>
+</div>
+</aside>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pangeo_forge_dataset_map</span><span class="p">(</span><span class="n">cache</span><span class="p">:</span> <span class="n">cachey</span><span class="o">.</span><span class="n">Cache</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_cache</span><span class="p">)):</span>
+    <span class="n">cache_key</span> <span class="o">=</span> <span class="s2">&quot;dataset_ids&quot;</span>
+    <span class="n">datasets</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cache_key</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">datasets</span><span class="p">:</span>
+        <span class="n">datasets</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">recipe_runs_url</span><span class="p">)</span>
+        <span class="n">datasets</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">datasets</span> <span class="k">if</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;dataset_public_url&quot;</span><span class="p">]]</span>
+        <span class="n">datasets</span> <span class="o">=</span> <span class="p">{</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;recipe_id&quot;</span><span class="p">]:</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;dataset_public_url&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">}</span>
+        <span class="n">cache</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cache_key</span><span class="p">,</span> <span class="n">datasets</span><span class="p">,</span> <span class="n">NOT_TO_EXPENSIVE_CACHE_COST</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">datasets</span>
+
+
+<span class="k">def</span> <span class="nf">get_pangeo_forge_dataset</span><span class="p">(</span>
+    <span class="n">dataset_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
+    <span class="n">datasets_map</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">pangeo_forge_dataset_map</span><span class="p">),</span>
+    <span class="n">cache</span><span class="p">:</span> <span class="n">cachey</span><span class="o">.</span><span class="n">Cache</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_cache</span><span class="p">),</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">:</span>
+    <span class="n">cache_key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;dataset-</span><span class="si">{</span><span class="n">dataset_id</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cache_key</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">dataset</span><span class="p">:</span>
+        <span class="n">zarr_url</span> <span class="o">=</span> <span class="n">dataset_map</span><span class="p">[</span><span class="n">dataset_id</span><span class="p">]</span>
+
+        <span class="n">mapper</span> <span class="o">=</span> <span class="n">fsspec</span><span class="o">.</span><span class="n">get_mapper</span><span class="p">(</span><span class="n">zarr_url</span><span class="p">)</span>
+        <span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_zarr</span><span class="p">(</span><span class="n">mapper</span><span class="p">,</span> <span class="n">consolidated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">cache</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cache_key</span><span class="p">,</span> <span class="n">ds</span><span class="p">,</span> <span class="n">EXPENSIVE_CACHE_COST</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">ds</span>
+</pre></div>
+</div>
+<p>To truly use the datasets lazily, the dependency needs to be set.
+This isn’t happening in the init method, but in <a class="reference external" href="https://github.com/xarray-contrib/xpublish/blob/632a720aadba39cebaf062da7043835262d9fa3d/xpublish/rest.py#L149"><code class="docutils literal notranslate"><span class="pre">_init_app</span></code></a>, so we’d have to change things up a little.</p>
+<div class="highlight-py notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">DynamicRest</span><span class="p">(</span><span class="n">xpublish</span><span class="o">.</span><span class="n">Rest</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">routers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cache_kws</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">app_kws</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_get_dataset_func</span> <span class="o">=</span> <span class="n">get_pangeo_forge_dataset</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_datasets</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;these&quot;</span><span class="p">,</span> <span class="s2">&quot;are&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;lie&quot;</span><span class="p">]</span>
+        <span class="n">dataset_route_prefix</span> <span class="o">=</span> <span class="s2">&quot;/datasets/</span><span class="si">{dataset_id}</span><span class="s2">&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_app_routers</span> <span class="o">=</span> <span class="n">rest</span><span class="o">.</span><span class="n">_set_app_routers</span><span class="p">(</span><span class="n">routers</span><span class="p">,</span> <span class="n">dataset_route_prefix</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_app</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_app_kws</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="n">app_kws</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_app_kws</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">app_kws</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cache_kws</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;available_bytes&quot;</span><span class="p">:</span> <span class="mf">1e6</span><span class="p">}</span>
+        <span class="k">if</span> <span class="n">cache_kws</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cache_kws</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">cache_kws</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_init_app</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_init_app</span><span class="p">()</span>  <span class="c1"># let it do the normal setup, then just re-override things</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">dependency_overrides</span><span class="p">[</span><span class="n">get_dataset_ids</span><span class="p">]</span> <span class="o">=</span> <span class="n">pangeo_forge_dataset_map</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./xpublish"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../pygeoapi/EDR-PyGeoAPI.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">PyGeoAPI</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="test_xarray_queries.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">&lt;no title&gt;</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By IOOS Code Springs<br/>
+  
+      &copy; Copyright 2021.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

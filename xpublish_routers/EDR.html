@@ -157,6 +157,11 @@ const thebe_selector_output = ".output, .cell_output"
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
+  <a class="reference internal" href="../xpublish/dynamic_xpublish.html">
+   Dynamically loading datasets with xpublish
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="../xpublish/test_xpublish_access.html">
    Exploring Xpublish
   </a>
@@ -766,7 +771,7 @@ it could be interesting to use <a class="reference external" href="https://amir.
 </section>
 <section id="extra-coordinates">
 <h3>Extra coordinates<a class="headerlink" href="#extra-coordinates" title="Permalink to this headline">#</a></h3>
-<p>If there are extra coordinates to select or slice on, they can also be included as query parameters.</p>
+<p>If there are extra coordinates they can also be included as query parameters. Similar to the <code class="docutils literal notranslate"><span class="pre">datetime</span></code> query param, <code class="docutils literal notranslate"><span class="pre">/</span></code> is supported for a range to slice on in place of selecting.</p>
 <p>For this dataset, if we used <code class="docutils literal notranslate"><span class="pre">&amp;time=2022-04-11T12:00:00/2022-04-11T23:00:00</span></code> we would have gotten the same result as the last query.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
