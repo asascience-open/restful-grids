@@ -9,6 +9,7 @@ from ndpyramid.utils import (
     multiscales_template,
 )
 from ndpyramid.regrid import make_grid_pyramid, pyramid_regrid
+import numpy as np
 import xarray as xr
 from xarray.backends.zarr import (
     DIMENSION_KEY,
@@ -24,6 +25,7 @@ from xpublish.utils.zarr import (
     zarr_metadata_key,
     _extract_dataarray_zattrs,
     _extract_zarray,
+    encode_chunk
 )
 from zarr.storage import array_meta_key, attrs_key, default_compressor, group_meta_key
 
@@ -42,7 +44,7 @@ def get_datatree(dataset: xr.Dataset = Depends(get_dataset)):
 
 def get_pixels_per_tile():
     """ How many pixels should there be per tile """
-    return 128
+    return 256
 
 
 def cache_key_for(ds: xr.Dataset, key: str):
@@ -114,7 +116,6 @@ def get_tree_metadata(
 
 
 def get_datatree(
-    levels: int = Depends(get_levels),
     dataset: xr.Dataset = Depends(get_dataset),
     pixels_per_tile: int = Depends(get_pixels_per_tile),
     cache: cachey.Cache = Depends(get_cache),
@@ -166,8 +167,14 @@ def get_variable_zarray(
 
 @tree_router.get("/{level}/{var_name}/{chunk}")
 def get_variable_chunk(
-    level: int, var_name: str, chunk: str, dt: dt.DataTree = Depends(get_datatree)
+    level: int, 
+    var_name: str, 
+    chunk: str, 
+    dataset: xr.Dataset = Depends(get_dataset),
+    pixels_per_tile: int = Depends(get_pixels_per_tile)
 ):
-    da = dt[level][var_name].data
 
-    data_chunk = get_data_chunk(da, chunk)
+    # TODO: Get the requested data values
+
+    # TODO: Encode chunk to zarr chunk
+    return encode_chunk(np.zeros((pixels_per_tile, pixels_per_tile)))
