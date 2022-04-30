@@ -26,6 +26,7 @@ from xpublish.utils.zarr import (
     zarr_metadata_key,
     _extract_dataarray_zattrs,
     _extract_zarray,
+    _extract_fill_value,
     encode_chunk
 )
 from zarr.storage import array_meta_key, attrs_key, default_compressor, group_meta_key
@@ -52,6 +53,46 @@ def get_pixels_per_tile():
 
 def cache_key_for(ds: xr.Dataset, key: str):
     return ds.attrs.get(DATASET_ID_ATTR_KEY, "") + "-tree/" + key
+
+
+def extract_zarray(da, encoding, dtype, level):
+    """ helper function to extract zarr array metadata. """
+
+    pixels_per_tile = get_pixels_per_tile()
+    tile_count = 2 ** level
+    
+    data_shape = list(da.shape)
+    data_shape[-2:] = [pixels_per_tile, pixels_per_tile]
+    
+    chunk_shape = list(da.shape)
+    chunk_shape[-2:] = [tile_count, tile_count]
+    chunk_shape[:-2] = [1 for i in range(len(chunk_shape) - 2)]
+
+    meta = {
+        'compressor': encoding.get('compressor', da.encoding.get('compressor', default_compressor)),
+        'filters': encoding.get('filters', da.encoding.get('filters', None)),
+        'chunks': chunk_shape,
+        'dtype': dtype.str,
+        'fill_value': _extract_fill_value(da, dtype),
+        'order': 'C',
+        'shape': data_shape,
+        'zarr_format': 2,
+    }
+
+    if meta['chunks'] is None:
+        meta['chunks'] = da.shape
+
+    # # validate chunks
+    # if isinstance(da.data, dask_array_type):
+    #     var_chunks = tuple([c[0] for c in da.data.chunks])
+    # else:
+    #     var_chunks = da.shape
+    # if not var_chunks == tuple(meta['chunks']):
+    #     raise ValueError('Encoding chunks do not match inferred chunks')
+
+    # meta['chunks'] = list(meta['chunks'])  # return chunks as a list
+
+    return meta
 
 
 def create_tree_metadata(levels: int, pixels_per_tile: int, dataset: xr.Dataset):
@@ -82,8 +123,8 @@ def create_tree_metadata(levels: int, pixels_per_tile: int, dataset: xr.Dataset)
             metadata["metadata"][
                 f"{level}/{key}/{attrs_key}"
             ] = _extract_dataarray_zattrs(da)
-            metadata["metadata"][f"{level}/{key}/{array_meta_key}"] = _extract_zarray(
-                encoded_da, encoding, encoded_da.dtype
+            metadata["metadata"][f"{level}/{key}/{array_meta_key}"] = extract_zarray(
+                encoded_da, encoding, encoded_da.dtype, level
             )
 
             # convert compressor to dict
