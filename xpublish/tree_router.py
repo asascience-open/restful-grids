@@ -60,13 +60,13 @@ def extract_zarray(da, encoding, dtype, level):
 
     pixels_per_tile = get_pixels_per_tile()
     tile_count = 2 ** level
+    pixel_count = tile_count * pixels_per_tile
     
     data_shape = list(da.shape)
-    data_shape[-2:] = [pixels_per_tile, pixels_per_tile]
+    data_shape[-2:] = [pixel_count, pixel_count]
     
     chunk_shape = list(da.shape)
-    chunk_shape[-2:] = [tile_count, tile_count]
-    chunk_shape[:-2] = [1 for i in range(len(chunk_shape) - 2)]
+    chunk_shape[-2:] = [pixels_per_tile, pixels_per_tile]
 
     meta = {
         'compressor': encoding.get('compressor', da.encoding.get('compressor', default_compressor)),
@@ -222,7 +222,7 @@ def get_variable_chunk(
     ds = dataset.squeeze()
     
     # Extract the requested tile metadata
-    chunk_coords = [int(i) for i in chunk.split(",")]
+    chunk_coords = [int(i) for i in chunk.split(".")]
     x = chunk_coords[-2]
     y = chunk_coords[-1]
     z = level
