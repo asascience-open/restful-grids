@@ -215,7 +215,8 @@ def get_variable_chunk(
     var_name: str, 
     chunk: str, 
     dataset: xr.Dataset = Depends(get_dataset),
-    pixels_per_tile: int = Depends(get_pixels_per_tile)
+    pixels_per_tile: int = Depends(get_pixels_per_tile),
+    metadata: dict = Depends(get_tree_metadata)
 ):
     if not dataset.rio.crs:
         dataset = dataset.rio.write_crs(4326)
@@ -245,5 +246,10 @@ def get_variable_chunk(
     resampled_data_array = np.asarray(resampled_data)
 
     # TODO: Encode chunk to zarr chunk
-    encoded_chunk = encode_chunk(resampled_data_array.tobytes())
+    arr_meta = metadata["metadata"][f"{level}/{var_name}/.zarray"]
+    encoded_chunk = encode_chunk(
+        resampled_data_array.tobytes(),                     
+        filters=arr_meta['filters'],
+        compressor=arr_meta['compressor']
+    )
     return Response(encoded_chunk, media_type='application/octet-stream')
