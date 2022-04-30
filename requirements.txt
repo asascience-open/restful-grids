@@ -20,3 +20,4 @@ shapely
 ndpyramid
 pyproj
 mercantile
+h5netcdf
