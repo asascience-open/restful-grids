@@ -2,7 +2,8 @@ from typing import Optional
 
 import cachey
 import datatree as dt
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Response
+import mercantile
 from ndpyramid.utils import (
     add_metadata_and_zarr_encoding,
     get_version,
@@ -28,6 +29,8 @@ from xpublish.utils.zarr import (
     encode_chunk
 )
 from zarr.storage import array_meta_key, attrs_key, default_compressor, group_meta_key
+from rasterio.transform import Affine
+from rasterio.enums import Resampling
 
 
 tree_router = APIRouter()
@@ -173,8 +176,33 @@ def get_variable_chunk(
     dataset: xr.Dataset = Depends(get_dataset),
     pixels_per_tile: int = Depends(get_pixels_per_tile)
 ):
+    if not dataset.rio.crs:
+        dataset = dataset.rio.write_crs(4326)
+    ds = dataset.squeeze()
+    
+    # Extract the requested tile metadata
+    chunk_coords = [int(i) for i in chunk.split(",")]
+    x = chunk_coords[-2]
+    y = chunk_coords[-1]
+    z = level
 
     # TODO: Get the requested data values
+    bbox = mercantile.xy_bounds(x, y, z)
+
+    dim = (2 ** z) * pixels_per_tile
+    transform = Affine.translation(bbox.left, bbox.top) * Affine.scale(
+       (20037508.342789244 * 2) / float(dim), -(20037508.342789244 * 2) / float(dim)
+    )
+
+    resampled_data = ds[var_name].rio.reproject(
+        'EPSG:3857', 
+        shape=(pixels_per_tile, pixels_per_tile), 
+        resampling=Resampling.nearest, 
+        transform=transform,
+    )
+
+    resampled_data_array = np.asarray(resampled_data)
 
     # TODO: Encode chunk to zarr chunk
-    return encode_chunk(np.zeros((pixels_per_tile, pixels_per_tile)))
+    encoded_chunk = encode_chunk(resampled_data_array.tobytes())
+    return Response(encoded_chunk, media_type='application/octet-stream')
