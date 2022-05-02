@@ -11,25 +11,34 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWF0dC1pYW5udWNjaS1ycHMiLCJhIjoiY2wyaHh3cnZsM
 // const chunk = await array.getRawChunk([0, 0, 0, 0]);
 // console.log(chunk);
 
+
 class ZarrTileSource {
 
-    constructor({rootUrl, variable, initialTimestep, tileSize = 256}) {
+    constructor({ rootUrl, variable, initialTimestep, tileSize = 256 }) {
         this.type = 'custom';
         this.tileSize = tileSize;
-        this.minzoom = 0; 
-        this.maxzoom = 0;
+        this.minzoom = 5;
+        this.maxzoom = 5;
 
         this.rootUrl = rootUrl;
         this.variable = variable;
         this._timeIndex = initialTimestep;
     }
 
+    /**
+     * Get the current time index
+     */
     get timeIndex() {
         return this._timeIndex;
     }
 
+    /**
+     * Set the time index to the given value.
+     * @param {number} timeIndex
+     */
     set timeIndex(newIndex) {
-        this._timeIndex;
+        this._timeIndex = newIndex;
+        // TODO: For now the reload has to be triggered from user space
     }
 
     getLevelKey(level) {
@@ -40,33 +49,45 @@ class ZarrTileSource {
         let levelKey = this.getLevelKey(level);
 
         // TODO: Implement array access and mutex sync 
-        return await zarr.openArray({store: this.store, path: levelKey});
+        let array = this.arrayCache[levelKey];
+        if (!array) {
+            array = await zarr.openArray({store: this.store, path: levelKey});
+            this.arrayCache[levelKey] = array;
+        }
+        return array;
     }
 
     onAdd(map) {
         this.store = new zarr.HTTPStore(this.rootUrl);
+        this.arrayCache = {};
+        this.chunkCache = {};
     }
 
-    async loadTile({x, y, z}) {
+    async loadTile({ x, y, z }) {
         const array = await this.getZarrArray(z);
-        const chunkKey = [0, 0, x, y];
+        const chunkKey = `0.0.${x}.${y}`;
 
-        const rawChunkData = await array.getRawChunk(chunkKey);
-        const width = rawChunkData.shape[rawChunkData.shape.length-2];
-        const height = rawChunkData.shape[rawChunkData.shape.length-1];
+        let rawChunkData = this.chunkCache[chunkKey];
+        if (!rawChunkData) {
+            rawChunkData = await array.getRawChunk(chunkKey);
+            this.chunkCache[chunkKey] = rawChunkData;
+        }
+
+        const width = rawChunkData.shape[rawChunkData.shape.length - 2];
+        const height = rawChunkData.shape[rawChunkData.shape.length - 1];
         const tileSizeBytes = width * height;
         const tileSliceStart = this._timeIndex * tileSizeBytes;
         const tileSliceEnd = (this._timeIndex + 1) * tileSizeBytes;
         const rawTileData = rawChunkData.data.slice(tileSliceStart, tileSliceEnd);
 
-        const colorData = new Uint8ClampedArray(4 * width * height); 
+        const colorData = new Uint8ClampedArray(4 * width * height);
         for (let i = 0; i < rawTileData.length; i++) {
             const value = rawTileData[i];
             const r = (value / 5.0) * 255;
             colorData[4 * i] = r;
             colorData[4 * i + 1] = 0;
             colorData[4 * i + 2] = 0;
-            colorData[4 * i + 3] = 255;
+            colorData[4 * i + 3] = isNaN(value) ? 0 : 255;
         }
 
         return new ImageData(colorData, width);
@@ -81,7 +102,6 @@ const map = new mapboxgl.Map({
 });
 
 map.on('load', () => {
-
     // map.addSource('ww3', {
     //     type: 'raster',
     //     tileSize: 512, 
@@ -92,17 +112,32 @@ map.on('load', () => {
 
     map.addSource('ww3-zarr', new ZarrTileSource({
         rootUrl: 'http://localhost:9005/datasets/ww3/tree',
-        variable: 'hs', 
-        initialTimestep: 0, 
-        tileSize: 256, 
+        variable: 'hs',
+        initialTimestep: 0,
+        tileSize: 256,
     }));
 
     map.addLayer({
-        id: 'ww3', 
-        source: 'ww3-zarr', 
-        type: 'raster', 
+        id: 'ww3',
+        source: 'ww3-zarr',
+        type: 'raster',
         paint: {
-            'raster-opacity': 0.5,
+            'raster-opacity': 1.0,
+            'raster-fade-duration': 0,
         },
     });
+
+    const zarrSource = map.getSource('ww3-zarr');
+
+    let timestepSlider = document.getElementById('timestep-slider');
+    timestepSlider.oninput = e => {
+        const newTimeIndex = e.target.valueAsNumber;
+        zarrSource._implementation.timeIndex = newTimeIndex;
+        zarrSource.load();
+    }
+    // timestepSlider.onchange = e => {
+    //     const newTimeIndex = e.target.valueAsNumber;
+    //     zarrSource._implementation.timeIndex = newTimeIndex;
+    //     zarrSource.load();
+    // };
 });
