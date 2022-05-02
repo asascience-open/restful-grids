@@ -2,16 +2,6 @@ import * as zarr from 'https://cdn.skypack.dev/@manzt/zarr-lite';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibWF0dC1pYW5udWNjaS1ycHMiLCJhIjoiY2wyaHh3cnZsMGk3YzNlcWg3bnFhcG1yZSJ9.L47O4NS5aFlWgCX0uUvgjA';
 
-// console.log(zarr);
-// const store = new zarr.HTTPStore('http://localhost:9005/datasets/ww3/tree');
-// console.log(store);
-// const array = await zarr.openArray({store, path: '/0/hs'});
-// console.log(array);
-
-// const chunk = await array.getRawChunk([0, 0, 0, 0]);
-// console.log(chunk);
-
-
 class ZarrTileSource {
 
     constructor({ rootUrl, variable, initialTimestep, tileSize = 256 }) {
