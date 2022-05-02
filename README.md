@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/asascience/restful-grids/tree/main.svg?style=svg)](https://circleci.com/gh/asascience/restful-grids/tree/main)
+
 # restful-grids
 Exploring modern RESTful services for gridded data
 
