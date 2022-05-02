@@ -8,12 +8,27 @@
   <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js'></script>
   <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css' rel='stylesheet' />
   <link rel="stylesheet" href="./map.css"> 
-
 </head>
 
+<!-- <script type="module">
+  import zarr from 'https://cdn.skypack.dev/pin/@manzt/zarr-lite@v0.2.0-DJn9NWgjcuQNgJjd49VP/mode=imports,min/optimized/@manzt/zarr-lite.js';
+
+  console.log(zarr);
+
+  (async () => {
+    console.log(zarr);
+    const store = new zarr.HTTPStore('http://localhost:9005/datasets/ww3/tree');
+    console.log(store);
+    const array = await zarr.openArray({store, path: '/0/hs'});
+
+    console.log(array);
+})();
+
+</script> -->
+
 <body>
-  <div id="map" class="fill-window" />
-  <script src="/static/map.js"></script>
+  <div id="map" class="fill-window"></div>
+  <script type='module' src="/static/map.js"></script>
 </body>
 
 </html>
