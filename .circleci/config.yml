@@ -26,7 +26,7 @@ workflows:
               push-image: true
               region: us-east-1
               registry-id: REGISTRY_ID
-              repo: m2c5k9c1
+              repo: restful-grids
               repo-scan-on-push: false
               skip-when-tags-exist: false
               tag: 'dev'
