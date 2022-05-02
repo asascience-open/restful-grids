@@ -25,7 +25,7 @@ workflows:
               public-registry: true
               push-image: true
               region: us-east-1
-              registry-id: 579273261343
+              registry-id: REGISTRY_ID
               repo: m2c5k9c1
               repo-scan-on-push: false
               skip-when-tags-exist: false
