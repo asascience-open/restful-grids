@@ -30,3 +30,6 @@ workflows:
               repo-scan-on-push: false
               skip-when-tags-exist: false
               tag: 'dev'
+              filters:
+                branches:
+                  only: main
