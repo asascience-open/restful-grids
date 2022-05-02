@@ -14,9 +14,9 @@ workflows:
               aws-access-key-id: ACCESS_KEY_ID
               aws-cli-version: latest
               aws-secret-access-key: SECRET_ACCESS_KEY
-              context: myContext
-              create-repo: true
-              dockerfile: restful-grids
+              context: .
+              create-repo: false
+              dockerfile: dockerfile
               executor: aws-ecr/default
               extra-build-args: '--compress'
               no-output-timeout: 20m
