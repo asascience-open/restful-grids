@@ -39,11 +39,7 @@ tree_router = APIRouter()
 
 def get_levels():
     """ How many levels / factors should the data tree have """
-    return 6
-
-
-def get_datatree(dataset: xr.Dataset = Depends(get_dataset)):
-    pass
+    return 30
 
 
 def get_pixels_per_tile():
@@ -52,7 +48,10 @@ def get_pixels_per_tile():
 
 
 def cache_key_for(ds: xr.Dataset, key: str):
-    return ds.attrs.get(DATASET_ID_ATTR_KEY, "") + "-tree/" + key
+    return ds.attrs.get(DATASET_ID_ATTR_KEY, "") + f"-tree/{key}" 
+
+def cache_key_for_level(ds: xr.Dataset, key: str, level: int):
+    return ds.attrs.get(DATASET_ID_ATTR_KEY, "") + f"-tree/{level}/{key}"
 
 
 def extract_zarray(da, encoding, dtype, level):
@@ -93,7 +92,6 @@ def extract_zarray(da, encoding, dtype, level):
     # meta['chunks'] = list(meta['chunks'])  # return chunks as a list
 
     return meta
-
 
 def create_tree_metadata(levels: int, pixels_per_tile: int, dataset: xr.Dataset):
     save_kwargs = {"levels": levels, "pixels_per_tile": pixels_per_tile}
@@ -150,30 +148,27 @@ def get_tree_metadata(
     if metadata is None:
         metadata = create_tree_metadata(levels, pixels_per_tile, dataset)
 
-        # cache.put(cache_key, metadata, 99999)
+        cache.put(cache_key, metadata, 99999)
 
     return metadata
 
+def get_variable_zarray(level: int, var_name, ds: xr.Dataset = Depends(get_dataset), cache: cachey.Cache = Depends(get_cache),):
+    """
+    Returns the zarray metadata for a given level and dataarray.
+    """
+    da = ds[var_name]
+    encoded_da = encode_zarr_variable(da, name=var_name)
+    encoding = extract_zarr_variable_encoding(da)
 
-# def get_grid_pyramid(levels: int = Depends(get_levels)) -> dt.DataTree:
-#     return make_grid_pyramid(levels)
+    array_metadata = extract_zarray(encoded_da, encoding, encoded_da.dtype, level)
 
+    # convert compressor to dict
+    compressor = array_metadata['compressor']
+    if compressor is not None:
+        compressor_config = array_metadata['compressor'].get_config()
+        array_metadata['compressor'] = compressor_config
 
-def get_datatree(
-    dataset: xr.Dataset = Depends(get_dataset),
-    pixels_per_tile: int = Depends(get_pixels_per_tile),
-    cache: cachey.Cache = Depends(get_cache),
-) -> dt.DataTree:
-    cache_key = cache_key_for(dataset, "datatree")
-    dt = cache.get(cache_key)
-
-    if dt is None:
-        dt = pyramid_regrid(dataset, levels=levels, pixels_per_tile=pixels_per_tile)
-
-        # cache.put(cache_key, dt, 99999)
-
-    return dt
-
+    return array_metadata
 
 @tree_router.get("/.zmetadata")
 def get_tree_metadata(metadata: dict = Depends(get_tree_metadata)):
@@ -201,12 +196,12 @@ def get_variable_zattrs(
 ):
     return metadata["metadata"][f"{level}/{var_name}/.zattrs"]
 
+
 @tree_router.get("/{level}/{var_name}/.zarray")
 def get_variable_zarray(
-    level: int, var_name: str, metadata: dict = Depends(get_tree_metadata)
+    zarray: dict = Depends(get_variable_zarray)
 ):
-    return metadata["metadata"][f"{level}/{var_name}/.zarray"]
-
+    return zarray
 
 
 @tree_router.get("/{level}/{var_name}/{chunk}")
@@ -216,7 +211,6 @@ def get_variable_chunk(
     chunk: str, 
     dataset: xr.Dataset = Depends(get_dataset),
     pixels_per_tile: int = Depends(get_pixels_per_tile),
-    # metadata: dict = Depends(get_tree_metadata)
 ):
     if not dataset.rio.crs:
         dataset = dataset.rio.write_crs(4326)
@@ -227,8 +221,7 @@ def get_variable_chunk(
     x = chunk_coords[-2]
     y = chunk_coords[-1]
     z = level
-
-    # TODO: Get the requested data values
+    
     bbox = mercantile.xy_bounds(x, y, z)
 
     dim = (2 ** z) * pixels_per_tile
@@ -239,7 +232,7 @@ def get_variable_chunk(
     resampled_data = ds[var_name].rio.reproject(
         'EPSG:3857', 
         shape=(pixels_per_tile, pixels_per_tile), 
-        resampling=Resampling.nearest, 
+        resampling=Resampling.cubic, 
         transform=transform,
     )
 

@@ -2,13 +2,25 @@ import * as zarr from 'https://cdn.skypack.dev/@manzt/zarr-lite';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibWF0dC1pYW5udWNjaS1ycHMiLCJhIjoiY2wyaHh3cnZsMGk3YzNlcWg3bnFhcG1yZSJ9.L47O4NS5aFlWgCX0uUvgjA';
 
+
+class MutexLock {
+    constructor() {
+        this.tasks = []; 
+    }
+
+    use() {
+        // TODO
+    }
+}
+
+
 class ZarrTileSource {
 
-    constructor({ rootUrl, variable, initialTimestep, tileSize = 256 }) {
+    constructor({ rootUrl, variable, initialTimestep, tileSize = 256, minZoom = 0, maxZoom = 10, bounds }) {
         this.type = 'custom';
         this.tileSize = tileSize;
-        this.minzoom = 5;
-        this.maxzoom = 5;
+        this.minZoom = minZoom; 
+        this.maxZoom = maxZoom;
 
         this.rootUrl = rootUrl;
         this.variable = variable;
@@ -40,6 +52,7 @@ class ZarrTileSource {
 
         // TODO: Implement array access and mutex sync 
         let array = this.arrayCache[levelKey];
+        console.log(array);
         if (!array) {
             array = await zarr.openArray({store: this.store, path: levelKey});
             this.arrayCache[levelKey] = array;
@@ -47,10 +60,25 @@ class ZarrTileSource {
         return array;
     }
 
-    onAdd(map) {
+    async onAdd(map) {
         this.store = new zarr.HTTPStore(this.rootUrl);
-        this.arrayCache = {};
         this.chunkCache = {};
+        this.arrayCache = {};
+
+        const arrayLevels = Array.from(Array(this.maxZoom - this.minZoom + 1)).map(async (_, level) => {
+            let levelKey = this.getLevelKey(level);
+
+            // TODO: Implement array access and mutex sync 
+            let array = this.arrayCache[levelKey];
+            if (!array) {
+                array = await zarr.openArray({store: this.store, path: levelKey});
+            }
+            return {key: levelKey, array};
+        });
+
+        get
+
+        await Promise.all(arrayLevels).then(arrays => arrays.forEach(array => this.arrayCache[array.key] = array.array));
     }
 
     async loadTile({ x, y, z }) {
@@ -88,7 +116,7 @@ const map = new mapboxgl.Map({
     container: document.getElementById('map'),
     style: 'mapbox://styles/mapbox/dark-v8',
     center: [-71, 40],
-    zoom: 0,
+    zoom: 6,
 });
 
 map.on('load', () => {
