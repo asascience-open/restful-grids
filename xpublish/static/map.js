@@ -3,13 +3,63 @@ import * as zarr from 'https://cdn.skypack.dev/@manzt/zarr-lite';
 mapboxgl.accessToken = 'pk.eyJ1IjoibWF0dC1pYW5udWNjaS1ycHMiLCJhIjoiY2wyaHh3cnZsMGk3YzNlcWg3bnFhcG1yZSJ9.L47O4NS5aFlWgCX0uUvgjA';
 
 
-class MutexLock {
-    constructor() {
-        this.tasks = []; 
+export class Semaphore {
+
+    constructor(count) {
+        this.count = count;
+        this.tasks = [];
     }
 
-    use() {
-        // TODO
+    sched() {
+        if (this.count > 0 && this.tasks.length > 0) {
+            this.count--;
+            let next = this.tasks.shift();
+            if (next === undefined) {
+                throw "Unexpected undefined value in tasks list";
+            }
+
+            next();
+        }
+    }
+
+    acquire() {
+        return new Promise((res, _) => {
+            var task = () => {
+                var released = false;
+                res(() => {
+                    if (!released) {
+                        released = true;
+                        this.count++;
+                        this.sched();
+                    }
+                });
+            };
+            this.tasks.push(task);
+           
+            setTimeout(this.sched.bind(this), 0);
+            //setImmediate(this.sched.bind(this));
+        });
+    }
+
+    use(f) {
+        return this.acquire()
+        .then(release => {
+            return f()
+            .then((res) => {
+                release();
+                return res;
+            })
+            .catch((err) => {
+                release();
+                throw err;
+            });
+        });
+    }
+}
+
+export class Mutex extends Semaphore {
+    constructor() {
+        super(1);
     }
 }
 
@@ -50,35 +100,37 @@ class ZarrTileSource {
     async getZarrArray(level) {
         let levelKey = this.getLevelKey(level);
 
-        // TODO: Implement array access and mutex sync 
-        let array = this.arrayCache[levelKey];
-        console.log(array);
-        if (!array) {
-            array = await zarr.openArray({store: this.store, path: levelKey});
-            this.arrayCache[levelKey] = array;
-        }
+        const array = await this.zarrayMutex.use(async () => {
+            let array = this.arrayCache[levelKey];
+
+            if (!array) {
+                array = await zarr.openArray({store: this.store, path: levelKey});
+                this.arrayCache[levelKey] = array;
+            }
+            return array;
+        });
+
         return array;
     }
 
     async onAdd(map) {
         this.store = new zarr.HTTPStore(this.rootUrl);
+        this.zarrayMutex = new Mutex();
         this.chunkCache = {};
         this.arrayCache = {};
 
-        const arrayLevels = Array.from(Array(this.maxZoom - this.minZoom + 1)).map(async (_, level) => {
-            let levelKey = this.getLevelKey(level);
+        // const arrayLevels = Array.from(Array(this.maxZoom - this.minZoom + 1)).map(async (_, level) => {
+        //     let levelKey = this.getLevelKey(level);
 
-            // TODO: Implement array access and mutex sync 
-            let array = this.arrayCache[levelKey];
-            if (!array) {
-                array = await zarr.openArray({store: this.store, path: levelKey});
-            }
-            return {key: levelKey, array};
-        });
+        //     // TODO: Implement array access and mutex sync 
+        //     let array = this.arrayCache[levelKey];
+        //     if (!array) {
+        //         array = await zarr.openArray({store: this.store, path: levelKey});
+        //     }
+        //     return {key: levelKey, array};
+        // });
 
-        get
-
-        await Promise.all(arrayLevels).then(arrays => arrays.forEach(array => this.arrayCache[array.key] = array.array));
+        // await Promise.all(arrayLevels).then(arrays => arrays.forEach(array => this.arrayCache[array.key] = array.array));
     }
 
     async loadTile({ x, y, z }) {
@@ -133,6 +185,7 @@ map.on('load', () => {
         variable: 'hs',
         initialTimestep: 0,
         tileSize: 256,
+        bounds: [-93.0, 20.0, -55.0, 55.0],
     }));
 
     map.addLayer({
