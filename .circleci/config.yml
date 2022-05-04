@@ -1,0 +1,35 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+# See: https://circleci.com/docs/2.0/configuration-reference
+version: 2.1
+
+orbs:
+  aws-ecr: circleci/aws-ecr@8.1.1
+
+# Invoke jobs via workflows
+# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+workflows:
+    build_and_push_image:
+        jobs:
+          - aws-ecr/build-and-push-image:
+              aws-access-key-id: ACCESS_KEY_ID
+              aws-cli-version: latest
+              aws-secret-access-key: SECRET_ACCESS_KEY
+              context: .
+              create-repo: false
+              dockerfile: dockerfile
+              executor: aws-ecr/default
+              extra-build-args: '--compress'
+              no-output-timeout: 20m
+              path: .
+              platform: linux/amd64
+              public-registry: true
+              push-image: true
+              region: us-east-1
+              registry-id: REGISTRY_ID
+              repo: restful-grids
+              repo-scan-on-push: false
+              skip-when-tags-exist: false
+              tag: 'dev'
+              filters:
+                branches:
+                  only: main
