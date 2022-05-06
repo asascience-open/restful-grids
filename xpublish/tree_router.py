@@ -247,7 +247,6 @@ def get_variable_chunk(
 
     resampled_data_array = np.asarray(resampled_data)
 
-    # TODO: Encode chunk to zarr chunk
     encoded_chunk = encode_chunk(
         resampled_data_array.tobytes(),                     
         filters=resampled_data.encoding.get('filters', None),
