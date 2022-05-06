@@ -2,7 +2,7 @@ import * as zarr from 'https://cdn.skypack.dev/@manzt/zarr-lite';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibWF0dC1pYW5udWNjaS1ycHMiLCJhIjoiY2wyaHh3cnZsMGk3YzNlcWg3bnFhcG1yZSJ9.L47O4NS5aFlWgCX0uUvgjA';
 
-
+// From https://github.com/notenoughneon/await-semaphore/blob/master/index.ts
 export class Semaphore {
 
     constructor(count) {
