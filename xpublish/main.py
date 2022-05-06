@@ -1,4 +1,5 @@
 # Run with `uvicorn --port 9005 main:app --reload`
+from sys import prefix
 from xpublish.routers import base_router, zarr_router
 from fastapi.staticfiles import StaticFiles
 
@@ -7,6 +8,7 @@ from edr_router import edr_router
 from tree_router import tree_router
 from dap_router import dap_router
 from tile_router import tile_router
+from wms_router import wms_router
 
 
 rest = DemoRest(
@@ -16,6 +18,7 @@ rest = DemoRest(
         (tree_router, {"tags": ["datatree"], "prefix": "/tree"}),
         (dap_router, {"tags": ["opendap"], "prefix": "/opendap"}),
         (tile_router, {"tags": ["image"], "prefix": "/tile"}),
+        (wms_router, {"tags": ["wms"], "prefix": "/wms"}),
         (zarr_router, {"tags": ["zarr"], "prefix": "/zarr"}),
     ]
 )
