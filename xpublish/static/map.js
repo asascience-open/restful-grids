@@ -160,25 +160,17 @@ const map = new mapboxgl.Map({
 });
 
 map.on('load', () => {
-    // map.addSource('ww3', {
-    //     type: 'raster',
-    //     tileSize: 512, 
-    //     tiles: [
-    //         '/datasets/ww3/tile/hs/2022-04-12T21:00:00.00/{z}/{x}/{y}?size=512'
-    //     ]
-    // });
-
-    map.addSource('ww3-zarr', new ZarrTileSource({
-        rootUrl: 'http://localhost:9005/datasets/ww3/tree',
-        variable: 'hs',
-        initialTimestep: 0,
-        tileSize: 256,
-        bounds: [-93.0, 20.0, -55.0, 55.0],
-    }));
+    map.addSource('ww3-wms', {
+        type: 'raster',
+        tileSize: 512, 
+        tiles: [
+            '/datasets/ww3/wms/?service=WMS&version=1.3.0&request=GetMap&layers=hs&crs=EPSG:3857&bbox={bbox-epsg-3857}&width=512&height=512&styles=raster/rainbow&colorscalerange=0,5&time=2022-04-12T21:00:00.00',
+        ]
+    });
 
     map.addLayer({
-        id: 'ww3',
-        source: 'ww3-zarr',
+        id: 'ww3-wms',
+        source: 'ww3-wms',
         type: 'raster',
         paint: {
             'raster-opacity': 1.0,
@@ -186,17 +178,31 @@ map.on('load', () => {
         },
     });
 
-    const zarrSource = map.getSource('ww3-zarr');
+    // map.addSource('ww3-zarr', new ZarrTileSource({
+    //     rootUrl: 'http://localhost:9005/datasets/ww3/tree',
+    //     variable: 'hs',
+    //     initialTimestep: 0,
+    //     tileSize: 256,
+    //     bounds: [-93.0, 20.0, -55.0, 55.0],
+    // }));
 
-    let timestepSlider = document.getElementById('timestep-slider');
-    timestepSlider.oninput = e => {
-        const newTimeIndex = e.target.valueAsNumber;
-        zarrSource._implementation.timeIndex = newTimeIndex;
-        zarrSource.load();
-    }
-    // timestepSlider.onchange = e => {
+    // map.addLayer({
+    //     id: 'ww3-zarr',
+    //     source: 'ww3-zarr',
+    //     type: 'raster',
+    //     paint: {
+    //         'raster-opacity': 1.0,
+    //         'raster-fade-duration': 0,
+    //     },
+    // });
+
+    // const zarrSource = map.getSource('ww3-zarr');
+
+    // let timestepSlider = document.getElementById('timestep-slider');
+    // timestepSlider.oninput = e => {
     //     const newTimeIndex = e.target.valueAsNumber;
     //     zarrSource._implementation.timeIndex = newTimeIndex;
     //     zarrSource.load();
-    // };
+    // }
+
 });

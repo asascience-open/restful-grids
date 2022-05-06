@@ -1,11 +1,15 @@
-from unicodedata import name
+import io
 import xml.etree.ElementTree as ET
 
-from fastapi import APIRouter, Depends, HTTPException, Request, Response
-from mercantile import children
-from requests import request
-from xpublish.dependencies import get_dataset
+import numpy as np
 import xarray as xr
+from fastapi import APIRouter, Depends, HTTPException, Request, Response
+from xpublish.dependencies import get_dataset
+from rasterio.enums import Resampling
+from rasterio.transform import Affine
+from rasterio.warp import calculate_default_transform
+from PIL import Image
+from matplotlib import cm
 
 # These will show as unused to the linter but they are necessary
 import cf_xarray
@@ -148,8 +152,51 @@ def get_map(dataset: xr.Dataset, query: dict):
 
     ds = dataset.squeeze()
     bbox = [float(x) for x in query['bbox'].split(',')]
-    
-    return ''
+    width = int(query['width'])
+    height = int(query['height'])
+    crs_out = query['crs']
+    parameter = query['layers']
+    t = query['time']
+    colorscalerange = [float(x) for x in query['colorscalerange'].split(',')]
+    autoscale = query.get('autoscale', 'false') is not 'false'
+    style = query['styles']
+    stylename, palettename = style.split('/')
+
+    x_resolution = (bbox[2] - bbox[0]) / float(width)
+    y_resolution = (bbox[3] - bbox[1]) / float(height)
+
+    # TODO: Calculate the transform 
+    transform = Affine.translation(bbox[0], bbox[3]) * Affine.scale(x_resolution, y_resolution)
+
+    resampled_data = ds[parameter].rio.reproject(
+        crs_out, 
+        shape=(width, height), 
+        resampling=Resampling.nearest, 
+        transform=transform,
+    )
+
+    # This is an image, so only use the timestepm that was requested
+    resampled_data = resampled_data.cf.sel({'T': t}).squeeze()
+
+    # if the user has supplied a color range, use it. Otherwise autoscale
+    if autoscale:
+        min_value = float(ds[parameter].min())
+        max_value = float(ds[parameter].max())
+    else:
+        min_value = colorscalerange[0]
+        max_value = colorscalerange[1]
+
+    ds_scaled = (resampled_data - min_value) / (max_value - min_value)
+
+    # Let user pick cm from here https://predictablynoisy.com/matplotlib/gallery/color/colormap_reference.html#sphx-glr-gallery-color-colormap-reference-py
+    # Otherwise default to rainbow
+    im = Image.fromarray(np.uint8(cm.get_cmap(palettename)(ds_scaled)*255))
+
+    image_bytes = io.BytesIO()
+    im.save(image_bytes, format='PNG')
+    image_bytes = image_bytes.getvalue()
+
+    return Response(content=image_bytes, media_type='image/png')
 
 
 def get_feature_info(dataset: xr.Dataset, query: dict):
