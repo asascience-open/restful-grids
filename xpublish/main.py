@@ -1,5 +1,4 @@
 # Run with `uvicorn --port 9005 main:app --reload`
-from sys import prefix
 from xpublish.routers import base_router, zarr_router
 from fastapi.staticfiles import StaticFiles
 
