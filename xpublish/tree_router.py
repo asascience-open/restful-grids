@@ -1,7 +1,6 @@
 from typing import Optional
 
 import cachey
-import datatree as dt
 from fastapi import APIRouter, Depends, Response
 import mercantile
 from ndpyramid.utils import (
@@ -36,16 +35,6 @@ from rasterio.enums import Resampling
 tree_router = APIRouter()
 
 
-def get_levels():
-    """ How many levels / factors should the data tree have """
-    return 30
-
-
-def get_pixels_per_tile():
-    """ How many pixels should there be per tile """
-    return 256
-
-
 def cache_key_for(ds: xr.Dataset, key: str):
     return ds.attrs.get(DATASET_ID_ATTR_KEY, "") + f"-tree/{key}" 
 
@@ -53,10 +42,10 @@ def cache_key_for_level(ds: xr.Dataset, key: str, level: int):
     return ds.attrs.get(DATASET_ID_ATTR_KEY, "") + f"-tree/{level}/{key}"
 
 
-def extract_zarray(da, encoding, dtype, level):
+def extract_zarray(da: xr.DataArray, encoding: dict, dtype: np.dtype, level: int, tile_size: int):
     """ helper function to extract zarr array metadata. """
 
-    pixels_per_tile = get_pixels_per_tile()
+    pixels_per_tile = tile_size
     tile_count = 2 ** level
     pixel_count = tile_count * pixels_per_tile
     
@@ -92,8 +81,8 @@ def extract_zarray(da, encoding, dtype, level):
 
     return meta
 
-def create_tree_metadata(levels: int, pixels_per_tile: int, dataset: xr.Dataset):
-    save_kwargs = {"levels": levels, "pixels_per_tile": pixels_per_tile}
+def create_tree_metadata(levels: list[int, int], tile_size: int, dataset: xr.Dataset):
+    save_kwargs = {"levels": range(levels[0], levels[1]), "tile_size": tile_size}
     attrs = {
         "multiscales": multiscales_template(
             datasets=[{"path": str(i)} for i in range(levels)],
@@ -133,25 +122,37 @@ def create_tree_metadata(levels: int, pixels_per_tile: int, dataset: xr.Dataset)
 
     return metadata
 
+
+def get_levels(levels: str = '0,30'):
+    """
+    Extracts the levels from a {min}/{max}}
+    """
+    return [int(l) for l in levels.split(',')]
+
+
+def get_tile_size(tile_size: int = 256):
+    """
+    Common dependency for the tile size in pixels 
+    """
+    return tile_size
+
 def get_tree_metadata(
     levels: int = Depends(get_levels),
-    pixels_per_tile: int = Depends(get_pixels_per_tile),
+    tile_size: int = Depends(get_tile_size),
     dataset: xr.Dataset = Depends(get_dataset),
     cache: cachey.Cache = Depends(get_cache),
 ):
-    # cache_key = cache_key_for(dataset, zarr_metadata_key)
-    # metadata = cache.get(cache_key)
+    cache_key = cache_key_for(dataset, zarr_metadata_key)
+    metadata = cache.get(cache_key)
 
-    # if metadata is None:
-    #     metadata = create_tree_metadata(levels, pixels_per_tile, dataset)
+    if metadata is None:
+        metadata = create_tree_metadata(levels, tile_size, dataset)
 
-    #     cache.put(cache_key, metadata, 99999)
-
-    metadata = create_tree_metadata(levels, pixels_per_tile, dataset)
+        cache.put(cache_key, metadata, 99999)
 
     return metadata
 
-def get_variable_zarray(level: int, var_name, ds: xr.Dataset = Depends(get_dataset), cache: cachey.Cache = Depends(get_cache),):
+def get_variable_zarray(level: int, var_name: str, tile_size: int = Depends(get_tile_size), ds: xr.Dataset = Depends(get_dataset), cache: cachey.Cache = Depends(get_cache)):
     """
     Returns the zarray metadata for a given level and dataarray.
     """
@@ -159,7 +160,7 @@ def get_variable_zarray(level: int, var_name, ds: xr.Dataset = Depends(get_datas
     encoded_da = encode_zarr_variable(da, name=var_name)
     encoding = extract_zarr_variable_encoding(da)
 
-    array_metadata = extract_zarray(encoded_da, encoding, encoded_da.dtype, level)
+    array_metadata = extract_zarray(encoded_da, encoding, encoded_da.dtype, level, tile_size)
 
     # convert compressor to dict
     compressor = array_metadata['compressor']
@@ -169,55 +170,56 @@ def get_variable_zarray(level: int, var_name, ds: xr.Dataset = Depends(get_datas
 
     return array_metadata
 
-@tree_router.get("/.zmetadata")
+
+@tree_router.get("/{levels}/{tile_size}/.zmetadata")
 def get_tree_metadata(metadata: dict = Depends(get_tree_metadata)):
     return metadata
 
 
-@tree_router.get("/.zgroup")
+@tree_router.get("/{levels}/{tile_size}/.zgroup")
 def get_top_zgroup(metadata: dict = Depends(get_tree_metadata)):
     return metadata["metadata"][".zgroup"]
 
 
-@tree_router.get("/.zattrs")
-def get_top_zattrs(levels: int = Depends(get_levels), pixels_per_tile: int = Depends(get_pixels_per_tile)):
+@tree_router.get("/{levels}/{tile_size}/.zattrs")
+def get_top_zattrs(levels: int = Depends(get_levels), tile_size: int = Depends(get_tile_size)):
     return {
         "multiscales": multiscales_template(
             datasets=[{"path": str(i)} for i in range(levels)],
             type="reduce",
             method="pyramid_reproject",
             version=get_version(),
-            kwargs={"levels": levels, "pixels_per_tile": pixels_per_tile},
+            kwargs={"levels": levels, "tile_size": tile_size},
         )
     }
 
 
-@tree_router.get("/{level}/.zgroup")
+@tree_router.get("/{levels}/{tile_size}/{level}/.zgroup")
 def get_zgroup(level: int):
     return {"zarr_format": 2}
 
 
-@tree_router.get("/{level}/{var_name}/.zattrs")
+@tree_router.get("/{levels}/{tile_size}/{level}/{var_name}/.zattrs")
 def get_variable_zattrs(
     level: int, var_name: str, dataset = Depends(get_dataset)
 ):
     return _extract_dataarray_zattrs(dataset[var_name])
 
 
-@tree_router.get("/{level}/{var_name}/.zarray")
+@tree_router.get("/{levels}/{tile_size}/{level}/{var_name}/.zarray")
 def get_variable_zarray(
     zarray: dict = Depends(get_variable_zarray)
 ):
     return zarray
 
 
-@tree_router.get("/{level}/{var_name}/{chunk}")
+@tree_router.get("/{levels}/{tile_size}/{level}/{var_name}/{chunk}")
 def get_variable_chunk(
     level: int, 
     var_name: str, 
     chunk: str, 
     dataset: xr.Dataset = Depends(get_dataset),
-    pixels_per_tile: int = Depends(get_pixels_per_tile),
+    tile_size: int = Depends(get_tile_size),
 ):
     if not dataset.rio.crs:
         dataset = dataset.rio.write_crs(4326)
@@ -231,14 +233,14 @@ def get_variable_chunk(
     
     bbox = mercantile.xy_bounds(x, y, z)
 
-    dim = (2 ** z) * pixels_per_tile
+    dim = (2 ** z) * tile_size
     transform = Affine.translation(bbox.left, bbox.top) * Affine.scale(
        (20037508.342789244 * 2) / float(dim), -(20037508.342789244 * 2) / float(dim)
     )
 
     resampled_data = ds[var_name].rio.reproject(
         'EPSG:3857', 
-        shape=(pixels_per_tile, pixels_per_tile), 
+        shape=(tile_size, tile_size), 
         resampling=Resampling.cubic, 
         transform=transform,
     )

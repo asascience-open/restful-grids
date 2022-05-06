@@ -71,8 +71,9 @@ class ZarrTileSource {
         this.tileSize = tileSize;
         this.minZoom = minZoom; 
         this.maxZoom = maxZoom;
+        this.bounds = bounds;
 
-        this.rootUrl = rootUrl;
+        this.rootUrl = rootUrl + `/${minZoom},${maxZoom}/${tileSize}`;
         this.variable = variable;
         this._timeIndex = initialTimestep;
     }
@@ -118,19 +119,6 @@ class ZarrTileSource {
         this.zarrayMutex = new Mutex();
         this.chunkCache = {};
         this.arrayCache = {};
-
-        // const arrayLevels = Array.from(Array(this.maxZoom - this.minZoom + 1)).map(async (_, level) => {
-        //     let levelKey = this.getLevelKey(level);
-
-        //     // TODO: Implement array access and mutex sync 
-        //     let array = this.arrayCache[levelKey];
-        //     if (!array) {
-        //         array = await zarr.openArray({store: this.store, path: levelKey});
-        //     }
-        //     return {key: levelKey, array};
-        // });
-
-        // await Promise.all(arrayLevels).then(arrays => arrays.forEach(array => this.arrayCache[array.key] = array.array));
     }
 
     async loadTile({ x, y, z }) {
