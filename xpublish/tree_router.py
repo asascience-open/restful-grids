@@ -9,7 +9,6 @@ from ndpyramid.utils import (
     get_version,
     multiscales_template,
 )
-from ndpyramid.regrid import make_grid_pyramid, pyramid_regrid
 import numpy as np
 import xarray as xr
 from xarray.backends.zarr import (
@@ -115,7 +114,6 @@ def create_tree_metadata(levels: int, pixels_per_tile: int, dataset: xr.Dataset)
 
         for key, da in dataset.variables.items():
             # da needs to be resized based on level
-
             encoded_da = encode_zarr_variable(da, name=key)
             encoding = extract_zarr_variable_encoding(da)
             metadata["metadata"][
@@ -141,14 +139,15 @@ def get_tree_metadata(
     dataset: xr.Dataset = Depends(get_dataset),
     cache: cachey.Cache = Depends(get_cache),
 ):
+    # cache_key = cache_key_for(dataset, zarr_metadata_key)
+    # metadata = cache.get(cache_key)
 
-    cache_key = cache_key_for(dataset, zarr_metadata_key)
-    metadata = cache.get(cache_key)
+    # if metadata is None:
+    #     metadata = create_tree_metadata(levels, pixels_per_tile, dataset)
 
-    if metadata is None:
-        metadata = create_tree_metadata(levels, pixels_per_tile, dataset)
+    #     cache.put(cache_key, metadata, 99999)
 
-        cache.put(cache_key, metadata, 99999)
+    metadata = create_tree_metadata(levels, pixels_per_tile, dataset)
 
     return metadata
 
@@ -181,20 +180,28 @@ def get_top_zgroup(metadata: dict = Depends(get_tree_metadata)):
 
 
 @tree_router.get("/.zattrs")
-def get_top_zattrs(metadata: dict = Depends(get_tree_metadata)):
-    return metadata["metadata"][".zattrs"]
+def get_top_zattrs(levels: int = Depends(get_levels), pixels_per_tile: int = Depends(get_pixels_per_tile)):
+    return {
+        "multiscales": multiscales_template(
+            datasets=[{"path": str(i)} for i in range(levels)],
+            type="reduce",
+            method="pyramid_reproject",
+            version=get_version(),
+            kwargs={"levels": levels, "pixels_per_tile": pixels_per_tile},
+        )
+    }
 
 
 @tree_router.get("/{level}/.zgroup")
-def get_zgroup(level: int, metadata: dict = Depends(get_tree_metadata)):
-    return metadata["metadata"][f"{level}/.zgroup"]
+def get_zgroup(level: int):
+    return {"zarr_format": 2}
 
 
 @tree_router.get("/{level}/{var_name}/.zattrs")
 def get_variable_zattrs(
-    level: int, var_name: str, metadata: dict = Depends(get_tree_metadata)
+    level: int, var_name: str, dataset = Depends(get_dataset)
 ):
-    return metadata["metadata"][f"{level}/{var_name}/.zattrs"]
+    return _extract_dataarray_zattrs(dataset[var_name])
 
 
 @tree_router.get("/{level}/{var_name}/.zarray")
@@ -239,7 +246,6 @@ def get_variable_chunk(
     resampled_data_array = np.asarray(resampled_data)
 
     # TODO: Encode chunk to zarr chunk
-    #arr_meta = metadata["metadata"][f"{level}/{var_name}/.zarray"]
     encoded_chunk = encode_chunk(
         resampled_data_array.tobytes(),                     
         filters=resampled_data.encoding.get('filters', None),

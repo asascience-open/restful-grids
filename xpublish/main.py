@@ -5,7 +5,7 @@ from fastapi.staticfiles import StaticFiles
 from demo_rest import DemoRest
 from edr_router import edr_router
 from tree_router import tree_router
-from dap_router import dap_router
+#from dap_router import dap_router
 from tile_router import tile_router
 
 
@@ -14,7 +14,7 @@ rest = DemoRest(
         (base_router, {"tags": ["info"]}),
         (edr_router, {"tags": ["edr"], "prefix": "/edr"}),
         (tree_router, {"tags": ["datatree"], "prefix": "/tree"}),
-        (dap_router, {"tags": ["opendap"], "prefix": "/opendap"}),
+        #(dap_router, {"tags": ["opendap"], "prefix": "/opendap"}),
         (tile_router, {"tags": ["image"], "prefix": "/tile"}),
         (zarr_router, {"tags": ["zarr"], "prefix": "/zarr"}),
     ]
