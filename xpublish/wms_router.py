@@ -143,6 +143,12 @@ def get_map(dataset: xr.Dataset, query: dict):
     """
     Return the WMS map for the dataset and given parameters
     """
+    if not dataset.rio.crs:
+        dataset = dataset.rio.write_crs(4326)
+
+    ds = dataset.squeeze()
+    bbox = [float(x) for x in query['bbox'].split(',')]
+    
     return ''
 
 
