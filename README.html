@@ -423,8 +423,16 @@ title="Print to PDF"
 <p>Exploring modern RESTful services for gridded data</p>
 <section id="resources">
 <h2>Resources<a class="headerlink" href="#resources" title="Permalink to this headline">#</a></h2>
-<p>Use this S3 bucket for test data: <code class="docutils literal notranslate"><span class="pre">s3://ioos-code-sprint-2022</span></code>
+<p>Use this S3 bucket for test data: <code class="docutils literal notranslate"><span class="pre">s3://ioos-code-sprint-2022</span></code><br />
 Several zarr datasets have been added to it. It also contains a static STAC catalog for identifying the data.</p>
+<p><a class="reference external" href="https://gallery.ecr.aws/m2c5k9c1/restful-grids">Public Docker images</a><br />
+The <code class="docutils literal notranslate"><span class="pre">dev</span></code> tag is built on every main branch commit.<br />
+To get the image:</p>
+<p><code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">pull</span> <span class="pre">public.ecr.aws/m2c5k9c1/restful-grids:dev</span></code></p>
+<p>Then run it:<br />
+<code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">-d</span> <span class="pre">-p</span> <span class="pre">9005:9005</span> <span class="pre">public.ecr.aws/m2c5k9c1/restful-grids:dev</span></code></p>
+<p>In addition, you can mount a local datasets directory with the -v option:<br />
+<code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">-d</span> <span class="pre">-p</span> <span class="pre">9005:9005</span> <span class="pre">-v</span> <span class="pre">/tmp/datasets:/tmp/datasets</span> <span class="pre">public.ecr.aws/m2c5k9c1/restful-grids:dev</span></code></p>
 </section>
 <section id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">#</a></h2>
@@ -566,7 +574,7 @@ pip install -r requirements.txt
   
     By IOOS Code Springs<br/>
   
-      &copy; Copyright 2021.<br/>
+      &copy; Copyright 2022.<br/>
 </p>
         </footer>
     </div>
