@@ -8,12 +8,18 @@
   <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js'></script>
   <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css' rel='stylesheet' />
   <link rel="stylesheet" href="./map.css"> 
-
 </head>
 
 <body>
-  <div id="map" class="fill-window" />
-  <script src="/static/map.js"></script>
+  <div id="map" class="fill-window"></div>
+  <script type='module' src="/static/map.js"></script>
 </body>
+
+<div class="controls" >
+  <div class="control-row">
+      <label class="control-label" for="timestep-slider">Timestep</label>
+      <input class="control-slider" id="timestep-slider" name="timestep" type="range" min="0" max="72" value="0" step="1" />
+  </div>   
+</div>
 
 </html>
