@@ -104,6 +104,8 @@ def get_capabilities(dataset: xr.Dataset, request: Request):
         create_text_element(layer, 'CRS', 'EPSG:3857')
         create_text_element(layer, 'CRS', 'CRS:84')
 
+        create_text_element(layer, 'Units', attrs.get('units', ''))
+
         # Not sure if this can be copied, its possible variables have different extents within
         # a given dataset probably
         bounding_box_element = ET.SubElement(layer, 'BoundingBox', attrib={
