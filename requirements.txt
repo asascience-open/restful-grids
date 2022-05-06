@@ -21,3 +21,4 @@ ndpyramid
 pyproj
 mercantile
 h5netcdf
+opendap_protocol
