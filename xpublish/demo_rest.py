@@ -20,8 +20,7 @@ def pangeo_forge_datasets_map():
 
 
 def dataset_map():
-    # datasets = pangeo_forge_datasets_map()
-    datasets = {}
+    datasets = pangeo_forge_datasets_map()
     datasets["ww3"] = "ww3-stub"
     datasets["gfs"] = "https://ioos-code-sprint-2022.s3.amazonaws.com/gfs-wave.zarr"
 
