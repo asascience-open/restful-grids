@@ -4,8 +4,20 @@
 Exploring modern RESTful services for gridded data
 
 ## Resources
-Use this S3 bucket for test data: `s3://ioos-code-sprint-2022`
+Use this S3 bucket for test data: `s3://ioos-code-sprint-2022`  
 Several zarr datasets have been added to it. It also contains a static STAC catalog for identifying the data.
+
+[Public Docker images](https://gallery.ecr.aws/m2c5k9c1/restful-grids)  
+The `dev` tag is built on every main branch commit.  
+To get the image:  
+  
+`docker pull public.ecr.aws/m2c5k9c1/restful-grids:dev`
+
+Then run it:  
+`docker run -d -p 9005:9005 public.ecr.aws/m2c5k9c1/restful-grids:dev`
+
+In addition, you can mount a local datasets directory with the -v option:  
+`docker run -d -p 9005:9005 -v /tmp/datasets:/tmp/datasets public.ecr.aws/m2c5k9c1/restful-grids:dev`
 
 ## Setup
 [Miniconda](https://docs.conda.io/en/latest/miniconda.html) is recommended to manage Python dependencies.  
