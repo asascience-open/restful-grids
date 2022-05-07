@@ -1,4 +1,5 @@
 import io
+import logging
 import xml.etree.ElementTree as ET
 
 import numpy as np
@@ -15,6 +16,8 @@ from matplotlib import cm
 import cf_xarray
 import rioxarray
 
+
+logger = logging.getLogger("api")
 
 wms_router = APIRouter()
 
@@ -162,11 +165,13 @@ def get_map(dataset: xr.Dataset, query: dict):
     style = query['styles']
     stylename, palettename = style.split('/')
 
-    x_resolution = (bbox[2] - bbox[0]) / float(width)
-    y_resolution = (bbox[3] - bbox[1]) / float(height)
+    x_tile_size = bbox[2] - bbox[0]
+    y_tile_size = bbox[3] - bbox[1]
+    x_resolution = x_tile_size / float(width)
+    y_resolution = y_tile_size / float(height)
 
     # TODO: Calculate the transform 
-    transform = Affine.translation(bbox[0], bbox[3]) * Affine.scale(x_resolution, y_resolution)
+    transform = Affine.translation(bbox[0], bbox[3]) * Affine.scale(x_resolution, -y_resolution)
 
     resampled_data = ds[parameter].rio.reproject(
         crs_out, 
