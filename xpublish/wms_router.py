@@ -31,8 +31,20 @@ styles = [
 ]
 
 
+def lower_case_keys(d: dict) -> dict:
+    return dict((k.lower(), v) for k,v in d.items())
+
+
 def format_timestamp(value):
     return str(value.dt.strftime(date_format='%Y-%m-%dT%H:%M:%S').values)
+
+
+def strip_float(value): 
+    return float(value.values)
+
+
+def round_float_values(v: list) -> list:
+    return [round(x, 5) for x in v]
 
 
 def create_text_element(root, name: str, text: str):
@@ -157,11 +169,11 @@ def get_map(dataset: xr.Dataset, query: dict):
     bbox = [float(x) for x in query['bbox'].split(',')]
     width = int(query['width'])
     height = int(query['height'])
-    crs_out = query['crs']
+    crs = query.get('crs', None) or query.get('srs')
     parameter = query['layers']
-    t = query['time']
+    t = query.get('time')
     colorscalerange = [float(x) for x in query['colorscalerange'].split(',')]
-    autoscale = query.get('autoscale', 'false') is not 'false'
+    autoscale = query.get('autoscale', 'false') != 'false'
     style = query['styles']
     stylename, palettename = style.split('/')
 
@@ -170,17 +182,18 @@ def get_map(dataset: xr.Dataset, query: dict):
     x_resolution = x_tile_size / float(width)
     y_resolution = y_tile_size / float(height)
 
-    # TODO: Calculate the transform 
-    transform = Affine.translation(bbox[0], bbox[3]) * Affine.scale(x_resolution, -y_resolution)
+    # TODO: Calculate the transform
+    transform = Affine.translation(
+        bbox[0], bbox[3]) * Affine.scale(x_resolution, -y_resolution)
 
     resampled_data = ds[parameter].rio.reproject(
-        crs_out, 
-        shape=(width, height), 
-        resampling=Resampling.nearest, 
+        crs,
+        shape=(width, height),
+        resampling=Resampling.bilinear,
         transform=transform,
     )
 
-    # This is an image, so only use the timestepm that was requested
+    # This is an image, so only use the timestep that was requested
     resampled_data = resampled_data.cf.sel({'T': t}).squeeze()
 
     # if the user has supplied a color range, use it. Otherwise autoscale
@@ -208,7 +221,113 @@ def get_feature_info(dataset: xr.Dataset, query: dict):
     """
     Return the WMS feature info for the dataset and given parameters
     """
-    return ''
+    if not dataset.rio.crs:
+        dataset = dataset.rio.write_crs(4326)
+
+    ds = dataset.squeeze()
+
+    parameters = query['query_layers'].split(',')
+    times = [t.replace('Z', '') for t in query['time'].split('/')]
+    crs = query.get('crs', None) or query.get('srs')
+    bbox = [float(x) for x in query['bbox'].split(',')]
+    width = int(query['width'])
+    height = int(query['height'])
+    x = int(query['x'])
+    y = int(query['y'])
+    format = query['info_format']
+
+    x_tile_size = bbox[2] - bbox[0]
+    y_tile_size = bbox[3] - bbox[1]
+    x_resolution = x_tile_size / float(width)
+    y_resolution = y_tile_size / float(height)
+
+    # TODO: Calculate the transform
+    transform = Affine.translation(
+        bbox[0], bbox[3]) * Affine.scale(x_resolution, -y_resolution)
+
+    if len(times) == 1:
+        ds = ds.cf.sel({'T': times[0]}).squeeze()
+    elif len(times) > 1: 
+        ds = ds.cf.sel({'T': slice(times[0], times[1])}).squeeze()
+    else: 
+        raise HTTPException(500, f"Invalid time requested: {times}")
+        
+    resampled_data = ds.rio.reproject(
+        crs,
+        shape=(width, height),
+        resampling=Resampling.nearest,
+        transform=transform,
+    )
+
+    t_axis = [format_timestamp(t) for t in resampled_data.cf['T']]
+    x_axis = [strip_float(resampled_data.cf['X'][x])]
+    y_axis = [strip_float(resampled_data.cf['Y'][y])]
+
+    parameter_info = {}
+    ranges = {}
+
+    for parameter in parameters:
+        parameter_info[parameter] = {
+            'type': 'Parameter', 
+            'description': {
+                'en': ds[parameter].cf.attrs['long_name'],
+            },
+            'observedProperty': {
+                'label': {
+                    'en': ds[parameter].cf.attrs['long_name'],
+                }, 
+                'id': ds[parameter].cf.attrs['standard_name'],
+            }
+        }
+
+        ranges[parameter] = {
+            'type': 'NdArray',
+            'dataType': 'float',
+            # TODO: Some fields might not have a time field? 
+            'axisNames': ['t', 'x', 'y'],
+            'shape': [len(t_axis), len(x_axis), len(y_axis)],
+            'values': round_float_values(resampled_data[parameter].cf.sel({'X': x_axis, 'Y': y_axis}).squeeze().values.tolist()),
+        }
+
+    return {
+        'type': 'Coverage',
+        'title': {
+            'en': 'Extracted Profile Feature',
+        },
+        'domain': {
+            'type': 'Domain',
+            'domainType': 'PointSeries',
+            'axes': {
+                't': {
+                    'values': t_axis
+                },
+                'x': {
+                    'values': x_axis
+                },
+                'y': {
+                    'values': y_axis
+                }
+            },
+            'referencing': [
+                {
+                    'coordinates': ['t'], 
+                    'system': {
+                        'type': 'TemporalRS', 
+                        'calendar': 'gregorian',
+                    }
+                },
+                {
+                    'coordinates': ['x', 'y'],
+                    'system': {
+                        'type': 'GeographicCRS',
+                        'id': crs,
+                    }
+                }
+            ],
+        },
+        'parameters': parameter_info,
+        'ranges': ranges
+    }
 
 
 def get_legend_graphic(dataset: xr.Dataset, query: dict):
@@ -220,13 +339,13 @@ def get_legend_graphic(dataset: xr.Dataset, query: dict):
 
 @wms_router.get('/')
 def wms_root(request: Request, dataset: xr.Dataset = Depends(get_dataset)):
-    query_params = request.query_params
+    query_params = lower_case_keys(request.query_params)
     method = query_params['request']
     if method == 'GetCapabilities':
         return get_capabilities(dataset, request)
     elif method == 'GetMap':
         return get_map(dataset, query_params)
-    elif method == 'GetFeatureInfo':
+    elif method == 'GetFeatureInfo' or method == 'GetTimeseries':
         return get_feature_info(dataset, query_params)
     elif method == 'GetLegendGraphic':
         return get_legend_graphic(dataset, query_params)
