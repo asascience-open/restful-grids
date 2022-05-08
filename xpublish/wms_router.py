@@ -1,3 +1,4 @@
+from cmath import isnan
 import io
 import logging
 import xml.etree.ElementTree as ET
@@ -10,7 +11,9 @@ from rasterio.enums import Resampling
 from rasterio.transform import Affine
 from rasterio.warp import calculate_default_transform
 from PIL import Image
-from matplotlib import cm
+from matplotlib import cm, colorbar
+import matplotlib.pyplot as plt
+
 
 # These will show as unused to the linter but they are necessary
 import cf_xarray
@@ -151,7 +154,7 @@ def get_capabilities(dataset: xr.Dataset, request: Request):
             create_text_element(style_element, 'Title', style['title'])
             create_text_element(style_element, 'Abstract', style['abstract'])
 
-            legend_url = f'{wms_url}?service=WMS&request=GetLegendGraphic&format=image/png&width=20&height=20&layer={var}&style={style["name"]}'
+            legend_url = f'{wms_url}?service=WMS&request=GetLegendGraphic&format=image/png&width=20&height=20&layers={var}&styles={style["name"]}'
             create_text_element(style_element, 'LegendURL', legend_url)
 
     ET.indent(root, space="\t", level=0)
@@ -208,6 +211,8 @@ def get_map(dataset: xr.Dataset, query: dict):
 
     # Let user pick cm from here https://predictablynoisy.com/matplotlib/gallery/color/colormap_reference.html#sphx-glr-gallery-color-colormap-reference-py
     # Otherwise default to rainbow
+    if palettename == 'default':
+        palettename = 'rainbow'
     im = Image.fromarray(np.uint8(cm.get_cmap(palettename)(ds_scaled)*255))
 
     image_bytes = io.BytesIO()
@@ -330,11 +335,51 @@ def get_feature_info(dataset: xr.Dataset, query: dict):
     }
 
 
-def get_legend_graphic(dataset: xr.Dataset, query: dict):
+def get_legend_info(dataset: xr.Dataset, query: dict):
     """
     Return the WMS legend graphic for the dataset and given parameters
     """
-    return ''
+    parameter = query['layers']
+    width: int = int(query['width'])
+    height: int = int(query['height'])
+    vertical = query.get('vertical', 'false') == 'true'
+    colorbaronly = query.get('colorbaronly', 'False') == 'True'
+    colorscalerange = [float(x) for x in query.get('colorscalerange', 'nan,nan').split(',')]
+    if isnan(colorscalerange[0]):
+        autoscale = True
+    else: 
+        autoscale = query.get('autoscale', 'false') != 'false'
+    style = query['styles']
+    stylename, palettename = style.split('/')
+
+    ds = dataset.squeeze()
+
+    # if the user has supplied a color range, use it. Otherwise autoscale
+    if autoscale:
+        min_value = float(ds[parameter].min())
+        max_value = float(ds[parameter].max())
+    else:
+        min_value = colorscalerange[0]
+        max_value = colorscalerange[1]
+
+    scaled = (np.linspace(min_value, max_value, width) - min_value) / (max_value - min_value)
+    data = np.ones((height, width)) * scaled
+
+    if vertical:
+        data = np.flipud(data.T)
+        data = data.reshape((height, width))
+
+    # Let user pick cm from here https://predictablynoisy.com/matplotlib/gallery/color/colormap_reference.html#sphx-glr-gallery-color-colormap-reference-py
+    # Otherwise default to rainbow
+    if palettename == 'default':
+        palettename = 'rainbow'
+    im = Image.fromarray(np.uint8(cm.get_cmap(palettename)(data)*255))
+
+    image_bytes = io.BytesIO()
+    im.save(image_bytes, format='PNG')
+    image_bytes = image_bytes.getvalue()
+
+    return Response(content=image_bytes, media_type='image/png')
 
 
 @wms_router.get('/')
@@ -348,7 +393,7 @@ def wms_root(request: Request, dataset: xr.Dataset = Depends(get_dataset)):
     elif method == 'GetFeatureInfo' or method == 'GetTimeseries':
         return get_feature_info(dataset, query_params)
     elif method == 'GetLegendGraphic':
-        return get_legend_graphic(dataset, query_params)
+        return get_legend_info(dataset, query_params)
     else:
         raise HTTPException(
             status_code=404, detail=f"{method} is not a valid option for REQUEST")
