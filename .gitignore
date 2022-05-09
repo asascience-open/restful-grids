@@ -5,3 +5,4 @@ pygeoapi/.ipynb_checkpoints
 pyramid/dask-worker-space
 pyramid/gfs-wave-resampled
 _build
+xpublish/dask-worker-space

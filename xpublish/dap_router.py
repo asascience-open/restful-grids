@@ -110,6 +110,10 @@ def get_dap_dataset(
 
 @dap_router.get(".dds")
 def dds_response(request: Request, dataset: dap.Dataset = Depends(get_dap_dataset)):
+    import distributed.client
+
+    logger.warning(f"Dask clusters: {distributed.client._global_client_index}")
+
     constraint = request.url.components[3]
     return StreamingResponse(
         dataset.dds(constraint=constraint), media_type="text/plain"
@@ -127,6 +131,9 @@ def das_response(request: Request, dataset: dap.Dataset = Depends(get_dap_datase
 @dap_router.get(".dods")
 def dods_response(request: Request, dataset: dap.Dataset = Depends(get_dap_dataset)):
     constraint = request.url.components[3]
+
+    logger.warning(f"Constraint: {constraint}")
+
     return StreamingResponse(
         dataset.dods(constraint=constraint), media_type="application/octet-stream"
     )
